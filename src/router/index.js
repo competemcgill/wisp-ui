@@ -4,6 +4,8 @@ import Home from "../views/Home";
 import Dashboard from "../views/Dashboard";
 import ProblemSets from "../views/ProblemSets/Index";
 import ProblemSet from "../views/ProblemSets/Show";
+import Problems from "../views/Problems/Index";
+import Problem from "../views/Problems/Show";
 
 Vue.use(VueRouter);
 
@@ -19,14 +21,24 @@ const routes = [
     component: Dashboard
   },
   {
+    path: "/problemSets",
+    name: "ProblemSets",
+    component: ProblemSets
+  },
+  {
     path: "/problemSets/:id",
     name: "ProblemSet",
     component: ProblemSet
   },
   {
-    path: "/problemSets",
-    name: "ProblemSets",
-    component: ProblemSets
+    path: "/problems",
+    name: "Problems",
+    component: Problems
+  },
+  {
+    path: "/problems/:id",
+    name: "Problem",
+    component: Problem
   }
 ];
 

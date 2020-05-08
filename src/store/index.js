@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 const state = {
   user: null,
+  problemSets: null,
+  problems: null,
   isLoggedIn: false
 };
 
