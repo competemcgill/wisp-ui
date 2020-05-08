@@ -1,7 +1,7 @@
 <!-- TODO: implement Stats card for Dashboard view -->
 <template>
   <v-card class="pa-5" outlined tile>
-    Stats card info goes here
+    Stats card goes here
   </v-card>
 </template>
 
