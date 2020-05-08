@@ -4,13 +4,13 @@
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">my sets</h1>
       <v-row>
-        <v-col xs="12" sm="9" class="pl-0">
-          <v-col v-for="index in 5" :key="index" sm="12">
+        <v-col cols="12" md="9" class="pl-0">
+          <v-col cols="12" v-for="index in 5" :key="index">
             <problem-set />
           </v-col>
         </v-col>
-        <v-col xs="12" sm="3">
-          <v-col sm="12">
+        <v-col cols="12" md="3">
+          <v-col cols="12">
             <stats />
           </v-col>
         </v-col>
