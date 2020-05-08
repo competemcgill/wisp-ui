@@ -1,6 +1,7 @@
+<!-- TODO: Implement logout functionality -->
 <template>
   <nav>
-    <v-toolbar app class="background">
+    <v-app-bar app class="background">
       <v-btn icon router to="/" color="white" class="hidden-xs-only ml-3">
         <v-icon x-large>$vuetify.icons.cp-logo</v-icon>
       </v-btn>
@@ -82,7 +83,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-toolbar>
+    </v-app-bar>
   </nav>
 </template>
 
