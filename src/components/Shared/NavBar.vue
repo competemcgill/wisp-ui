@@ -1,4 +1,4 @@
-<!-- TODO: Implement logout functionality -->
+<!-- TODO: Implement logout functionality + conditional sign up and login buttons -->
 <template>
   <nav>
     <v-app-bar app class="background">

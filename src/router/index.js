@@ -1,6 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home";
+import About from "../views/About";
+import Login from "../views/Login";
+import SignUp from "../views/SignUp";
+import Settings from "../views/Settings";
+import Profile from "../views/Profile";
 import Dashboard from "../views/Dashboard";
 import ProblemSets from "../views/ProblemSets/Index";
 import ProblemSet from "../views/ProblemSets/Show";
@@ -14,6 +19,31 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUp
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+    component: Settings
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile
   },
   {
     path: "/dashboard",

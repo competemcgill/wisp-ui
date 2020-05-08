@@ -1,14 +1,11 @@
 <!-- TODO: change the basic table to something more suitable and well styled
 should also add a search bar on the same level as the h1 -->
 <template>
-  <div class="home">
+  <div class="problems">
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">problems</h1>
       <v-card>
-        <v-data-table
-          :headers="headers"
-          :items="problems"
-        ></v-data-table>
+        <v-data-table :headers="headers" :items="problems"></v-data-table>
       </v-card>
     </v-container>
   </div>
@@ -22,28 +19,28 @@ export default {
     return {
       headers: [
         {
-            text: "Title",
-            align: "start",
-            sortable: false,
-            value: "title",
+          text: "Title",
+          align: "start",
+          sortable: false,
+          value: "title"
         },
         {
-            text: "Difficulty",
-            align: "start",
-            sortable: true,
-            value: "difficulty",
+          text: "Difficulty",
+          align: "start",
+          sortable: true,
+          value: "difficulty"
         },
         {
-            text: "Platform",
-            align: "start",
-            sortable: false,
-            value: "platform",
+          text: "Platform",
+          align: "start",
+          sortable: false,
+          value: "platform"
         },
         {
-            text: "Link",
-            align: "start",
-            sortable: false,
-            value: "link",
+          text: "Link",
+          align: "start",
+          sortable: false,
+          value: "link"
         }
       ],
       problems: [
@@ -72,7 +69,7 @@ export default {
           link: "#"
         }
       ]
-    }
+    };
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <!-- TODO: give problem-set the appropriate props -->
 <template>
-  <div class="home">
+  <div class="ProblemSets">
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">problem sets</h1>
       <v-row>

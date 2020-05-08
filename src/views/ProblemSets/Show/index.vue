@@ -1,6 +1,6 @@
 <!-- TODO: give problem-info and problem-set-info the appropriate props -->
 <template>
-  <div class="home">
+  <div class="problemSet">
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">
         problem set title
