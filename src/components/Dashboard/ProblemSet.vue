@@ -49,12 +49,10 @@ export default {
 
   mounted() {
     this.problems = this.problemSet.problems;
-    let attempted = [];
     for (let userProblem of this.$store.state.user.problems) {
       for (let problem of this.problems) {
         if (userProblem.problemId == problem.problemId) {
           problem.userProblem = userProblem;
-          attempted.push(problem);
           if (userProblem.status == "OK") {
             this.completed++;
           }
