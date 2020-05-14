@@ -11,7 +11,6 @@ import ProblemSets from "../views/ProblemSets/Index";
 import ProblemSet from "../views/ProblemSets/Show";
 import Problems from "../views/Problems/Index";
 import Problem from "../views/Problems/Show";
-import store from "@/store/index";
 
 Vue.use(VueRouter);
 
@@ -19,90 +18,57 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
-    meta: {
-      guest: true
-    }
+    component: Home
   },
   {
     path: "/about",
     name: "About",
-    component: About,
-    meta: {
-      guest: true
-    }
+    component: About
   },
   {
     path: "/login",
     name: "Login",
-    component: Login,
-    meta: {
-      guest: true
-    }
+    component: Login
   },
   {
     path: "/signup",
     name: "SignUp",
-    component: SignUp,
-    meta: {
-      guest: true
-    }
+    component: SignUp
   },
   {
     path: "/settings",
     name: "Settings",
-    component: Settings,
-    meta: {
-      guest: false
-    }
+    component: Settings
   },
   {
     path: "/profile",
     name: "profile",
-    component: Profile,
-    meta: {
-      guest: false
-    }
+    component: Profile
   },
   {
     path: "/dashboard",
     name: "Dashboard",
-    component: Dashboard,
-    meta: {
-      guest: false
-    }
+    component: Dashboard
   },
   {
     path: "/problemSets",
     name: "ProblemSets",
-    component: ProblemSets,
-    meta: {
-      guest: false
-    }
+    component: ProblemSets
   },
   {
     path: "/problemSets/:id",
     name: "ProblemSet",
-    component: ProblemSet,
-    meta: {
-      guest: false
-    }
+    component: ProblemSet
   },
   {
     path: "/problems",
     name: "Problems",
-    component: Problems,
-    meta: {
-      guest: false
-    }
+    component: Problems
   },
   {
     path: "/problems/:id",
     name: "Problem",
-    component: Problem,
-    meta: {
-      guest: false
-    }
+    component: Problem
   }
 ];
 
@@ -110,18 +76,6 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
-});
-
-router.beforeEach((to, from, next) => {
-  if (
-    to.matched.some(record => !record.meta.guest) &&
-    !store.state.isLoggedIn
-  ) {
-    router.push("/login");
-    next();
-  } else {
-    next();
-  }
 });
 
 export default router;
