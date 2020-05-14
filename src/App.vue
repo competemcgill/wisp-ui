@@ -20,10 +20,12 @@ export default {
   },
 
   async created() {
-    if (this.$store.state.token) await this.getProblemSets();
+    if (this.$store.state.token) {
+      Promise.all([this.getProblemSets(), this.getProblems()]);
+    }
 
     eventBus.$on("LOGIN_SUCCESS", () => {
-      this.getProblemSets();
+      Promise.all([this.getProblemSets(), this.getProblems()]);
     });
   },
 
@@ -36,6 +38,15 @@ export default {
       });
       const problemSets = response.data;
       this.$store.dispatch("setProblemSets", problemSets);
+    },
+    async getProblems() {
+      const problemsResponse = await api.get("/problems", {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+      const problems = problemsResponse.data;
+      this.$store.dispatch("setProblems", problems);
     }
   }
 };
