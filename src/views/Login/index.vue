@@ -79,7 +79,7 @@ export default {
           password: this.user.password
         });
         this.$store.dispatch("setToken", data.token);
-        this.$store.dispatch("setUser", data);
+        this.$store.dispatch("setUser", data.user);
         this.$router.push("/dashboard");
       } catch (err) {
         this.error = err.response.data.message;

@@ -5,6 +5,10 @@ const mutations = {
     else state.isLoggedIn = true;
   },
 
+  setToken(state, token) {
+    state.token = token;
+  },
+
   setProblemSets(state, problemSets) {
     state.problemSets = problemSets;
   },
