@@ -51,6 +51,7 @@
 
 <script>
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "Login",
@@ -80,6 +81,7 @@ export default {
         });
         this.$store.dispatch("setToken", data.token);
         this.$store.dispatch("setUser", data.user);
+        eventBus.$emit("LOGIN_SUCCESS");
         this.$router.push("/dashboard");
       } catch (err) {
         this.error = err.response.data.message;

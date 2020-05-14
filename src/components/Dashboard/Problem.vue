@@ -1,15 +1,27 @@
-<!-- TODO: implement Problem card for Dashboard view -->
 <template>
-  <v-card v-on:click="problemClicked(problem)" hover>
-    <v-container>
-      <v-card-title>{{ problem.title }}</v-card-title>
-      <v-card-text>
-        {{ problem.source }}
-        {{ problem.problemMetadata.platformProblemId }}
-        {{ problem.problemMetadata.difficulty }}
-      </v-card-text>
-      <v-card-text :style="{color: statusColor}">{{ status }}</v-card-text>
-    </v-container>
+  <v-card hover tile @click="problemClicked(problem)" class="py-3 px-5">
+    <v-row>
+      <v-col cols="8" class="primary--text">{{ problem.title }}</v-col>
+      <v-col cols="4" justify="right" align="right">
+        <v-chip
+          :class="
+            difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
+          "
+        >
+          {{ problem.problemMetadata.difficulty }}
+        </v-chip>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">Platform: {{ problem.source.toLowerCase() }}</v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="4">
+        <v-chip label :class="'white--text ' + statusColor">
+          {{ status }}
+        </v-chip>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -18,7 +30,7 @@ export default {
   name: "DashboardProblem",
 
   props: {
-    problem: Object
+    problem: {}
   },
 
   data: () => {
@@ -42,8 +54,21 @@ export default {
   },
 
   methods: {
-    problemClicked: problem => {
+    problemClicked(problem) {
       window.open(problem.sourceLink, "_blank");
+    },
+
+    difficultyColor(difficulty) {
+      switch (difficulty.toLowerCase()) {
+        case "easy":
+          return "success";
+        case "medium":
+          return "incomplete";
+        case "hard":
+          return "failure";
+        default:
+          return "grey";
+      }
     }
   }
 };

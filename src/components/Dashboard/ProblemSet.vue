@@ -1,29 +1,48 @@
-<!-- TODO: implement Problem Set card for Dashboard view
-     NOTE: A problem should have problems under it as shown on figma -->
 <template>
-  <v-container>
-    <v-card hover v-on:click="loadProblems">
+  <v-container class="pl-0">
+    <v-card hover @click="loadProblems" class="px-3">
       <v-container>
-        <v-row justify="space-between">
-          <v-col cols="auto">
-            <v-card-title>{{ problemSet.title }}</v-card-title>
-            <v-card-text class="text-truncate">{{ problemSet.description }}</v-card-text>
-            <v-card-text>{{ problemSet.tags }}</v-card-text>
+        <v-row>
+          <v-col cols="6" class="primary--text"
+            >{{ problemSet.problemCount }} questions</v-col
+          >
+          <v-col cold="6" class="primary--text text-right">
+            {{ completed }}/{{ problemSet.problemCount }} completed
           </v-col>
+        </v-row>
 
-          <v-col cols="auto">
-            <v-row class="flex-column" justify="center">
-              <v-col>{{ completed }}/{{problemSet.problemCount}} completed</v-col>
-              <v-col>arrow</v-col>
-            </v-row>
+        <v-row>
+          <v-col class="title font-weight-medium">{{ problemSet.title }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="subtext grey--text text-truncate">{{
+            problemSet.description
+          }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="10">
+            <v-chip-group column>
+              <v-chip
+                label
+                v-for="(tag, index) in problemSet.tags"
+                :key="index"
+              >
+                {{ tag }}
+              </v-chip>
+            </v-chip-group>
+          </v-col>
+          <v-col cols="2" justify="right" align="right">
+            <v-btn text router :to="'/problemSets/' + problemSet._id">
+              <v-icon class="primary--text">mdi-open-in-new</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
     </v-card>
     <v-row v-show="showProblems">
-      <div v-bind:key="index" v-for="(problem, index) of problems">
-        <problem :problem="problem"></problem>
-      </div>
+      <v-col cols="12" sm="8" :key="index" v-for="(problem, index) of problems">
+        <problem :problem="problem" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -49,12 +68,10 @@ export default {
 
   mounted() {
     this.problems = this.problemSet.problems;
-    let attempted = [];
     for (let userProblem of this.$store.state.user.problems) {
       for (let problem of this.problems) {
         if (userProblem.problemId == problem.problemId) {
           problem.userProblem = userProblem;
-          attempted.push(problem);
           if (userProblem.status == "OK") {
             this.completed++;
           }
