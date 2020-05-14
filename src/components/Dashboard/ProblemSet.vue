@@ -7,7 +7,7 @@
         <v-row justify="space-between">
           <v-col cols="auto">
             <v-card-title>{{ problemSet.title }}</v-card-title>
-            <v-card-text>{{ problemSet.description }}</v-card-text>
+            <v-card-text class="text-truncate">{{ problemSet.description }}</v-card-text>
             <v-card-text>{{ problemSet.tags }}</v-card-text>
           </v-col>
 
