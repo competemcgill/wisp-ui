@@ -17,6 +17,14 @@ export default {
     "app-navbar": Navbar
   },
 
+  async mounted() {
+    if (this.$store.state.problemSets === null) {
+      const response = await api.get("/problemSets");
+      const problemSets = response.data;
+      this.$store.dispatch("setProblemSets", problemSets);
+    }
+  },
+
   data: () => ({
     //
   })
