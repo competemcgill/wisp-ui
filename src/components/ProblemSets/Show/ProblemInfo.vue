@@ -9,16 +9,21 @@
           :class="
             difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
           "
+          >{{ problem.problemMetadata.difficulty }}</v-chip
         >
-          {{ problem.problemMetadata.difficulty }}
-        </v-chip>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12"> Platform: {{ problem.source.toLowerCase() }} </v-col>
+      <v-col col="12">Platform: {{ problem.source.toLowerCase() }}</v-col>
     </v-row>
+    <v-row> </v-row>
     <v-row>
-      <v-col cols="12" justify="right" align="right">
+      <v-col col="12" sm="8">
+        <v-chip label :class="'white--text ' + statusColor">
+          {{ status }}
+        </v-chip>
+      </v-col>
+      <v-col cols="12" sm="4" justify="right" align="right">
         <v-btn text @click="visitProblem(problem.sourceLink)">
           <v-icon class="primary--text">mdi-open-in-new</v-icon>
         </v-btn>
@@ -32,6 +37,24 @@ export default {
   name: "ProblemSetProblemInfo",
 
   props: ["problem"],
+
+  data() {
+    return {
+      status: "NOT_COMPLETED",
+      statusColor: "red"
+    };
+  },
+
+  mounted() {
+    if (this.problem.userProblem) {
+      this.status = this.problem.userProblem.status;
+      if (this.problem.userProblem.isComplete) {
+        this.statusColor = "green";
+      } else {
+        this.statusColor = "orange";
+      }
+    }
+  },
 
   methods: {
     difficultyColor(difficulty) {
