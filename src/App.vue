@@ -18,7 +18,7 @@ export default {
     "app-navbar": Navbar
   },
 
-  async mounted() {
+  async created() {
     const response = await api.get("/problemSets?includeProblems=true", {
       headers: {
         Authorization: this.$store.state.token
