@@ -9,6 +9,7 @@
 
 <script>
 import Navbar from "@/components/Shared/NavBar";
+import { api } from "@/gateways/wisp-api";
 
 export default {
   name: "App",
@@ -17,12 +18,14 @@ export default {
     "app-navbar": Navbar
   },
 
-  async mounted() {
-    if (this.$store.state.problemSets === null) {
-      const response = await api.get("/problemSets");
-      const problemSets = response.data;
-      this.$store.dispatch("setProblemSets", problemSets);
-    }
+  async created() {
+    const response = await api.get("/problemSets?includeProblems=true", {
+      headers: {
+        Authorization: this.$store.state.token
+      }
+    });
+    const problemSets = response.data;
+    this.$store.dispatch("setProblemSets", problemSets);
   },
 
   data: () => ({

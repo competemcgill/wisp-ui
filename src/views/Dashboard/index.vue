@@ -1,15 +1,11 @@
 <!-- TODO: give problem-set and stats appropriate props -->
 <template>
-  <div class="dashbaord">
+  <div class="dashboard">
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">my sets</h1>
       <v-row>
         <v-col cols="12" md="9" class="pl-0" v-if="problemSets != null">
-          <v-col
-            cols="12"
-            v-for="(problemSet, index) of problemSets"
-            :key="index"
-          >
+          <v-col cols="12" v-for="(problemSet, index) of problemSets" :key="index">
             <problem-set v-bind:problemSet="problemSet" />
           </v-col>
         </v-col>
@@ -36,7 +32,10 @@ export default {
   },
 
   mounted() {
-    this.problemSets = this.$store.state.problemSets;
+    this.problemSets = this.$store.state.problemSets.filter(
+      problemSet =>
+        this.$store.state.user.problemSets.indexOf(problemSet._id) !== -1
+    );
   },
 
   data: () => {
