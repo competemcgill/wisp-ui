@@ -8,8 +8,9 @@
 </template>
 
 <script>
-import Navbar from "@/components/Shared/NavBar";
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
+import Navbar from "@/components/Shared/NavBar";
 
 export default {
   name: "App",
@@ -19,17 +20,34 @@ export default {
   },
 
   async created() {
-    const response = await api.get("/problemSets?includeProblems=true", {
-      headers: {
-        Authorization: this.$store.state.token
-      }
+    if (this.$store.state.token) {
+      Promise.all([this.getProblemSets(), this.getProblems()]);
+    }
+
+    eventBus.$on("LOGIN_SUCCESS", () => {
+      Promise.all([this.getProblemSets(), this.getProblems()]);
     });
-    const problemSets = response.data;
-    this.$store.dispatch("setProblemSets", problemSets);
   },
 
-  data: () => ({
-    //
-  })
+  methods: {
+    async getProblemSets() {
+      const response = await api.get("/problemSets?includeProblems=true", {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+      const problemSets = response.data;
+      this.$store.dispatch("setProblemSets", problemSets);
+    },
+    async getProblems() {
+      const problemsResponse = await api.get("/problems", {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+      const problems = problemsResponse.data;
+      this.$store.dispatch("setProblems", problems);
+    }
+  }
 };
 </script>
