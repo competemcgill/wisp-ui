@@ -25,6 +25,7 @@
                     label="Password"
                     id="password"
                     v-model="user.password"
+                    :rules="passwordRules"
                     type="password"
                     outlined
                     required>
@@ -33,8 +34,7 @@
                     name="confirmPassword"
                     label="Confirm Password"
                     id="confirmPassword"
-                    v-model="user.confirmPassword"
-                    :rules="comparePasswords"
+                    :rules="passwordRules"
                     type="password"
                     outlined
                     required>
@@ -43,9 +43,18 @@
                     name="email"
                     label="E-mail address"
                     id="email"
-                    :rules="emailRules"
                     v-model="user.email"
+                    :rules="emailRules"
                     type="email"
+                    outlined
+                    required>
+                  </v-text-field>
+                  <v-text-field
+                    name="codeforcesUsername"
+                    label="Codeforces Username"
+                    id="codeforcesUsername"
+                    v-model="user.codeforcesUsername"
+                    type="username"
                     outlined
                     required>
                   </v-text-field>
@@ -66,42 +75,70 @@
           </v-card>
         </v-flex>
       </v-layout>
-
     </v-container>
   </div>
 </template>
 
 <script>
-export default {
-  name: "SignUp",
+  import { api } from "@/gateways/wisp-api";
 
-	data() {
-		return {
-			error: "",
-			user: {
-				username: "",
-				email: "",
-				password: "",
-				confirmPassword: ""
-			},
-			emailRules: [
-				v =>
-					!v ||
-					/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-					"E-mail must be valid"
-			],
-		};
-	},
-	computed: {
-		comparePasswords() {
-			return this.user.password !== this.user.confirmPassword ? "Passwords do not match" : ""
+  export default {
+    name: "SignUp",
+
+    data() {
+      return {
+        error: "",
+        user: {
+          username: "",
+          email: "",
+          password: "",
+          codeforcesUsername: "",
+        },
+        emailRules: [
+          v =>
+            !v ||
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+            "E-mail must be valid"
+        ],
+        passwordRules: [
+          v =>
+            !v ||
+            this.user.password === v ||
+            "Passwords do not match"
+        ]
+      };
+    },
+
+    methods: {
+      async signup() {
+        console.log("hello");
+        try {
+          var {data} = await api.post("/users", {
+            username: this.user.username,
+            email: this.user.email,
+            password: this.user.password,
+            platformData: {
+              codeforces: {
+                username: this.user.codeforcesUsername
+              },
+            },
+          });
+
+          const { data } = await api.post("/auth/login", {
+            email: this.user.email,
+            password: this.user.password
+          });
+
+          console.log("hello");
+          this.$store.dispatch("setToken", data.token);
+          this.$store.dispatch("setUser", data);
+          this.$router.push("/dashboard");
+        } catch (err) {
+          this.error = err.response.data.message;
+        }
+      }
     }
-	}
+  };
 
-};
 </script>
-<style scoped>
-  h1{
-    align: center
-  }
-</style>
+
