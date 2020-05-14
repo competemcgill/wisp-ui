@@ -3,6 +3,10 @@ const actions = {
     commit("setUser", currentUser);
   },
 
+  setToken({ commit }, token) {
+    commit("setToken", token);
+  },
+
   setProblemSets({ commit }, problemSets) {
     commit("setProblemSets", problemSets);
   },
