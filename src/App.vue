@@ -19,8 +19,11 @@ export default {
   },
 
   async mounted() {
-    const res = await api.get("/problems");
-    console.log(res);
+    if (this.$store.state.problemSets === null) {
+      const response = await api.get("/problemSets");
+      const problemSets = response.data;
+      this.$store.dispatch("setProblemSets", problemSets);
+    }
   },
 
   data: () => ({
