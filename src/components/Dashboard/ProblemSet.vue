@@ -13,7 +13,7 @@
 
           <v-col cols="auto">
             <v-row class="flex-column" justify="center">
-              <v-col>/{{problemSet.problemCount}} completed</v-col>
+              <v-col>{{ completed }}/{{problemSet.problemCount}} completed</v-col>
               <v-col>arrow</v-col>
             </v-row>
           </v-col>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
 import Problem from "@/components/Dashboard/Problem";
 
 export default {
@@ -43,23 +42,29 @@ export default {
   data: () => {
     return {
       showProblems: false,
-      problems: null
+      problems: null,
+      completed: 0
     };
+  },
+
+  mounted() {
+    this.problems = this.problemSet.problems;
+    let attempted = [];
+    for (let userProblem of this.$store.state.user.problems) {
+      for (let problem of this.problems) {
+        if (userProblem.problemId == problem.problemId) {
+          problem.userProblem = userProblem;
+          attempted.push(problem);
+          if (userProblem.status == "OK") {
+            this.completed++;
+          }
+        }
+      }
+    }
   },
 
   methods: {
     async loadProblems() {
-      if (this.problems == null) {
-        const response = await api.get(
-          `/problemSets/${this.problemSet._id}?includeProblems=true`,
-          {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          }
-        );
-        this.problems = response.data.problems;
-      }
       this.showProblems = !this.showProblems;
     }
   }

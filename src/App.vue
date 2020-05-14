@@ -19,7 +19,7 @@ export default {
   },
 
   async mounted() {
-    const response = await api.get("/problemSets", {
+    const response = await api.get("/problemSets?includeProblems=true", {
       headers: {
         Authorization: this.$store.state.token
       }
