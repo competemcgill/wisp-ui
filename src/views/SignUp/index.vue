@@ -36,6 +36,7 @@
                     :rules="passwordRules"
                     type="password"
                     outlined
+                    :disabled="user.password.length<=0"
                     required>
                   </v-text-field>
                   <v-text-field
@@ -101,8 +102,8 @@
         ],
         passwordRules: [
           v =>
-            !v ||
-            this.user.password === v ||
+            (!v)  ||
+            (v === this.user.password) ||
             "Passwords do not match"
         ]
       };
