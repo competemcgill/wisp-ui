@@ -1,21 +1,21 @@
 <template>
   <v-card hover tile class="py-3 px-5">
     <v-row>
-      <v-col col="8" class="title font-weight-regular primary--text">
-        {{ problem.title }}
-      </v-col>
+      <v-col col="8" class="title font-weight-regular primary--text">{{ problem.title }}</v-col>
       <v-col col="4" justify="right" align="right">
         <v-chip
           :class="
             difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
           "
-        >
-          {{ problem.problemMetadata.difficulty }}
-        </v-chip>
+        >{{ problem.problemMetadata.difficulty }}</v-chip>
       </v-col>
     </v-row>
     <v-row>
-      <v-col col="12"> Platform: {{ problem.source.toLowerCase() }} </v-col>
+      <v-col col="12">Platform: {{ problem.source.toLowerCase() }}</v-col>
+      <v-col col="12">
+        Status:
+        <span :style="{color: statusColor}">{{ status }}</span>
+      </v-col>
     </v-row>
     <v-row>
       <v-col col="12" justify="right" align="right">
@@ -32,6 +32,24 @@ export default {
   name: "ProblemSetProblemInfo",
 
   props: ["problem"],
+
+  data() {
+    return {
+      status: "NOT_COMPLETED",
+      statusColor: "red"
+    };
+  },
+
+  mounted() {
+    if (this.problem.userProblem) {
+      this.status = this.problem.userProblem.status;
+      if (this.problem.userProblem.isComplete) {
+        this.statusColor = "green";
+      } else {
+        this.statusColor = "orange";
+      }
+    }
+  },
 
   methods: {
     difficultyColor(difficulty) {
