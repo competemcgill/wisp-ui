@@ -9,18 +9,12 @@
 
 <script>
 import Navbar from "@/components/Shared/NavBar";
-import { api } from "@/gateways/wisp-api";
 
 export default {
   name: "App",
 
   components: {
     "app-navbar": Navbar
-  },
-
-  async mounted() {
-    const res = await api.get("/problems");
-    console.log(res);
   },
 
   data: () => ({

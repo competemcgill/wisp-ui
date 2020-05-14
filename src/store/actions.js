@@ -3,10 +3,6 @@ const actions = {
     commit("setUser", currentUser);
   },
 
-  setIsUserLoggedIn({ commit }, isAuthenticated) {
-    commit("setIsUserLoggedIn", isAuthenticated);
-  },
-
   setProblemSets({ commit }, problemSets) {
     commit("setProblemSets", problemSets);
   },
