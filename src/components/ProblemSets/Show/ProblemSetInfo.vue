@@ -42,7 +42,6 @@ export default {
 
     checkTrackedProblemSet() {
       for (const problemSetId of this.$store.state.user.problemSets) {
-        console.log(problemSetId == this.$route.params.id)
         if (problemSetId == this.$route.params.id) return true;
       };
 
