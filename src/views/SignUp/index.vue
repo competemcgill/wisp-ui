@@ -25,7 +25,6 @@
                     label="Password"
                     id="password"
                     v-model="user.password"
-                    :rules="passwordRules"
                     type="password"
                     outlined
                     required>
@@ -111,9 +110,8 @@
 
     methods: {
       async signup() {
-        console.log("hello");
         try {
-          var {data} = await api.post("/users", {
+            await api.post("/users", {
             username: this.user.username,
             email: this.user.email,
             password: this.user.password,
