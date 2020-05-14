@@ -1,10 +1,10 @@
 <template>
   <v-card hover tile class="py-3 px-5">
     <v-row>
-      <v-col col="8" class="title font-weight-regular primary--text">
+      <v-col cols="8" class="title font-weight-regular primary--text">
         {{ problem.title }}
       </v-col>
-      <v-col col="4" justify="right" align="right">
+      <v-col cols="4" justify="right" align="right">
         <v-chip
           :class="
             difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
@@ -15,10 +15,10 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col col="12"> Platform: {{ problem.source.toLowerCase() }} </v-col>
+      <v-col cols="12"> Platform: {{ problem.source.toLowerCase() }} </v-col>
     </v-row>
     <v-row>
-      <v-col col="12" justify="right" align="right">
+      <v-col cols="12" justify="right" align="right">
         <v-btn text @click="visitProblem(problem.sourceLink)">
           <v-icon class="primary--text">mdi-open-in-new</v-icon>
         </v-btn>

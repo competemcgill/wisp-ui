@@ -2,7 +2,7 @@
   <div class="problemSet">
     <v-container class="my-5">
       <v-row align="center">
-        <v-col col="12" sm="8">
+        <v-col cols="12" sm="8">
           <h1 class="my-5 display-1 black--text text-uppercase">
             {{ problemSet.title }}
           </h1>
