@@ -4,13 +4,9 @@
     <v-container class="my-5">
       <h1 class="my-5 display-1 black--text text-uppercase">my sets</h1>
       <v-row>
-        <v-col cols="12" md="9" class="pl-0" v-if="problemSets != null">
-          <v-col
-            cols="12"
-            v-for="(problemSet, index) of problemSets"
-            :key="index"
-          >
-            <problem-set v-bind:problemSet="problemSet" />
+        <v-col cols="12" md="9" class="pl-0">
+          <v-col cols="12" v-for="index in 5" :key="index">
+            <problem-set />
           </v-col>
         </v-col>
         <v-col cols="12" md="3">
@@ -35,13 +31,9 @@ export default {
     stats: Stats
   },
 
-  mounted() {
-    this.problemSets = this.$store.state.problemSets;
-  },
-
   data: () => {
     return {
-      problemSets: null
+      //
     };
   }
 };
