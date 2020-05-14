@@ -26,6 +26,14 @@ export default {
     });
     const problemSets = response.data;
     this.$store.dispatch("setProblemSets", problemSets);
+
+    const problemsResponse = await api.get("/problems", {
+      headers: {
+        Authorization: this.$store.state.token
+      }
+    });
+    const problems = problemsResponse.data;
+    this.$store.dispatch("setProblems", problems);
   },
 
   data: () => ({
