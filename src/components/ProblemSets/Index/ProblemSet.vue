@@ -1,21 +1,29 @@
 <template>
-  <v-card hover tile router :to="'/problemSets/' + data._id" class="py-3 px-5 mx-2">
+  <v-card
+    hover
+    tile
+    router
+    :to="'/problemSets/' + data._id"
+    class="py-3 px-5 mx-2"
+  >
     <v-row>
-      <v-col col="12" class="primary--text">{{ data.problemCount }} questions</v-col>
+      <v-col cols="12" class="primary--text"
+        >{{ data.problemCount }} questions</v-col
+      >
     </v-row>
     <v-row>
-      <v-col col="12" class="title">{{ data.title }}</v-col>
+      <v-col cols="12" class="title">{{ data.title }}</v-col>
     </v-row>
     <v-row>
-      <v-col col="12" class="subtext grey--text text-truncate">{{ data.description }}</v-col>
+      <v-col cols="12" class="subtext grey--text text-truncate">{{
+        data.description
+      }}</v-col>
     </v-row>
     <v-row>
-      <v-col col="12">
+      <v-col cols="12">
         <v-chip-group column>
           <v-chip label v-for="(tag, index) in data.tags" :key="index">
-            {{
-            tag
-            }}
+            {{ tag }}
           </v-chip>
         </v-chip-group>
       </v-col>
