@@ -27,6 +27,7 @@
         router
         to="/dashboard"
         min-height="115%"
+        v-if="$store.state.isLoggedIn"
         class="offset-y primary--text"
         >dashboard</v-btn
       >
@@ -37,6 +38,7 @@
         router
         to="/problemSets"
         min-height="115%"
+        v-if="$store.state.isLoggedIn"
         class="offset-y primary--text"
         >problem sets</v-btn
       >
@@ -47,6 +49,7 @@
         router
         to="/problems"
         min-height="115%"
+        v-if="$store.state.isLoggedIn"
         class="offset-y primary--text"
         >problems</v-btn
       >
@@ -60,7 +63,30 @@
         class="offset-y primary--text"
         >about</v-btn
       >
-      <v-menu offset-y>
+
+      <v-btn
+        text
+        tile
+        router
+        to="/login"
+        min-height="115%"
+        v-if="!$store.state.isLoggedIn"
+        class="offset-y primary--text"
+        >login</v-btn
+      >
+
+      <v-btn
+        text
+        tile
+        router
+        to="/signup"
+        min-height="115%"
+        v-if="!$store.state.isLoggedIn"
+        class="offset-y primary--text"
+        >register</v-btn
+      >
+
+      <v-menu offset-y v-if="$store.state.isLoggedIn">
         <template v-slot:activator="{ on }">
           <v-btn
             text
@@ -80,6 +106,11 @@
             <v-btn router text block :to="item.link" class="primary--text">
               {{ item.title }}
             </v-btn>
+          </v-list-item>
+          <v-list-item class="ma-0 pa-0">
+            <v-btn text block @click="logout()" class="primary--text"
+              >Logout</v-btn
+            >
           </v-list-item>
         </v-list>
       </v-menu>
@@ -101,13 +132,17 @@ export default {
         {
           title: "settings",
           link: "/settings"
-        },
-        {
-          title: "logout",
-          link: "/logout"
         }
       ]
     };
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setUser", null);
+      this.$router.push("/login");
+    }
   }
 };
 </script>
