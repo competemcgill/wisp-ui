@@ -6,8 +6,8 @@
       <v-container>
         <v-row justify="space-between">
           <v-col cols="auto">
-            <v-card-title>{{problemSet.title}}</v-card-title>
-            <v-card-text>{{problemSet.description}}</v-card-text>
+            <v-card-title>{{ problemSet.title }}</v-card-title>
+            <v-card-text>{{ problemSet.description }}</v-card-text>
           </v-col>
 
           <v-col cols="auto">
@@ -20,10 +20,19 @@
       </v-container>
     </v-card>
     <v-row v-show="showProblems">
-      <v-card v-bind:key="index" hover v-for="(problem, index) of problems">
+      <v-card
+        v-on:click="problemClicked(problem)"
+        v-bind:key="index"
+        hover
+        v-for="(problem, index) of problems"
+      >
         <v-container>
-          <v-card-title>{{problem.title}}</v-card-title>
-          <v-card-text>{{problem.source}} {{problem.problemMetadata.platformProblemId}} {{problem.problemMetadata.difficulty}}</v-card-text>
+          <v-card-title>{{ problem.title }}</v-card-title>
+          <v-card-text>
+            {{ problem.source }}
+            {{ problem.problemMetadata.platformProblemId }}
+            {{ problem.problemMetadata.difficulty }}
+          </v-card-text>
         </v-container>
       </v-card>
     </v-row>
@@ -53,6 +62,9 @@ export default {
         this.problems = response.data.problems;
       }
       this.showProblems = !this.showProblems;
+    },
+    problemClicked: problem => {
+      window.open(problem.sourceLink, "_blank");
     }
   }
 };
