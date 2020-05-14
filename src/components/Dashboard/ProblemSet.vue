@@ -8,11 +8,12 @@
           <v-col cols="auto">
             <v-card-title>{{ problemSet.title }}</v-card-title>
             <v-card-text>{{ problemSet.description }}</v-card-text>
+            <v-card-text>{{ problemSet.tags }}</v-card-text>
           </v-col>
 
           <v-col cols="auto">
             <v-row class="flex-column" justify="center">
-              <v-col>x/y completed</v-col>
+              <v-col>/{{problemSet.problemCount}} completed</v-col>
               <v-col>arrow</v-col>
             </v-row>
           </v-col>
@@ -45,8 +46,9 @@ export default {
       problems: null
     };
   },
+
   methods: {
-    loadProblems: async function() {
+    async loadProblems() {
       if (this.problems == null) {
         const response = await api.get(
           `/problemSets/${this.problemSet._id}?includeProblems=true`,
