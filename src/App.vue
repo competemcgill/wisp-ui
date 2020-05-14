@@ -20,7 +20,9 @@ export default {
   },
 
   async created() {
-    if (this.$store.state.token) await this.getProblemSets();
+    if (this.$store.state.token) {
+      Promise.all([this.getProblemSets(), this.getProblems()]);
+    }
 
     eventBus.$on("LOGIN_SUCCESS", () => {
       Promise.all([this.getProblemSets(), this.getProblems()]);

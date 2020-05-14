@@ -7,11 +7,15 @@ should also add a search bar on the same level as the h1 -->
       <v-card>
         <v-data-table :headers="headers" :items="problemsTable">
           <template v-slot:item.link="{ item }">
-            <v-icon small class="primary--text" @click="linkClicked(item)">mdi-open-in-new</v-icon>
+            <v-icon small class="primary--text" @click="linkClicked(item)"
+              >mdi-open-in-new</v-icon
+            >
           </template>
 
           <template v-slot:item.difficulty="{ item }">
-            <v-chip :color="difficultyColor(item.difficulty)" dark>{{ item.difficulty }}</v-chip>
+            <v-chip :color="difficultyColor(item.difficulty)" dark>{{
+              item.difficulty
+            }}</v-chip>
           </template>
         </v-data-table>
       </v-card>
