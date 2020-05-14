@@ -57,7 +57,12 @@ export default {
     loadProblems: async function() {
       if (this.problems == null) {
         const response = await api.get(
-          `/problemSets/${this.problemSet._id}?includeProblems=true`
+          `/problemSets/${this.problemSet._id}?includeProblems=true`,
+          {
+            headers: {
+              Authorization: this.$store.state.token
+            }
+          }
         );
         this.problems = response.data.problems;
       }
