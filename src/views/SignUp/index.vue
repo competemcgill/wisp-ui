@@ -9,69 +9,102 @@
         <v-col cols="12" sm="6" class="my-5 py-5">
           <v-card>
             <v-card-text>
-              <v-container>
-                <v-text-field
-                  class="mb-3"
-                  name="username"
-                  label="Username"
-                  id="username"
-                  v-model="user.username"
-                  type="username"
-                  prepend-icon="mdi-account"
-                  required
-                >
-                </v-text-field>
-                <v-text-field
-                  class="mb-3"
-                  name="password"
-                  label="Password"
-                  id="password"
-                  v-model="user.password"
-                  type="password"
-                  prepend-icon="mdi-key"
-                  required
-                >
-                </v-text-field>
-                <v-text-field
-                  class="mb-3"
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  id="confirmPassword"
-                  :rules="passwordRules"
-                  type="password"
-                  :disabled="user.password.length <= 0"
-                  prepend-icon="mdi-key"
-                  required
-                >
-                </v-text-field>
-                <v-text-field
-                  class="mb-3"
-                  name="email"
-                  label="E-mail address"
-                  id="email"
-                  v-model="user.email"
-                  :rules="emailRules"
-                  type="email"
-                  prepend-icon="mdi-email"
-                  required
-                >
-                </v-text-field>
-                <v-text-field
-                  class="mb-3"
-                  name="codeforcesUsername"
-                  label="Codeforces Username"
-                  id="codeforcesUsername"
-                  v-model="user.codeforcesUsername"
-                  type="username"
-                  prepend-icon="mdi-poll"
-                  required
-                >
-                </v-text-field>
+              <v-container fluid>
+                <v-form v-model="isFormValid">
+                  <v-text-field
+                    class="mb-3"
+                    name="username"
+                    label="Compete Username"
+                    id="username"
+                    v-model="user.username"
+                    :rules="[rules.required]"
+                    type="username"
+                    prepend-icon="mdi-account"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="password"
+                    label="Password"
+                    id="password"
+                    v-model="user.password"
+                    :rules="[rules.required]"
+                    type="password"
+                    prepend-icon="mdi-key"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="email"
+                    label="E-mail Address"
+                    id="email"
+                    v-model="user.email"
+                    :rules="[rules.required, rules.emailRules]"
+                    type="email"
+                    prepend-icon="mdi-email"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="codeforcesUsername"
+                    label="Codeforces Username"
+                    id="codeforcesUsername"
+                    v-model="user.codeforcesUsername"
+                    :rules="[rules.required]"
+                    type="username"
+                    prepend-icon="mdi-poll"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="major"
+                    label="Major"
+                    id="major"
+                    v-model="user.major"
+                    type="major"
+                    prepend-icon="mdi-school"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="year"
+                    label="Year (U1,U2,U3,U4)"
+                    id="year"
+                    v-model="user.year"
+                    type="year"
+                    prepend-icon="mdi-calendar"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="school"
+                    label="School"
+                    id="school"
+                    v-model="user.school"
+                    type="school"
+                    prepend-icon="mdi-school"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    class="mb-3"
+                    name="bio"
+                    label="Bio"
+                    id="bio"
+                    v-model="user.bio"
+                    type="bio"
+                    prepend-icon="mdi-notebook"
+                  >
+                  </v-text-field>
+                </v-form>
+                <div class="red--text" align="center" v-html="error"></div>
                 <v-btn
                   block
+                  class="offset-y white--text"
                   @click="signup"
-                  class="offset-y primary--text"
+                  color="primary"
                   type="submit"
+                  :loading="loading"
+                  :disabled="!isFormValid"
                   >Sign up
                 </v-btn>
               </v-container>
@@ -93,31 +126,42 @@ export default {
   data() {
     return {
       error: "",
+      loading: false,
+      isFormValid: false,
       user: {
         username: "",
         email: "",
         password: "",
-        codeforcesUsername: ""
+        codeforcesUsername: "",
+        major: "",
+        year: "",
+        school: "",
+        bio: ""
       },
-      emailRules: [
-        v =>
+      rules: {
+        required: value => !!value || "Required.",
+        emailRules: v =>
           !v ||
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid"
-      ],
-      passwordRules: [
-        v => !v || v === this.user.password || "Passwords do not match"
-      ]
+      }
     };
   },
 
   methods: {
     async signup() {
       try {
+        this.loading = true;
         await api.post("/users", {
           username: this.user.username,
           email: this.user.email,
           password: this.user.password,
+          info: {
+            major: this.user.major,
+            year: this.user.year,
+            school: this.user.school,
+            bio: this.user.bio
+          },
           platformData: {
             codeforces: {
               username: this.user.codeforcesUsername
@@ -136,6 +180,8 @@ export default {
         this.$router.push("/dashboard");
       } catch (err) {
         this.error = err.response.data.message;
+      } finally {
+        this.loading = false;
       }
     }
   }

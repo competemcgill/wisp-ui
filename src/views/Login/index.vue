@@ -37,6 +37,7 @@
 
           <v-btn
             text
+            :loading="loading"
             @click="login"
             class="background mx-0 mt-3 primary--text text-uppercase"
             >login</v-btn
@@ -59,6 +60,7 @@ export default {
   data() {
     return {
       error: "",
+      loading: false,
       user: {
         email: "",
         password: ""
@@ -74,6 +76,7 @@ export default {
 
   methods: {
     async login() {
+      this.loading = true;
       try {
         const { data } = await api.post("/auth/login", {
           email: this.user.email,
@@ -85,6 +88,8 @@ export default {
         this.$router.push("/dashboard");
       } catch (err) {
         this.error = err.response.data.message;
+      } finally {
+        this.loading = false;
       }
     }
   }
