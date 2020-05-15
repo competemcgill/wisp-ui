@@ -6,7 +6,7 @@
         <v-col cols="12" md="4">
           <v-card>
             <v-row>
-              <v-col cols="12" sm="4" class="py-0 my-0">
+              <v-col cols="12" sm="2" class="py-0 my-0">
                 <v-sheet
                   width="100%"
                   height="100%"
@@ -14,7 +14,7 @@
                 ></v-sheet>
               </v-col>
 
-              <v-col cols="12" sm="8" class="text-center pl-0">
+              <v-col cols="12" sm="10" class="text-center pl-0">
                 <v-row class="flex-column ma-0 fill-height" justify="center">
                   <v-col class="mx-1">
                     <h1 class="title text-left">
@@ -32,7 +32,7 @@
 
                   <v-col class="mx-1">
                     <h1 class="title text-left">
-                      <span class="primary--text">Stated on:</span><br />
+                      <span class="primary--text">Joined on:</span><br />
                       {{
                         new Date(user.createdAt).toLocaleDateString("en-US", {
                           year: "numeric",
