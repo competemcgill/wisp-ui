@@ -13,10 +13,9 @@
         <v-col cols="0" sm="3"></v-col>
         <v-col cols="12" sm="6">
           <h1 class="my-5 text-center grey--text headline">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            impedit corporis provident aspernatur inventore itaque totam
-            pariatur vel, est facere harum voluptatum, quae fugiat fuga natus
-            ipsa suscipit deserunt eaque.
+            WISP is a project developed by Compete McGill aimed at creating a
+            fluid and fun experience for club members to learn competitive
+            programming.
           </h1>
         </v-col>
         <v-col cols="0" sm="3"></v-col>
