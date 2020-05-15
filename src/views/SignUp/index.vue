@@ -96,7 +96,7 @@
                   >
                   </v-text-field>
                 </v-form>
-                <div class="red--text" align="center" v-html="error"></div>
+                <div class="primary--text" align="center" v-html="error"></div>
                 <v-btn
                   block
                   class="offset-y white--text"

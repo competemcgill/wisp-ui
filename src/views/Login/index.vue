@@ -33,7 +33,7 @@
             required
           ></v-text-field>
 
-          <div class="red--text" v-html="error"></div>
+          <div class="primary--text" v-html="error"></div>
 
           <v-btn
             text
