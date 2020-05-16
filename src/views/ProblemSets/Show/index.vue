@@ -11,7 +11,10 @@
           cols="12"
           sm="4"
           class="font-weight-regular primary--text text-right"
-          >{{ completed }}/{{ problemSet.problemCount }} completed</v-col
+          >{{ completed }}/{{
+            problemSet.problemCount ? problemSet.problemCount : "0"
+          }}
+          completed</v-col
         >
       </v-row>
       <v-row>

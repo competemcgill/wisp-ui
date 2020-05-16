@@ -1,9 +1,21 @@
-<!-- TODO: change the basic table to something more suitable and well styled
-should also add a search bar on the same level as the h1 -->
 <template>
   <div class="problems">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase">problems</h1>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <h1 class="my-5 display-1 black--text text-uppercase">
+            problems
+            <v-btn
+              text
+              :loading="refreshLoading"
+              @click="reloadProblems()"
+              class="primary--text mb-2"
+            >
+              <v-icon>mdi-autorenew</v-icon>
+            </v-btn>
+          </h1>
+        </v-col>
+      </v-row>
       <v-card>
         <v-data-table :headers="headers" :items="problemsTable">
           <template v-slot:item.link="{ item }">
@@ -24,42 +36,10 @@ should also add a search bar on the same level as the h1 -->
 </template>
 
 <script>
+import { api } from "@/gateways/wisp-api";
+
 export default {
   name: "Problems",
-
-  mounted() {
-    this.problems = this.$store.state.problems;
-    this.problemsTable = [];
-    for (const problem of this.problems) {
-      this.problemsTable.push({
-        title: problem.title,
-        difficulty: problem.problemMetadata.difficulty,
-        platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
-        link: problem.sourceLink
-      });
-    }
-  },
-
-  methods: {
-    difficultyColor(difficulty) {
-      switch (difficulty.toLowerCase()) {
-        case "easy":
-          return "success";
-        case "medium":
-          return "incomplete";
-        case "hard":
-          return "failure";
-        default:
-          return "grey";
-      }
-    },
-    linkClicked(item) {
-      window.open(item.link, "_blank");
-    },
-    capitalizeFirstLetter(input) {
-      return input[0].toUpperCase() + input.slice(1);
-    }
-  },
 
   data: () => {
     return {
@@ -94,8 +74,58 @@ export default {
           class: "subtitle-1 font-weight-regular primary--text"
         }
       ],
-      problemsTable: []
+      problemsTable: [],
+      refreshLoading: false
     };
+  },
+
+  mounted() {
+    this.problems = this.$store.state.problems;
+    this.problemsTable = [];
+    for (const problem of this.problems) {
+      this.problemsTable.push({
+        title: problem.title,
+        difficulty: problem.problemMetadata.difficulty,
+        platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
+        link: problem.sourceLink
+      });
+    }
+  },
+
+  methods: {
+    difficultyColor(difficulty) {
+      switch (difficulty.toLowerCase()) {
+        case "easy":
+          return "success";
+        case "medium":
+          return "incomplete";
+        case "hard":
+          return "failure";
+        default:
+          return "grey";
+      }
+    },
+
+    linkClicked(item) {
+      window.open(item.link, "_blank");
+    },
+
+    capitalizeFirstLetter(input) {
+      return input[0].toUpperCase() + input.slice(1);
+    },
+
+    async reloadProblems() {
+      this.refreshLoading = true;
+      const { data } = await api.get("/problems", {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+
+      this.problemSets = data;
+      this.$store.dispatch("setProblems", data);
+      this.refreshLoading = false;
+    }
   }
 };
 </script>
