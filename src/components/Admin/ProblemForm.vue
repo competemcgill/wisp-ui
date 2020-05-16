@@ -26,7 +26,7 @@
               class="mb-3"
               label="Platform ID"
               v-model="problem.platformId"
-              hint="<contest ID><problem ID> e.g. 125G"
+              hint="<contest ID><problem ID> e.g. 1234G"
               prepend-icon="mdi-text-short"
             ></v-text-field>
 
@@ -47,15 +47,15 @@
               prepend-icon="mdi-text-short"
             ></v-autocomplete>
 
-            <v-combobox
+            <v-autocomplete
               multiple
               v-model="problem.problemSetIds"
+              :items="problemSetAutocomplete"
               label="Problem Sets"
               append-icon
               chips
-              deletable-chips
               prepend-icon="mdi-tag"
-            ></v-combobox>
+            ></v-autocomplete>
 
             <v-btn
               text
@@ -66,6 +66,9 @@
             >
           </v-card>
         </v-col>
+      </v-row>
+      <v-row>
+        <div class="primary--text" v-html="error"></div>
       </v-row>
       <v-row>
         <v-col cols="12" sm="2">
@@ -171,8 +174,18 @@ export default {
         _id: "Not Submitted"
       },
       problems: [],
-      loading: false
+      problemSetAutocomplete: [],
+      loading: false,
+      error: ""
     };
+  },
+
+  mounted() {
+    this.populateProblemSetAC();
+
+    eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
+      this.populateProblemSetAC();
+    });
   },
 
   methods: {
@@ -201,7 +214,7 @@ export default {
 
           eventBus.$emit("REFRESH_PROBLEMS");
         } catch (err) {
-          console.log(err);
+          this.error = err.response.data.message;
           return;
         }
       }
@@ -235,7 +248,7 @@ export default {
 
         eventBus.$emit("REFRESH_PROBLEMS");
       } catch (err) {
-        console.log(err);
+        this.error = err.response.data.message;
       } finally {
         this.loading = false;
       }
@@ -253,6 +266,15 @@ export default {
         _id: "Not Submitted"
       }
       this.problems = [];
+      this.error = "";
+    },
+
+    populateProblemSetAC() {
+      for (const problemSet of this.$store.state.problemSets) {
+        this.problemSetAutocomplete.push({
+          text: `${problemSet.title} (${problemSet._id})`
+        })
+      }
     }
   }
 };

@@ -116,15 +116,18 @@ export default {
 
     async reloadProblems() {
       this.refreshLoading = true;
-      const { data } = await api.get("/problems", {
-        headers: {
-          Authorization: this.$store.state.token
-        }
-      });
-
-      this.problemSets = data;
-      this.$store.dispatch("setProblems", data);
-      this.refreshLoading = false;
+      try {
+        const { data } = await api.get("/problems", {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
+        this.problem = data;
+        this.$store.dispatch("setProblems", data);
+      } catch (err) { }
+      finally {
+        this.refreshLoading = false;
+      }
     }
   }
 };

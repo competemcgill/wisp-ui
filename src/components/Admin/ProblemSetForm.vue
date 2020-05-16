@@ -41,6 +41,9 @@
         </v-col>
       </v-row>
       <v-row>
+        <div class="primary--text" v-html="error"></div>
+      </v-row>
+      <v-row>
         <v-col cols="12" sm="2">
           <v-btn
             :loading="loading"
@@ -147,7 +150,8 @@ export default {
         _id: "Not Submitted"
       },
       problemSets: [],
-      loading: false
+      loading: false,
+      error: ""
     };
   },
 
@@ -173,7 +177,7 @@ export default {
 
           eventBus.$emit("REFRESH_PROBLEMSETS");
         } catch (err) {
-          console.log(err);
+          this.error = err.response.data.message;
           return;
         }
       }
@@ -202,7 +206,7 @@ export default {
 
         eventBus.$emit("REFRESH_PROBLEMSETS");
       } catch (err) {
-        console.log(err);
+        this.error = err.response.data.message;
       } finally {
         this.loading = false;
       }
@@ -215,7 +219,8 @@ export default {
         tags: [],
         _id: "Not Submitted"
       }
-      this.problemSets = []
+      this.problemSets = [];
+      this.error = "";
     }
   }
 };
