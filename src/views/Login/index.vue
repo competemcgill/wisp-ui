@@ -86,7 +86,9 @@ export default {
         this.$store.dispatch("setUser", data.user);
         eventBus.$emit("LOGIN_SUCCESS");
         eventBus.$on("GLOBAL_DATA_FETCH_SUCCESS", () => {
-          this.$router.push("/dashboard");
+          this.$router.push("/dashboard", () => {
+            this.loading = false;
+          });
         });
       } catch (err) {
         this.error = err.response.data.message;

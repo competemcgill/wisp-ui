@@ -24,6 +24,11 @@
         </v-chip-group>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12" class="caption grey--text text-right">
+        {{ data._id }}
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 

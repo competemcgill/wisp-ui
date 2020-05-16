@@ -29,6 +29,16 @@ export default {
       await Promise.all([this.getProblemSets(), this.getProblems()]);
       eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     });
+
+    eventBus.$on("REFRESH_PROBLEMSETS", async () => {
+      await this.getProblemSets();
+      eventBus.$emit("REFRESH_PROBLEMSETS_SUCCESS");
+    });
+
+    eventBus.$on("REFRESH_PROBLEMS", async () => {
+      await this.getProblems();
+      eventBus.$emit("REFRESH_PROBLEMS_SUCCESS");
+    });
   },
 
   methods: {
