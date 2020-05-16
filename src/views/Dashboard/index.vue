@@ -1,7 +1,17 @@
 <template>
   <div class="dashboard">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase">my sets</h1>
+      <h1 class="my-5 display-1 black--text text-uppercase">
+        my sets
+        <v-btn
+          text
+          :loading="refreshLoading"
+          @click="reloadUser()"
+          class="primary--text mb-2"
+        >
+          <v-icon>mdi-autorenew</v-icon>
+        </v-btn>
+      </h1>
       <v-row v-if="problemSets.length == 0">
         <v-col cols="12" class="primary--text title"
           >No tracked problem sets yet</v-col
@@ -31,6 +41,7 @@
 </template>
 
 <script>
+import { api } from "@/gateways/wisp-api";
 import ProblemSet from "@/components/Dashboard/ProblemSet";
 import Stats from "@/components/Dashboard/Stats";
 
@@ -51,8 +62,35 @@ export default {
 
   data: () => {
     return {
-      problemSets: []
+      problemSets: [],
+      refreshLoading: false
     };
+  },
+
+  mounted() {
+    this.filterProblemSets();
+  },
+
+  methods: {
+    filterProblemSets() {
+      this.problemSets = this.$store.state.problemSets.filter(
+        problemSet =>
+          this.$store.state.user.problemSets.indexOf(problemSet._id) !== -1
+      );
+    },
+
+    async reloadUser() {
+      this.refreshLoading = true;
+      const { data } = await api.get(`/users/${this.$store.state.user._id}`, {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+
+      this.$store.dispatch("setUser", data);
+      this.filterProblemSets();
+      this.refreshLoading = false;
+    }
   }
 };
 </script>
