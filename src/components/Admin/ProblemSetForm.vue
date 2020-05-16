@@ -91,8 +91,7 @@
             <v-row>
               <v-col cols="12" class="pt-0">
                 <h1>
-                  <span class="title primary--text text-truncate"
-                    >Title: </span
+                  <span class="title primary--text text-truncate">Title: </span
                   ><span class="subtitle-1 grey--text">{{ ps.title }}</span>
                 </h1>
               </v-col>
@@ -102,7 +101,9 @@
                 <h1>
                   <span class="title primary--text text-truncate"
                     >Description: </span
-                  ><span class="subtitle-1 grey--text">{{ ps.description }}</span>
+                  ><span class="subtitle-1 grey--text">{{
+                    ps.description
+                  }}</span>
                 </h1>
               </v-col>
             </v-row>
@@ -191,15 +192,19 @@ export default {
 
       try {
         for (const [index, problemSet] of this.problemSets.entries()) {
-          const { data } = await api.post("/problemSets", {
-            title: problemSet.title,
-            description: problemSet.description,
-            tags: problemSet.tags
-          }, {
-            headers: {
-              Authorization: this.$store.state.token
+          const { data } = await api.post(
+            "/problemSets",
+            {
+              title: problemSet.title,
+              description: problemSet.description,
+              tags: problemSet.tags
+            },
+            {
+              headers: {
+                Authorization: this.$store.state.token
+              }
             }
-          });
+          );
 
           this.problemSets[index] = data;
         }
@@ -218,7 +223,7 @@ export default {
         description: "",
         tags: [],
         _id: "Not Submitted"
-      }
+      };
       this.problemSets = [];
       this.error = "";
     }

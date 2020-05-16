@@ -1,6 +1,29 @@
 <template>
   <div class="problems">
     <v-container class="my-5">
+      <v-dialog
+        v-if="$store.state.user.role === 'ADMIN'"
+        v-model="deleteDialogue"
+        max-width="500"
+      >
+        <v-card class="py-3 px-5">
+          <h1 class="subtitle-1 mb-5">
+            Are you sure you want to delete this problem set?
+          </h1>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn @click="deleteProblem(problemToDeleteId)" class="primary">
+              yes
+            </v-btn>
+
+            <v-btn text @click="deleteDialogue = false" class="primart--text">
+              no
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-row>
         <v-col cols="12" sm="8">
           <h1 class="my-5 display-1 black--text text-uppercase">
@@ -18,10 +41,19 @@
       </v-row>
       <v-card>
         <v-data-table :headers="headers" :items="problemsTable">
-          <template v-slot:item.link="{ item }">
-            <v-icon small class="primary--text" @click="linkClicked(item)"
-              >mdi-open-in-new</v-icon
+          <template v-slot:item.actions="{ item }">
+            <v-btn fab small text class="primary--text">
+              <v-icon @click="linkClicked(item)">mdi-open-in-new</v-icon>
+            </v-btn>
+            <v-btn
+              fab
+              small
+              v-if="$store.state.user.role === 'ADMIN'"
+              text
+              @click="openDeleteDialogue(item._id)"
             >
+              <v-icon class="primary--text">mdi-delete</v-icon>
+            </v-btn>
           </template>
 
           <template v-slot:item.difficulty="{ item }">
@@ -43,7 +75,6 @@ export default {
 
   data: () => {
     return {
-      problems: null,
       headers: [
         {
           text: "Title",
@@ -67,32 +98,48 @@ export default {
           class: "subtitle-1 font-weight-regular primary--text"
         },
         {
-          text: "Link",
+          text: "Actions",
           align: "start",
           sortable: false,
-          value: "link",
+          value: "actions",
           class: "subtitle-1 font-weight-regular primary--text"
         }
       ],
+      problems: [],
       problemsTable: [],
-      refreshLoading: false
+      refreshLoading: false,
+      deleteDialogue: false,
+      problemTodeleteId: ""
     };
   },
 
   mounted() {
     this.problems = this.$store.state.problems;
-    this.problemsTable = [];
-    for (const problem of this.problems) {
-      this.problemsTable.push({
-        title: problem.title,
-        difficulty: problem.problemMetadata.difficulty,
-        platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
-        link: problem.sourceLink
-      });
-    }
+    this.populateTableData();
   },
 
   methods: {
+    async deleteProblem(id) {
+      try {
+        await api.delete(`/problems/${id}`, {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
+
+        this.reloadProblems();
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.deleteDialogue = false;
+      }
+    },
+
+    openDeleteDialogue(id) {
+      this.problemToDeleteId = id;
+      this.deleteDialogue = true;
+    },
+
     difficultyColor(difficulty) {
       switch (difficulty.toLowerCase()) {
         case "easy":
@@ -122,11 +169,26 @@ export default {
             Authorization: this.$store.state.token
           }
         });
-        this.problem = data;
+        this.problems = data;
         this.$store.dispatch("setProblems", data);
-      } catch (err) { }
-      finally {
+        this.populateTableData();
+      } catch (err) {
+        console.log(err);
+      } finally {
         this.refreshLoading = false;
+      }
+    },
+
+    populateTableData() {
+      this.problemsTable = [];
+      for (const problem of this.problems) {
+        this.problemsTable.push({
+          title: problem.title,
+          difficulty: problem.problemMetadata.difficulty,
+          platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
+          link: problem.sourceLink,
+          _id: problem._id
+        });
       }
     }
   }

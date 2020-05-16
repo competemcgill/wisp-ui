@@ -118,8 +118,7 @@
             <v-row>
               <v-col cols="12" class="pt-0">
                 <h1>
-                  <span class="title primary--text text-truncate"
-                    >Title: </span
+                  <span class="title primary--text text-truncate">Title: </span
                   ><span class="subtitle-1 grey--text">{{ p.title }}</span>
                 </h1>
               </v-col>
@@ -200,7 +199,7 @@ export default {
         platformId: "",
         problemSetIds: "",
         _id: "Not Submitted"
-      }
+      };
     },
 
     async removeProblemFromQueue(id, index) {
@@ -228,20 +227,24 @@ export default {
 
       try {
         for (const [index, p] of this.problems.entries()) {
-          const { data } = await api.post("/problems", {
-            title: p.title,
-            source: p.source,
-            sourceLink: p.sourceLink,
-            problemSetIds: p.problemSetIds,
-            problemMetadata: {
-              platformProblemId: p.platformId,
-              difficulty: p.difficulty
+          const { data } = await api.post(
+            "/problems",
+            {
+              title: p.title,
+              source: p.source,
+              sourceLink: p.sourceLink,
+              problemSetIds: p.problemSetIds,
+              problemMetadata: {
+                platformProblemId: p.platformId,
+                difficulty: p.difficulty
+              }
+            },
+            {
+              headers: {
+                Authorization: this.$store.state.token
+              }
             }
-          }, {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          });
+          );
 
           this.problems[index] = data;
         }
@@ -264,7 +267,7 @@ export default {
         platformId: "",
         problemSetIds: "",
         _id: "Not Submitted"
-      }
+      };
       this.problems = [];
       this.error = "";
     },
@@ -272,8 +275,9 @@ export default {
     populateProblemSetAC() {
       for (const problemSet of this.$store.state.problemSets) {
         this.problemSetAutocomplete.push({
-          text: `${problemSet.title} (${problemSet._id})`
-        })
+          text: `${problemSet.title} (${problemSet._id})`,
+          value: problemSet._id
+        });
       }
     }
   }

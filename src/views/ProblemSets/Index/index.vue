@@ -125,8 +125,9 @@ export default {
 
         this.problemSets = data;
         this.$store.dispatch("setProblemSets", data);
-      } catch (err) { }
-      finally {
+      } catch (err) {
+        console.log(err);
+      } finally {
         this.refreshLoading = false;
       }
     },
