@@ -53,6 +53,13 @@ export default {
     stats: Stats
   },
 
+  mounted() {
+    this.problemSets = this.$store.state.problemSets.filter(
+      problemSet =>
+        this.$store.state.user.problemSets.indexOf(problemSet._id) !== -1
+    );
+  },
+
   data: () => {
     return {
       problemSets: [],
