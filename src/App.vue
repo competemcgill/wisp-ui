@@ -33,22 +33,23 @@ export default {
 
   methods: {
     async getProblemSets() {
-      const response = await api.get("/problemSets?includeProblems=true", {
+      const { data } = await api.get("/problemSets?includeProblems=true", {
         headers: {
           Authorization: this.$store.state.token
         }
       });
-      const problemSets = response.data;
-      this.$store.dispatch("setProblemSets", problemSets);
+
+      this.$store.dispatch("setProblemSets", data);
     },
+
     async getProblems() {
-      const problemsResponse = await api.get("/problems", {
+      const { data } = await api.get("/problems", {
         headers: {
           Authorization: this.$store.state.token
         }
       });
-      const problems = problemsResponse.data;
-      this.$store.dispatch("setProblems", problems);
+
+      this.$store.dispatch("setProblems", data);
     }
   }
 };

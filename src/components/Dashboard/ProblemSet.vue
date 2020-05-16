@@ -7,7 +7,10 @@
             >{{ problemSet.problemCount }} questions</v-col
           >
           <v-col cold="6" class="primary--text text-right">
-            {{ completed }}/{{ problemSet.problemCount }} completed
+            {{ completed }}/{{
+              problemSet.problemCount ? problemSet.problemCount : "0"
+            }}
+            completed
           </v-col>
         </v-row>
 
