@@ -73,43 +73,8 @@ import { api } from "@/gateways/wisp-api";
 export default {
   name: "Problems",
 
-  mounted() {
-    this.problems = this.$store.state.problems;
-    this.problemsTable = [];
-    for (const problem of this.problems) {
-      this.problemsTable.push({
-        title: problem.title,
-        difficulty: problem.problemMetadata.difficulty,
-        platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
-        link: problem.sourceLink
-      });
-    }
-  },
-
-  methods: {
-    difficultyColor(difficulty) {
-      switch (difficulty.toLowerCase()) {
-        case "easy":
-          return "success";
-        case "medium":
-          return "incomplete";
-        case "hard":
-          return "failure";
-        default:
-          return "grey";
-      }
-    },
-    linkClicked(item) {
-      window.open(item.link, "_blank");
-    },
-    capitalizeFirstLetter(input) {
-      return input[0].toUpperCase() + input.slice(1);
-    }
-  },
-
   data: () => {
     return {
-      problems: null,
       headers: [
         {
           text: "Title",
