@@ -21,11 +21,13 @@ export default {
 
   async created() {
     if (this.$store.state.token) {
-      Promise.all([this.getProblemSets(), this.getProblems()]);
+      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     }
 
-    eventBus.$on("LOGIN_SUCCESS", () => {
-      Promise.all([this.getProblemSets(), this.getProblems()]);
+    eventBus.$on("LOGIN_SUCCESS", async () => {
+      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     });
   },
 
