@@ -5,20 +5,13 @@
         <v-col cols="12">
           <h1 class="my-5 display-1 black--text text-uppercase">
             profile
-            <v-btn
-              text
-              @click="editDialogue = true"
-              class="mb-2"
-            >
+            <v-btn text @click="editDialogue = true" class="mb-2">
               <v-icon class="primary--text">mdi-pencil</v-icon>
             </v-btn>
           </h1>
         </v-col>
       </v-row>
-      <v-dialog
-        v-model="editDialogue"
-        max-width="1200"
-      >
+      <v-dialog v-model="editDialogue" max-width="1200">
         <v-card class="pa-5">
           <h1 class="display-1 primary--text mb-5">
             EDIT
@@ -256,11 +249,15 @@ export default {
     async editUser() {
       try {
         this.updateLoading = true;
-        const { data } = await api.put(`/users/${this.user._id}`, this.userBuffer, {
-          headers: {
-            Authorization: this.$store.state.token
+        const { data } = await api.put(
+          `/users/${this.user._id}`,
+          this.userBuffer,
+          {
+            headers: {
+              Authorization: this.$store.state.token
+            }
           }
-        });
+        );
 
         this.user = data;
         this.resetUserBuffer();
@@ -277,7 +274,7 @@ export default {
       this.userBuffer = {
         ...this.userModel,
         ...this.user
-      }
+      };
     },
 
     closeEditUser() {
