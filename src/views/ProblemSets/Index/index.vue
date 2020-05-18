@@ -77,6 +77,7 @@
 
 <script>
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
 import ProblemSet from "@/components/ProblemSets/Index/ProblemSet";
 
 export default {
@@ -92,6 +93,16 @@ export default {
       search: "",
       refreshLoading: false
     };
+  },
+
+  created() {
+    eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
+      this.problemSets = this.$store.state.problemSets;
+    });
+
+    eventBus.$on("REFRESH_PROBLEMS_SUCCESS", () => {
+      this.problemSets = this.$store.state.problemSets;
+    });
   },
 
   computed: {

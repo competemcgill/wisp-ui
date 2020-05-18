@@ -69,6 +69,7 @@
 
 <script>
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "Problems",
@@ -127,7 +128,11 @@ export default {
           }
         });
 
-        this.reloadProblems();
+        eventBus.$emit("REFRESH_PROBLEMS");
+        eventBus.$on("REFRESH_PROBLEMS_SUCCESS", () => {
+          this.problems = this.$store.state.problems;
+          this.populateTableData();
+        });
       } catch (err) {
         console.log(err);
       } finally {
