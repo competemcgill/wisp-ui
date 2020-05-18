@@ -150,8 +150,8 @@
           <v-card class="pl-0 pt-0">
             <v-row>
               <v-col cols="12" class="pt-0">
-                <v-sheet class="white--text display-1 primary py-3 pl-5"
-                  >INFO</v-sheet
+                <v-sheet class="white--text headline primary py-3 pl-5"
+                  >Info</v-sheet
                 >
               </v-col>
             </v-row>
@@ -189,8 +189,8 @@
           <v-card class="pl-0 pt-0">
             <v-row>
               <v-col cols="12" class="pt-0">
-                <v-sheet class="white--text display-1 primary py-3 pl-5"
-                  >CODEFORCES</v-sheet
+                <v-sheet class="white--text headline primary py-3 pl-5"
+                  >Codeforces</v-sheet
                 >
               </v-col>
             </v-row>
