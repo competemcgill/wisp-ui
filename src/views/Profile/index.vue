@@ -88,7 +88,7 @@
             name="bio"
             label="Bio"
             id="bio"
-            v-model="userBuffer.bio"
+            v-model="userBuffer.info.bio"
             type="bio"
             prepend-icon="mdi-notebook"
           >
