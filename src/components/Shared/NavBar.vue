@@ -2,15 +2,18 @@
 <template>
   <nav>
     <v-app-bar app class="background">
+      <v-app-bar-nav-icon v-if="mobileView" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon router to="/" color="white" class="hidden-xs-only ml-3">
         <v-icon x-large>$vuetify.icons.cp-logo</v-icon>
       </v-btn>
+
       <v-toolbar-title class="text-uppercase black--text">
         <span class="font-weight-light display-1">WISP</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
+      <v-item-group v-if="!mobileView">
       <v-btn
         text
         tile
@@ -85,7 +88,7 @@
         class="offset-y primary--text"
         >register</v-btn
       >
-
+        </v-item-group>
       <v-menu offset-y v-if="$store.state.isLoggedIn">
         <template v-slot:activator="{ on }">
           <v-btn
@@ -115,6 +118,66 @@
         </v-list>
       </v-menu>
     </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+    >
+      <v-list
+        dense
+        nav
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="offset-y primary--text"
+        >
+          <v-list-item
+            to="/"
+          >
+            <v-list-item-title>HOME</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            to="/about">
+            <v-list-item-title>ABOUT</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            v-if="$store.state.isLoggedIn"
+            to="/dashboard">
+            <v-list-item-title>DASHBOARD</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            v-if="$store.state.isLoggedIn"
+            to="/problemsets">
+            <v-list-item-title>PROBLEM SETS</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            v-if="$store.state.isLoggedIn"
+            to="/problems">
+            <v-list-item-title>PROBLEMS</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            v-if="!$store.state.isLoggedIn"
+            to="/login">
+            <v-list-item-title>LOGIN</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            v-if="!$store.state.isLoggedIn"
+            to='/signup'>
+            <v-list-item-title>REGISTER</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+
+
   </nav>
 </template>
 
@@ -124,6 +187,9 @@ export default {
 
   data() {
     return {
+      drawer: false,
+      group: null,
+      mobileView: this.$vuetify.breakpoint.mdAndDown,
       profileDropdownItems: [
         {
           title: "profile",
@@ -135,6 +201,12 @@ export default {
         }
       ]
     };
+  },
+
+  watch: {
+    group () {
+      this.drawer = false
+    },
   },
 
   methods: {
