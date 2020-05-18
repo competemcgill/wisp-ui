@@ -37,6 +37,7 @@ export default {
 
     eventBus.$on("REFRESH_PROBLEMS", async () => {
       await this.getProblems();
+      await this.getProblemSets();
       eventBus.$emit("REFRESH_PROBLEMS_SUCCESS");
     });
   },
