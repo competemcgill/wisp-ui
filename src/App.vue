@@ -21,32 +21,45 @@ export default {
 
   async created() {
     if (this.$store.state.token) {
-      Promise.all([this.getProblemSets(), this.getProblems()]);
+      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     }
 
-    eventBus.$on("LOGIN_SUCCESS", () => {
-      Promise.all([this.getProblemSets(), this.getProblems()]);
+    eventBus.$on("LOGIN_SUCCESS", async () => {
+      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
+    });
+
+    eventBus.$on("REFRESH_PROBLEMSETS", async () => {
+      await this.getProblemSets();
+      eventBus.$emit("REFRESH_PROBLEMSETS_SUCCESS");
+    });
+
+    eventBus.$on("REFRESH_PROBLEMS", async () => {
+      await this.getProblems();
+      eventBus.$emit("REFRESH_PROBLEMS_SUCCESS");
     });
   },
 
   methods: {
     async getProblemSets() {
-      const response = await api.get("/problemSets?includeProblems=true", {
+      const { data } = await api.get("/problemSets?includeProblems=true", {
         headers: {
           Authorization: this.$store.state.token
         }
       });
-      const problemSets = response.data;
-      this.$store.dispatch("setProblemSets", problemSets);
+
+      this.$store.dispatch("setProblemSets", data);
     },
+
     async getProblems() {
-      const problemsResponse = await api.get("/problems", {
+      const { data } = await api.get("/problems", {
         headers: {
           Authorization: this.$store.state.token
         }
       });
-      const problems = problemsResponse.data;
-      this.$store.dispatch("setProblems", problems);
+
+      this.$store.dispatch("setProblems", data);
     }
   }
 };

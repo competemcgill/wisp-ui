@@ -1,17 +1,65 @@
 <template>
   <div class="problemSet">
-    <v-container class="my-5">
+    <v-container class="my-5" v-if="!problemSet.title">
+      <v-row align="center" class="mr-3">
+        <v-col cols="12" sm="8">
+          <h1 class="my-5 display-1 black--text text-uppercase">
+            problem set does not exist
+          </h1>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container class="my-5" v-if="problemSet.title">
+      <v-dialog
+        v-if="$store.state.user.role === 'ADMIN'"
+        v-model="deleteDialogue"
+        max-width="500"
+      >
+        <v-card class="py-3 px-5">
+          <h1 class="subtitle-1 mb-5">
+            Are you sure you want to delete this problem set?
+          </h1>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn
+              :loading="deleteLoading"
+              @click="deleteProblemSet(problemSet._id)"
+              class="primary"
+            >
+              yes
+            </v-btn>
+
+            <v-btn text @click="deleteDialogue = false" class="primart--text">
+              no
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-row align="center" class="mr-3">
         <v-col cols="12" sm="8">
           <h1 class="my-5 display-1 black--text text-uppercase">
             {{ problemSet.title }}
+            <v-btn
+              v-if="$store.state.user.role === 'ADMIN'"
+              text
+              :loading="deleteLoading"
+              @click="deleteDialogue = true"
+              class="mb-2"
+            >
+              <v-icon class="primary--text">mdi-delete</v-icon>
+            </v-btn>
           </h1>
         </v-col>
         <v-col
           cols="12"
           sm="4"
           class="font-weight-regular primary--text text-right"
-          >{{ completed }}/{{ problemSet.problemCount }} completed</v-col
+          >{{ completed }}/{{
+            problemSet.problemCount ? problemSet.problemCount : "0"
+          }}
+          completed</v-col
         >
       </v-row>
       <v-row>
@@ -32,6 +80,7 @@
 
 <script>
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
 import ProblemSetInfo from "@/components/ProblemSets/Show/ProblemSetInfo";
 import ProblemInfo from "@/components/ProblemSets/Show/ProblemInfo";
 
@@ -47,34 +96,59 @@ export default {
     return {
       problemSet: {},
       problems: [],
-      completed: 0
+      completed: 0,
+      deleteLoading: false,
+      deleteDialogue: false
     };
   },
 
   async created() {
-    try {
-      let { data } = await api.get(
-        `/problemSets/${this.$route.params.id}?includeProblems=true`,
-        {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        }
-      );
-      this.problemSet = data;
-      this.problems = this.problemSet.problems;
-      for (let userProblem of this.$store.state.user.problems) {
-        for (let problem of this.problems) {
-          if (userProblem.problemId == problem.problemId) {
-            problem.userProblem = userProblem;
-            if (userProblem.status == "OK") {
-              this.completed++;
-            }
+    const problemSets = this.$store.state.problemSets.filter(problemSet => {
+      return problemSet._id === this.$route.params.id;
+    });
+
+    this.problemSet =
+      problemSets && problemSets.length > 0 ? problemSets[0] : {};
+    this.problems =
+      this.problemSet && this.problemSet.problems
+        ? this.problemSet.problems
+        : [];
+
+    for (let userProblem of this.$store.state.user.problems) {
+      for (let problem of this.problems) {
+        if (userProblem.problemId == problem.problemId) {
+          problem.userProblem = userProblem;
+          if (userProblem.status == "OK") {
+            this.completed++;
           }
         }
       }
-    } catch (err) {
-      console.log(err);
+    }
+  },
+
+  methods: {
+    async deleteProblemSet(id) {
+      this.deleteLoading = true;
+      try {
+        await api.delete(`/problemSets/${id}`, {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
+
+        eventBus.$emit("REFRESH_PROBLEMSETS");
+        eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
+          this.$router.push("/problemSets", () => {
+            this.deleteLoading = false;
+            this.deleteDialogue = false;
+          });
+        });
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.deleteLoading = false;
+        this.deleteDialogue = false;
+      }
     }
   }
 };

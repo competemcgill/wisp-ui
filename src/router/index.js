@@ -11,6 +11,7 @@ import ProblemSets from "../views/ProblemSets/Index";
 import ProblemSet from "../views/ProblemSets/Show";
 import Problems from "../views/Problems/Index";
 import Problem from "../views/Problems/Show";
+import Admin from "../views/Admin";
 import store from "@/store/index";
 
 Vue.use(VueRouter);
@@ -103,6 +104,15 @@ const routes = [
     meta: {
       guest: false
     }
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    meta: {
+      guest: false,
+      admin: true
+    }
   }
 ];
 
@@ -114,8 +124,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (
-    to.matched.some(record => !record.meta.guest) &&
-    !store.state.isLoggedIn
+    (to.matched.some(record => !record.meta.guest) &&
+      !store.state.isLoggedIn) ||
+    (to.matched.some(record => record.meta.admin) &&
+      store.state.user.role !== "ADMIN")
   ) {
     router.push("/login");
     next();

@@ -139,7 +139,7 @@ export default {
         bio: ""
       },
       rules: {
-        required: value => !!value || "Required.",
+        required: value => !!value || "Required",
         emailRules: v =>
           !v ||
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
@@ -177,7 +177,11 @@ export default {
         this.$store.dispatch("setToken", data.token);
         this.$store.dispatch("setUser", data.user);
         eventBus.$emit("LOGIN_SUCCESS");
-        this.$router.push("/dashboard");
+        eventBus.$on("GLOBAL_DATA_FETCH_SUCCESS", () => {
+          this.$router.push("/dashboard", () => {
+            this.loading = false;
+          });
+        });
       } catch (err) {
         this.error = err.response.data.message;
       } finally {

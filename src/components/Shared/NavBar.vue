@@ -58,6 +58,17 @@
         text
         tile
         router
+        to="/admin"
+        min-height="115%"
+        v-if="$store.state.isLoggedIn && $store.state.user.role === 'ADMIN'"
+        class="offset-y primary--text"
+        >admin</v-btn
+      >
+
+      <v-btn
+        text
+        tile
+        router
         to="/about"
         min-height="115%"
         class="offset-y primary--text"
