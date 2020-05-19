@@ -16,7 +16,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-item-group v-if="!mobileView">
+      <template  v-if="!mobileView">
         <v-btn
           text
           tile
@@ -102,7 +102,7 @@
           class="offset-y primary--text"
           >register</v-btn
         >
-      </v-item-group>
+      </template>
       <v-menu offset-y v-if="$store.state.isLoggedIn">
         <template v-slot:activator="{ on }">
           <v-btn
@@ -199,7 +199,7 @@ export default {
 
   computed: {
     mobileView() {
-      return this.$vuetify.breakpoint.mdAndDown
+      return this.$vuetify.breakpoint.smAndDown
     }
   },
 
