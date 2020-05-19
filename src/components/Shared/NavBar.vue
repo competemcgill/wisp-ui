@@ -3,8 +3,8 @@
   <nav>
     <v-app-bar app class="background">
       <v-app-bar-nav-icon v-if="mobileView" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-btn icon router to="/" color="white" class="hidden-xs-only ml-3">
-        <v-icon x-large>$vuetify.icons.cp-logo</v-icon>
+      <v-btn icon router to="/" color="white" class="ml-3">
+          <v-icon x-large>$vuetify.icons.cp-logo</v-icon>
       </v-btn>
 
       <v-toolbar-title class="text-uppercase black--text">
