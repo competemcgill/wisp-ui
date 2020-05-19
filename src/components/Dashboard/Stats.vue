@@ -3,9 +3,7 @@
     <v-row>
       <v-col class="mx-5 mt-5 mb-2">
         <h1 class="headline mb-1 primary--text">Stats</h1>
-        <h1 class="subtitle-1 grey--text"
-          >Here's a summary of your progress</h1
-        >
+        <h1 class="subtitle-1 grey--text">Here's a summary of your progress</h1>
       </v-col>
     </v-row>
 
@@ -18,8 +16,7 @@
           Problems Completed
 
           <v-chip class="ma-2" color="success" dark
-            >{{ getNumSolvedProblems() }} /
-            {{ problemCount }}</v-chip
+            >{{ getNumSolvedProblems() }} / {{ problemCount }}</v-chip
           >
         </h1>
 
@@ -71,11 +68,14 @@ export default {
 
       for (const problemSet of this.problemSets) {
         this.problemCount += problemSet.problemCount;
-        const completedProblemCount = problemSet.problems.filter(problem => problem.isComplete).length
+        const completedProblemCount = problemSet.problems.filter(
+          problem => problem.isComplete
+        ).length;
 
-        if (completedProblemCount == problemSet.problems.length) this.completedProblemSetCount += 1;
+        if (completedProblemCount == problemSet.problems.length)
+          this.completedProblemSetCount += 1;
       }
-    },
+    }
   }
 };
 </script>
