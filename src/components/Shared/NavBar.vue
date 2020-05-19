@@ -16,7 +16,7 @@
 
       <v-spacer></v-spacer>
 
-      <template  v-if="!mobileView">
+      <template v-if="!mobileView">
         <v-btn
           text
           tile
@@ -135,9 +135,7 @@
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list dense nav>
-        <v-list-item-group
-          active-class="offset-y primary--text"
-        >
+        <v-list-item-group active-class="offset-y primary--text">
           <v-list-item to="/">
             <v-list-item-title>HOME</v-list-item-title>
           </v-list-item>
@@ -199,7 +197,7 @@ export default {
 
   computed: {
     mobileView() {
-      return this.$vuetify.breakpoint.smAndDown
+      return this.$vuetify.breakpoint.smAndDown;
     }
   },
 
