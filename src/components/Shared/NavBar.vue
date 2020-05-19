@@ -136,7 +136,6 @@
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list dense nav>
         <v-list-item-group
-          v-model="group"
           active-class="offset-y primary--text"
         >
           <v-list-item to="/">
@@ -179,8 +178,6 @@ export default {
   data() {
     return {
       drawer: false,
-      group: null,
-      mobileView: this.$vuetify.breakpoint.mdAndDown,
       profileDropdownItems: [
         {
           title: "profile",
@@ -197,6 +194,12 @@ export default {
   watch: {
     group() {
       this.drawer = false;
+    }
+  },
+
+  computed: {
+    mobileView() {
+      return this.$vuetify.breakpoint.mdAndDown
     }
   },
 
