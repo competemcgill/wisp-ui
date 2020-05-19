@@ -133,35 +133,35 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer  v-model="drawer" app temporary>
       <v-list dense nav>
         <v-list-item-group active-class="offset-y primary--text">
           <v-list-item to="/">
-            <v-list-item-title>HOME</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">HOME</v-list-item-title>
           </v-list-item>
 
           <v-list-item to="/about">
-            <v-list-item-title>ABOUT</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">ABOUT</v-list-item-title>
           </v-list-item>
 
           <v-list-item v-if="$store.state.isLoggedIn" to="/dashboard">
-            <v-list-item-title>DASHBOARD</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">DASHBOARD</v-list-item-title>
           </v-list-item>
 
           <v-list-item v-if="$store.state.isLoggedIn" to="/problemsets">
-            <v-list-item-title>PROBLEM SETS</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">PROBLEM SETS</v-list-item-title>
           </v-list-item>
 
           <v-list-item v-if="$store.state.isLoggedIn" to="/problems">
-            <v-list-item-title>PROBLEMS</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">PROBLEMS</v-list-item-title>
           </v-list-item>
 
           <v-list-item v-if="!$store.state.isLoggedIn" to="/login">
-            <v-list-item-title>LOGIN</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">LOGIN</v-list-item-title>
           </v-list-item>
 
           <v-list-item v-if="!$store.state.isLoggedIn" to="/signup">
-            <v-list-item-title>REGISTER</v-list-item-title>
+            <v-list-item-title class="offset-y primary--text">REGISTER</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

@@ -69,7 +69,7 @@
           <v-text-field
             class="mb-3"
             name="school"
-            label="School"
+            label="University"
             id="school"
             v-model="userBuffer.info.school"
             type="school"
@@ -175,7 +175,7 @@
                   {{ user.info && user.info.major ? user.info.major : "N/A" }}
                 </h1>
                 <h1 class="title text-left">
-                  <span class="primary--text">School:</span>
+                  <span class="primary--text">University:</span>
                   {{ user.info && user.info.school ? user.info.school : "N/A" }}
                 </h1>
                 <h1 class="title text-left">

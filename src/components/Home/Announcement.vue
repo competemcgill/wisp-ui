@@ -8,9 +8,9 @@
             >Welcome to Compete McGill's Summer Training</v-card-title
           >
           <v-card-text class="grey--text">Fri, May 15 2020</v-card-text>
-          <v-row>
+          <v-card-text>
             <v-col lg="2" md="4">
-              <v-row justify="space-around">
+              <v-row justify="space-between">
                 <v-icon
                   x-large
                   class="primary--text"
@@ -29,7 +29,7 @@
               </v-row>
             </v-col>
             <v-col lg="10" md="8"></v-col>
-          </v-row>
+          </v-card-text>
           <v-card-text class="black--text">
             Competitive Programming sounds cool, but you have no clue where to
             start? Took COMP 250 or 251 and craving some more algorithmic
