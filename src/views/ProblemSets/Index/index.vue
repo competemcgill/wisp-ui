@@ -77,6 +77,7 @@
 
 <script>
 import { api } from "@/gateways/wisp-api";
+import { eventBus } from "@/store/eventBus";
 import ProblemSet from "@/components/ProblemSets/Index/ProblemSet";
 
 export default {
@@ -92,6 +93,16 @@ export default {
       search: "",
       refreshLoading: false
     };
+  },
+
+  created() {
+    eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
+      this.problemSets = this.$store.state.problemSets;
+    });
+
+    eventBus.$on("REFRESH_PROBLEMS_SUCCESS", () => {
+      this.problemSets = this.$store.state.problemSets;
+    });
   },
 
   computed: {
@@ -116,15 +127,20 @@ export default {
   methods: {
     async reloadProblemSets() {
       this.refreshLoading = true;
-      const { data } = await api.get("/problemSets?includeProblems=true", {
-        headers: {
-          Authorization: this.$store.state.token
-        }
-      });
+      try {
+        const { data } = await api.get("/problemSets?includeProblems=true", {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
 
-      this.problemSets = data;
-      this.$store.dispatch("setProblemSets", data);
-      this.refreshLoading = false;
+        this.problemSets = data;
+        this.$store.dispatch("setProblemSets", data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.refreshLoading = false;
+      }
     },
 
     sortBy(prop, order, type) {
