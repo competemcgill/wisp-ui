@@ -29,8 +29,8 @@
               </v-row>
             </v-col>
           </v-card-text>
-            <v-card-title>What's this all about?</v-card-title>
-            <v-card-text class="black--text">
+          <v-card-title>What's this all about?</v-card-title>
+          <v-card-text class="black--text">
             Competitive Programming sounds cool (okay, that's debatable), but
             its one of those things that can be pretty daunting to start,
             particularly if you don't have any kind of guidance. That's why,
@@ -46,9 +46,9 @@
             understanding of all of the core algorithms needed for Competitive
             Programming, and a good amount of practice, especially coding them
             in Java and/or C++.
-            </v-card-text>
-            <v-card-title>Bi-Weekly Plan</v-card-title>
-            <v-card-text class="black--text">
+          </v-card-text>
+          <v-card-title>Bi-Weekly Plan</v-card-title>
+          <v-card-text class="black--text">
             <ul>
               <li>
                 <b>Monday (bi-weekly):</b> Problem Set and Readings are
@@ -67,9 +67,9 @@
                 this time to focus on improving!
               </li>
             </ul>
-            </v-card-text>
-            <v-card-title>Schedule</v-card-title>
-            <v-card-text class="black--text">
+          </v-card-text>
+          <v-card-title>Schedule</v-card-title>
+          <v-card-text class="black--text">
             <v-simple-table fixed-header height="300px">
               <thead>
                 <tr>
@@ -138,7 +138,7 @@
                 </tr>
               </tbody>
             </v-simple-table>
-            </v-card-text>
+          </v-card-text>
         </v-row>
       </v-container>
     </v-card>
@@ -167,7 +167,7 @@ export default {
         default:
           break;
       }
-    },
-  },
+    }
+  }
 };
 </script>
