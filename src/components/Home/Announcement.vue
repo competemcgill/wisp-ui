@@ -28,44 +28,117 @@
                 >
               </v-row>
             </v-col>
-            <v-col lg="10" md="8"></v-col>
           </v-card-text>
-          <v-card-text class="black--text">
-            Competitive Programming sounds cool, but you have no clue where to
-            start? Took COMP 250 or 251 and craving some more algorithmic
-            goodness? You're in luck: Compete McGill is hosting a Summer
-            Training Program for Summer 2020.
+            <v-card-title>What's this all about?</v-card-title>
+            <v-card-text class="black--text">
+            Competitive Programming sounds cool (okay, that's debatable), but
+            its one of those things that can be pretty daunting to start,
+            particularly if you don't have any kind of guidance. That's why,
+            this summer, while we're all quarantining, we're excited to invite
+            you to take part in Compete McGill's Summer Training 2.0!
             <br />
             <br />Participants will take part in a weekly reading group that
-            discusses the mother of all textbooks: Competitive Programming 3. By
-            the end of the summer, you'll have a decent understanding of all of
-            the core algorithms needed for Competitive Programming, and a good
-            amount of practice, especially coding them in Java and/or C++.
-            <br />
-            <br />At the start of every topic, check-in for the updated topics
-            and questions.
-            <br />
-            <br />Discussion sessions take place on Discord every Saturday from
-            2-3 pm so you can talk about the problem set and issues you're
-            having with our workshop leads (world-class competitive programmers
-            😉).
-            <br />
-            <br />Finally, at the end of every topic, we’ll have a friendly
-            competition so you can apply what you learn (all are welcome!!).
-            Workshop leads will upload a video of their competition walkthrough
-            for you to check out as well!
-          </v-card-text>
-          <v-card-text class="title black--text">To Join!</v-card-text>
-          <v-card-text class="black--text">
-            Sign up on the form found directly to the right of this post. You’ll
-            also want to join the Discord server for weekly discussions and
-            meetings, and the Facebook groups to post any questions. Don't
-            hesitate to reach us through our Facebook Group to ask the questions
-            you may have!
-            <br />
-            <br />Join us this summer for a laid back but productive training
-            and hit the ground running in the new school year!
-          </v-card-text>
+            discusses the mother of all Competitive Programming textbooks:
+            <a href="https://cpbook.net/" target="_blank"
+              >Competitive Programming 3</a
+            >
+            by Steven Halim. By the end of the summer, you'll have a decent
+            understanding of all of the core algorithms needed for Competitive
+            Programming, and a good amount of practice, especially coding them
+            in Java and/or C++.
+            </v-card-text>
+            <v-card-title>Bi-Weekly Plan</v-card-title>
+            <v-card-text class="black--text">
+            <ul>
+              <li>
+                <b>Monday (bi-weekly):</b> Problem Set and Readings are
+                released.
+              </li>
+              <li>
+                <b>Saturday (bi-weekly):</b> Discussion session takes place on
+                Discord from 2-3PM EST. Use this time to discuss any issues
+                you're having with our workshop leads who are all World-Class
+                Competitive Programmers.
+              </li>
+              <li>
+                <b>At the end of every topic (bi-weekly)</b>, we'll host a
+                friendly competition! This will give you some experience coding
+                in a time-constrained, (moderately) competitive enviornment! Use
+                this time to focus on improving!
+              </li>
+            </ul>
+            </v-card-text>
+            <v-card-title>Schedule</v-card-title>
+            <v-card-text class="black--text">
+            <v-simple-table fixed-header height="300px">
+              <thead>
+                <tr>
+                  <th class="text-left">Date</th>
+                  <th class="text-left">Topics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>May 18th</td>
+                  <td>
+                    <ul>
+                      <li>Introduction (Basic C++ Concepts)</li>
+                      <li>What is Competitive Programming?</li>
+                      <li>What does CP code look like?</li>
+                      <li>Input/Output</li>
+                      <li>Basic Data Structures</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>June 1st</td>
+                  <td>
+                    Data Structures:
+                    <ul>
+                      <li>Sets</li>
+                      <li>Maps</li>
+                      <li>Vectors</li>
+                      <li>Range Queries</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>June 15th</td>
+                  <td>
+                    Graph Algorithms
+                  </td>
+                </tr>
+                <tr>
+                  <td>June 29th</td>
+                  <td>
+                    <ul>
+                      <li>Sorting</li>
+                      <li>Searching</li>
+                      <li>Greedy Algorithms</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>July 13th</td>
+                  <td>
+                    Dynamic Programming
+                  </td>
+                </tr>
+                <tr>
+                  <td>July 27th</td>
+                  <td>
+                    Math
+                  </td>
+                </tr>
+                <tr>
+                  <td>August 10th</td>
+                  <td>
+                    String Algorithms
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+            </v-card-text>
         </v-row>
       </v-container>
     </v-card>
@@ -94,7 +167,7 @@ export default {
         default:
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
