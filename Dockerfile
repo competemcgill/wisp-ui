@@ -1,6 +1,8 @@
 FROM node:lts-alpine as build-stage
 ARG NODE_ENV=production
+ARG VUE_APP_WISP_API_URL
 ENV NODE_ENV=${NODE_ENV}
+ENV VUE_APP_WISP_API_URL=${VUE_APP_WISP_API_URL}
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
