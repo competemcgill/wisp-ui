@@ -3,7 +3,7 @@ name: Build, Tag, Publish and Deploy to GKE
 on:
   push:
     branches:
-      - master
+      - dev
 
 # Environment variables available to all jobs and steps in this workflow
 env:
