@@ -32,7 +32,7 @@
           <v-card-title>What's this all about?</v-card-title>
           <v-card-text>
             Competitive Programming sounds cool (okay, that's debatable), but
-            its one of those things that can be pretty daunting to start,
+            it's one of those things that can be pretty daunting to start,
             particularly if you don't have any kind of guidance. That's why,
             this summer, while we're all quarantining, we're excited to invite
             you to take part in Compete McGill's Summer Training 2.0!
