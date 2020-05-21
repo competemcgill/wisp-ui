@@ -42,7 +42,7 @@ jobs:
     - name: Build
       run: |        
         docker build -t "$DOCKER_ORGANIZATION"/"$IMAGE":dev-$(echo ${GITHUB_SHA} | cut -c1-8) \
-        --build-arg VUE_APP_WISP_API_URL=https://dev.api.wisp.training .
+        --build-arg VUE_APP_WISP_API_URL=https://dev-api.wisp.training .
     
     # Tag the Docker image
     - name: Tag
