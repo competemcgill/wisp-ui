@@ -78,7 +78,7 @@
                   <v-text-field
                     class="mb-3"
                     name="school"
-                    label="School"
+                    label="University"
                     id="school"
                     v-model="user.school"
                     type="school"
