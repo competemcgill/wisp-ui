@@ -1,8 +1,8 @@
 <template>
   <div class="dashboard">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase">
-        my sets
+      <h1 class="my-5 display-1 font-weight-light">
+        My Sets
         <v-btn
           text
           :loading="refreshLoading"

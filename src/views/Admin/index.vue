@@ -1,8 +1,8 @@
 <template>
   <div class="admin">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase">
-        admin
+      <h1 class="my-5 display-1 font-weight-light">
+        Admin
       </h1>
       <v-tabs background-color="white" color="primary" right>
         <v-tab>Problem Sets</v-tab>
