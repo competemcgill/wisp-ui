@@ -68,9 +68,13 @@ export default {
 
       for (const problemSet of this.problemSets) {
         this.problemCount += problemSet.problemCount;
-        const completedProblemCount = problemSet.problems.filter(
-          problem => problem.isComplete
-        ).length;
+        const completedProblemCount = problemSet.problems.filter(problem => {
+          let userProblem = this.$store.state.user.problems.filter(
+            currUserProblem => problem.problemId == currUserProblem.problemId
+          );
+          if (userProblem.length > 0) return userProblem[0].isComplete;
+          else return false;
+        }).length;
 
         if (completedProblemCount == problemSet.problems.length)
           this.completedProblemSetCount += 1;
