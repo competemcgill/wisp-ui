@@ -8,24 +8,30 @@
             >Welcome to Compete McGill's Summer Training</v-card-title
           >
           <v-card-text class="grey--text">Fri, May 15 2020</v-card-text>
-          <v-card-text>
+          <v-card-text class="social-link-icons">
             <v-col lg="2" md="4">
               <v-row justify="space-between">
-                <v-icon
-                  x-large
-                  class="primary--text"
-                  @click="openLink('discord')"
-                  >mdi-discord</v-icon
-                >
-                <v-icon
-                  x-large
-                  class="primary--text"
-                  @click="openLink('facebook')"
-                  >mdi-facebook</v-icon
-                >
-                <v-icon x-large class="primary--text" @click="openLink('form')"
-                  >mdi-clipboard-text-multiple</v-icon
-                >
+                <v-btn icon>
+                  <v-icon
+                    medium
+                    class="primary--text"
+                    @click="openLink('discord')"
+                    >mdi-discord</v-icon
+                  >
+                </v-btn>
+                <v-btn icon>
+                  <v-icon
+                    medium
+                    class="primary--text"
+                    @click="openLink('facebook')"
+                    >mdi-facebook</v-icon
+                  >
+                </v-btn>
+                <v-btn icon>
+                  <v-icon medium class="primary--text" @click="openLink('form')"
+                    >mdi-clipboard-text-multiple</v-icon
+                  >
+                </v-btn>
               </v-row>
             </v-col>
           </v-card-text>
@@ -176,5 +182,9 @@ export default {
 a {
   text-decoration: none;
   font-weight: bold;
+}
+
+.social-link-icons {
+  padding: 0px 15px;
 }
 </style>

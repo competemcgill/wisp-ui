@@ -2,7 +2,7 @@
 <template>
   <div class="signup">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase text-xs-center">
+      <h1 class="my-5 display-1 font-weight-light">
         Register
       </h1>
       <v-row class="my-5 py-5" justify="center" align="center">

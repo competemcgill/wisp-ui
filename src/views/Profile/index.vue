@@ -3,8 +3,8 @@
     <v-container class="my-5">
       <v-row align="center" class="mr-3">
         <v-col cols="12">
-          <h1 class="my-5 display-1 black--text text-uppercase">
-            profile
+          <h1 class="my-5 display-1 font-weight-light">
+            Profile
             <v-btn text @click="editDialogue = true" class="mb-2">
               <v-icon class="primary--text">mdi-pencil</v-icon>
             </v-btn>
