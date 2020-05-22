@@ -39,7 +39,7 @@
       </v-dialog>
       <v-row align="center" class="mr-3">
         <v-col cols="12" sm="8">
-          <h1 class="my-5 display-1 black--text text-uppercase">
+          <h1 class="my-5 display-1 font-weight-light">
             {{ problemSet.title }}
             <v-btn
               v-if="$store.state.user.role === 'ADMIN'"
