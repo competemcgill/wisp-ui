@@ -110,9 +110,7 @@
                 </tr>
                 <tr>
                   <td>June 15th</td>
-                  <td>
-                    Graph Algorithms
-                  </td>
+                  <td>Graph Algorithms</td>
                 </tr>
                 <tr>
                   <td>June 29th</td>
@@ -126,21 +124,15 @@
                 </tr>
                 <tr>
                   <td>July 13th</td>
-                  <td>
-                    Dynamic Programming
-                  </td>
+                  <td>Dynamic Programming</td>
                 </tr>
                 <tr>
                   <td>July 27th</td>
-                  <td>
-                    Math
-                  </td>
+                  <td>Math</td>
                 </tr>
                 <tr>
                   <td>August 10th</td>
-                  <td>
-                    String Algorithms
-                  </td>
+                  <td>String Algorithms</td>
                 </tr>
               </tbody>
             </v-simple-table>

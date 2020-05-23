@@ -10,21 +10,15 @@
     <v-row>
       <v-col>
         <h1 class="subtitle-1 grey--text ml-5 mb-5">
-          <v-icon class="ml-2">
-            mdi-check-bold
-          </v-icon>
+          <v-icon class="ml-2">mdi-check-bold</v-icon>
           Problems Completed
-
           <v-chip class="ma-2" color="success" dark
             >{{ getNumSolvedProblems() }} / {{ problemCount }}</v-chip
           >
         </h1>
 
         <h1 class="subtitle-1 grey--text ml-5 mb-5">
-          <v-icon class="ml-2">
-            mdi-check-all
-          </v-icon>
-          Problems Sets Completed
+          <v-icon class="ml-2">mdi-check-all</v-icon>Problems Sets Completed
           <v-chip class="ma-2" color="success" dark>
             {{ completedProblemSetCount }} /
             {{ problemSets.length }}
