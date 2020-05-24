@@ -21,7 +21,11 @@ export default {
 
   async created() {
     if (this.$store.state.token) {
-      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      await Promise.all([
+        this.getProblemSets(),
+        this.getProblems(),
+        this.getUserData()
+      ]);
       eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     }
 
@@ -61,6 +65,16 @@ export default {
       });
 
       this.$store.dispatch("setProblems", data);
+    },
+
+    async getUserData() {
+      const { data } = await api.get(`/users/${this.$store.state.user._id}`, {
+        headers: {
+          Authorization: this.$store.state.token
+        }
+      });
+
+      this.$store.dispatch("setUser", data);
     }
   }
 };
