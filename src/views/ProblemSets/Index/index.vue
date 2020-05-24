@@ -3,8 +3,8 @@
     <v-container class="my-5">
       <v-row>
         <v-col cols="12" sm="8">
-          <h1 class="my-5 display-1 black--text text-uppercase">
-            problem sets
+          <h1 class="my-5 display-1 font-weight-light">
+            Problem Sets
             <v-btn
               text
               :loading="refreshLoading"

@@ -1,8 +1,8 @@
 <template>
   <div class="login">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 black--text text-uppercase text-xs-center">
-        login
+      <h1 class="my-5 display-1 font-weight-light">
+        Login
       </h1>
       <v-row class="my-5 py-5">
         <v-col cols="0" sm="3"></v-col>
