@@ -1,7 +1,7 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
   configureWebpack: config => {
-    config.output.filename = `[name].${Date.now().valueOf()}.[chunkhash].js`;
+    config.output.filename = `[name].${Date.now().valueOf()}.[hash].js`;
   },
   devServer: {
     watchOptions: {
