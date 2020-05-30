@@ -3,10 +3,12 @@
     <v-card hover @click="showProblems" class="px-3">
       <v-container>
         <v-row>
-          <v-col cols="6" class="primary--text">{{ problemSet.problemCount }} questions</v-col>
+          <v-col cols="6" class="primary--text"
+            >{{ problemSet.problemCount }} questions</v-col
+          >
           <v-col cold="6" class="primary--text text-right">
             {{ completed }}/{{
-            problemSet.problemCount ? problemSet.problemCount : "0"
+              problemSet.problemCount ? problemSet.problemCount : "0"
             }}
             completed
           </v-col>
@@ -17,15 +19,18 @@
         </v-row>
         <v-row>
           <v-col cols="12" class="subtext grey--text text-truncate">
-            {{
-            problemSet.description
-            }}
+            {{ problemSet.description }}
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="10">
             <v-chip-group column>
-              <v-chip label v-for="(tag, index) in problemSet.tags" :key="index">{{ tag }}</v-chip>
+              <v-chip
+                label
+                v-for="(tag, index) in problemSet.tags"
+                :key="index"
+                >{{ tag }}</v-chip
+              >
             </v-chip-group>
           </v-col>
           <v-col cols="2" justify="right" align="right">
@@ -46,6 +51,7 @@
 
 <script>
 import Problem from "@/components/Dashboard/Problem";
+import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "DashboardProblemSet",
@@ -64,9 +70,9 @@ export default {
   },
 
   mounted() {
-    loadData();
+    this.loadData();
     eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
-      loadData();
+      this.loadData();
     });
   },
 

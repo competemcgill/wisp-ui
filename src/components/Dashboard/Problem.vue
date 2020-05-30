@@ -7,7 +7,8 @@
           :class="
             difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
           "
-        >{{ problem.problemMetadata.difficulty }}</v-chip>
+          >{{ problem.problemMetadata.difficulty }}</v-chip
+        >
       </v-col>
     </v-row>
     <v-row>
@@ -15,7 +16,9 @@
     </v-row>
     <v-row>
       <v-col cols="4">
-        <v-chip label :class="'white--text ' + statusColor">{{ status }}</v-chip>
+        <v-chip label :class="'white--text ' + statusColor">
+          {{ status }}
+        </v-chip>
       </v-col>
     </v-row>
   </v-card>
@@ -40,9 +43,9 @@ export default {
   },
 
   mounted() {
-    loadData();
+    this.loadData();
     eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
-      loadData();
+      this.loadData();
     });
   },
 
