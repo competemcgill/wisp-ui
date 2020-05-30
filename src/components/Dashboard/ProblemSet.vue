@@ -1,6 +1,6 @@
 <template>
   <v-container class="pl-0">
-    <v-card hover @click="showProblems" class="px-3">
+    <v-card hover @click="expandProblems" class="px-3">
       <v-container>
         <v-row>
           <v-col cols="6" class="primary--text"
@@ -18,9 +18,9 @@
           <v-col class="title font-weight-medium">{{ problemSet.title }}</v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" class="subtext grey--text text-truncate">
-            {{ problemSet.description }}
-          </v-col>
+          <v-col cols="12" class="subtext grey--text text-truncate">{{
+            problemSet.description
+          }}</v-col>
         </v-row>
         <v-row>
           <v-col cols="10">
@@ -77,7 +77,7 @@ export default {
   },
 
   methods: {
-    showProblems() {
+    expandProblems() {
       this.showProblems = !this.showProblems;
     },
     loadData() {
