@@ -1,14 +1,12 @@
 <template>
   <v-container class="pl-0">
-    <v-card hover @click="loadProblems" class="px-3">
+    <v-card hover @click="showProblems" class="px-3">
       <v-container>
         <v-row>
-          <v-col cols="6" class="primary--text"
-            >{{ problemSet.problemCount }} questions</v-col
-          >
+          <v-col cols="6" class="primary--text">{{ problemSet.problemCount }} questions</v-col>
           <v-col cold="6" class="primary--text text-right">
             {{ completed }}/{{
-              problemSet.problemCount ? problemSet.problemCount : "0"
+            problemSet.problemCount ? problemSet.problemCount : "0"
             }}
             completed
           </v-col>
@@ -18,20 +16,16 @@
           <v-col class="title font-weight-medium">{{ problemSet.title }}</v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" class="subtext grey--text text-truncate">{{
+          <v-col cols="12" class="subtext grey--text text-truncate">
+            {{
             problemSet.description
-          }}</v-col>
+            }}
+          </v-col>
         </v-row>
         <v-row>
           <v-col cols="10">
             <v-chip-group column>
-              <v-chip
-                label
-                v-for="(tag, index) in problemSet.tags"
-                :key="index"
-              >
-                {{ tag }}
-              </v-chip>
+              <v-chip label v-for="(tag, index) in problemSet.tags" :key="index">{{ tag }}</v-chip>
             </v-chip-group>
           </v-col>
           <v-col cols="2" justify="right" align="right">
@@ -70,22 +64,29 @@ export default {
   },
 
   mounted() {
-    this.problems = this.problemSet.problems;
-    for (let userProblem of this.$store.state.user.problems) {
-      for (let problem of this.problems) {
-        if (userProblem.problemId == problem.problemId) {
-          problem.userProblem = userProblem;
-          if (userProblem.status == "OK") {
-            this.completed++;
-          }
-        }
-      }
-    }
+    loadData();
+    eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
+      loadData();
+    });
   },
 
   methods: {
-    async loadProblems() {
+    showProblems() {
       this.showProblems = !this.showProblems;
+    },
+    loadData() {
+      this.completed = 0;
+      this.problems = this.problemSet.problems;
+      for (let userProblem of this.$store.state.user.problems) {
+        for (let problem of this.problems) {
+          if (userProblem.problemId == problem.problemId) {
+            problem.userProblem = userProblem;
+            if (userProblem.status == "OK") {
+              this.completed++;
+            }
+          }
+        }
+      }
     }
   }
 };
