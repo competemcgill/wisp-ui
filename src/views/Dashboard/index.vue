@@ -44,6 +44,7 @@
 import { api } from "@/gateways/wisp-api";
 import ProblemSet from "@/components/Dashboard/ProblemSet";
 import Stats from "@/components/Dashboard/Stats";
+import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "Dashboard",
@@ -79,9 +80,10 @@ export default {
           Authorization: this.$store.state.token
         }
       });
-
       this.$store.dispatch("setUser", data);
       this.filterProblemSets();
+
+      eventBus.$emit("REFRESH_USERS_SUCCESS");
       this.refreshLoading = false;
     }
   }
