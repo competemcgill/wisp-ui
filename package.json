@@ -43,13 +43,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "...": "..."
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*": [
-      "vue-cli-service lint"
+    "src/*": [
+      "npm lint"
     ]
   }
 }
