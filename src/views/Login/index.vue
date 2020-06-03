@@ -59,7 +59,6 @@ export default {
 
   data() {
     return {
-      name: "",
       error: "",
       loading: false,
       user: {
