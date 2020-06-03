@@ -43,8 +43,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "lint-staged",
       "...": "..."
     }
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "eslint . --fix", "git add"
+    ],
+    "src/**/*": [
+      "stylelint --syntax scss --fix", "git add"
+    ]
   }
 }
