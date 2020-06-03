@@ -50,9 +50,6 @@
   "lint-staged": {
     "src/**/*": [
       "vue-cli-service lint", "git add"
-    ],
-    "src/**/*": [
-      "stylelint --syntax scss --fix", "git add"
     ]
   }
 }
