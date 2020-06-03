@@ -47,8 +47,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "vue-cli-service lint"
-    ]
+    "src/**/*.{js,vue}": "vue-cli-service lint"
   }
 }
