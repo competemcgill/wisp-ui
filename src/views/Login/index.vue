@@ -57,7 +57,7 @@ import { eventBus } from "@/store/eventBus";
 export default {
   name: "Login",
 
-  data() {
+          data() {
     return {
       error: "",
       loading: false,
