@@ -49,7 +49,7 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "eslint . --fix", "git add"
+      "vue-cli-service lint", "git add"
     ],
     "src/**/*": [
       "stylelint --syntax scss --fix", "git add"
