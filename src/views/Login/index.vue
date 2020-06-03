@@ -59,7 +59,7 @@ export default {
 
   data() {
     return {
-              foo:"",
+                  foo:"",
       error: "",
       loading: false,
       user: {
