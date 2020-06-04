@@ -79,7 +79,7 @@ export default {
       this.loading = true;
       try {
         const { data } = await api.post("/auth/login", {
-            email: this.user.email,
+          email: this.user.email,
           password: this.user.password
         });
         this.$store.dispatch("setToken", data.token);
