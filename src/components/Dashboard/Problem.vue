@@ -7,9 +7,8 @@
           :class="
             difficultyColor(problem.problemMetadata.difficulty) + ' white--text'
           "
+          >{{ problem.problemMetadata.difficulty }}</v-chip
         >
-          {{ problem.problemMetadata.difficulty }}
-        </v-chip>
       </v-col>
     </v-row>
     <v-row>
@@ -26,6 +25,8 @@
 </template>
 
 <script>
+import { eventBus } from "@/store/eventBus";
+
 export default {
   name: "DashboardProblem",
 
@@ -42,18 +43,24 @@ export default {
   },
 
   mounted() {
-    if (this.problem.userProblem) {
-      this.userProblem = this.problem.userProblem;
-      this.status = this.userProblem.status;
-      if (this.status == "OK") {
-        this.statusColor = "green";
-      } else {
-        this.statusColor = "orange";
-      }
-    }
+    this.loadData();
+    eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
+      this.loadData();
+    });
   },
 
   methods: {
+    loadData() {
+      if (this.problem.userProblem) {
+        this.userProblem = this.problem.userProblem;
+        this.status = this.userProblem.status;
+        if (this.status == "OK") {
+          this.statusColor = "green";
+        } else {
+          this.statusColor = "orange";
+        }
+      }
+    },
     problemClicked(problem) {
       window.open(problem.sourceLink, "_blank");
     },

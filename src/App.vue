@@ -44,6 +44,11 @@ export default {
       await this.getProblemSets();
       eventBus.$emit("REFRESH_PROBLEMS_SUCCESS");
     });
+
+    eventBus.$on("REFRESH_USER", async () => {
+      await this.getUserData();
+      eventBus.$emit("REFRESH_USERS_SUCCESS");
+    });
   },
 
   methods: {

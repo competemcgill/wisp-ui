@@ -1,6 +1,6 @@
 <template>
   <v-container class="pl-0">
-    <v-card hover @click="loadProblems" class="px-3">
+    <v-card hover @click="expandProblems" class="px-3">
       <v-container>
         <v-row>
           <v-col cols="6" class="primary--text"
@@ -29,9 +29,8 @@
                 label
                 v-for="(tag, index) in problemSet.tags"
                 :key="index"
+                >{{ tag }}</v-chip
               >
-                {{ tag }}
-              </v-chip>
             </v-chip-group>
           </v-col>
           <v-col cols="2" justify="right" align="right">
@@ -52,6 +51,7 @@
 
 <script>
 import Problem from "@/components/Dashboard/Problem";
+import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "DashboardProblemSet",
@@ -70,22 +70,29 @@ export default {
   },
 
   mounted() {
-    this.problems = this.problemSet.problems;
-    for (let userProblem of this.$store.state.user.problems) {
-      for (let problem of this.problems) {
-        if (userProblem.problemId == problem.problemId) {
-          problem.userProblem = userProblem;
-          if (userProblem.status == "OK") {
-            this.completed++;
-          }
-        }
-      }
-    }
+    this.loadData();
+    eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
+      this.loadData();
+    });
   },
 
   methods: {
-    async loadProblems() {
+    expandProblems() {
       this.showProblems = !this.showProblems;
+    },
+    loadData() {
+      this.completed = 0;
+      this.problems = this.problemSet.problems;
+      for (let userProblem of this.$store.state.user.problems) {
+        for (let problem of this.problems) {
+          if (userProblem.problemId == problem.problemId) {
+            problem.userProblem = userProblem;
+            if (userProblem.status == "OK") {
+              this.completed++;
+            }
+          }
+        }
+      }
     }
   }
 };
