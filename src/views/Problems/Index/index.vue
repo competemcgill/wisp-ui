@@ -121,7 +121,7 @@ export default {
       problemsTable: [],
       refreshLoading: false,
       deleteDialogue: false,
-      problemTodeleteId: "",
+      problemToDeleteId: "",
       search: ""
     };
   },
