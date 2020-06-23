@@ -5,7 +5,7 @@
         <v-col cols="12">
           <h1 class="my-5 display-1 font-weight-light">
             Profile
-            <v-btn text @click="editDialogue = true" class="mb-2">
+            <v-btn text @click="editDialogue = true" :disabled="user.role === 'ADMIN'" class="mb-2">
               <v-icon class="primary--text">mdi-pencil</v-icon>
             </v-btn>
           </h1>
