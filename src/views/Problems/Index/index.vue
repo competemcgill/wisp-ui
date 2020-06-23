@@ -38,9 +38,20 @@
             </v-btn>
           </h1>
         </v-col>
+
+        <v-col cols="0" sm="1"></v-col>
+
+        <v-col cols="12" sm="3">
+          <v-text-field
+            name="search"
+            label="Search"
+            v-model="search"
+            prepend-icon="mdi-magnify"
+          ></v-text-field>
+        </v-col>
       </v-row>
       <v-card>
-        <v-data-table :headers="headers" :items="problemsTable">
+        <v-data-table :headers="headers" :items="filteredProblems">
           <template v-slot:item.actions="{ item }">
             <v-btn fab small text class="primary--text">
               <v-icon @click="linkClicked(item)">mdi-open-in-new</v-icon>
@@ -82,41 +93,54 @@ export default {
           align: "start",
           sortable: true,
           value: "title",
-          class: "subtitle-1 font-weight-regular primary--text"
+          class: "subtitle-1 font-weight-regular white--text"
         },
         {
           text: "Difficulty",
           align: "start",
           sortable: true,
           value: "difficulty",
-          class: "subtitle-1 font-weight-regular primary--text"
+          class: "subtitle-1 font-weight-regular white--text"
         },
         {
           text: "Platform",
           align: "start",
           sortable: true,
           value: "platform",
-          class: "subtitle-1 font-weight-regular primary--text"
+          class: "subtitle-1 font-weight-regular white--text"
         },
         {
           text: "Actions",
           align: "start",
           sortable: false,
           value: "actions",
-          class: "subtitle-1 font-weight-regular primary--text"
+          class: "subtitle-1 font-weight-regular white--text"
         }
       ],
       problems: [],
       problemsTable: [],
       refreshLoading: false,
       deleteDialogue: false,
-      problemTodeleteId: ""
+      problemToDeleteId: "",
+      search: ""
     };
   },
 
   mounted() {
     this.problems = this.$store.state.problems;
     this.populateTableData();
+  },
+
+  computed: {
+    filteredProblems() {
+      return this.problemsTable.filter(problem => {
+        return (
+          problem.title.toLowerCase().includes(this.search.toLowerCase()) ||
+          problem.platform.toLowerCase().includes(this.search.toLowerCase()) ||
+          problem.difficulty.toLowerCase().includes(this.search.toLowerCase())
+        );
+      });
+    }
   },
 
   methods: {
@@ -199,3 +223,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-data-table >>> thead tr th {
+  background-color: #8f1d14 !important;
+}
+</style>
