@@ -9,6 +9,7 @@ on:
 env:
   GITHUB_SHA: ${{ github.sha }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   DOCKER_ORGANIZATION: ${{ secrets.DOCKER_ORGANIZATION }} 
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: wisp-prod
