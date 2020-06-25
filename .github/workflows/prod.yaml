@@ -67,4 +67,4 @@ jobs:
     # Deploy to GKE cluster using helm
     - name: Deploy
       run: |-
-        helm upgrade --atomic --install prod-problems ./chart/wisp-problems/ --namespace prod --set image.tag=$(echo ${GITHUB_SHA} | cut -c1-8) --set replicaCount=2
+        helm upgrade --atomic --install prod-ui ./chart/wisp-ui/ --namespace prod --set image.tag=$(echo ${GITHUB_SHA} | cut -c1-8) --set replicaCount=2
