@@ -14,8 +14,8 @@
             class="mb-3"
             label="Email"
             width="50%"
-            :rules="emailRules"
-            @keyup.enter="login"
+            :rules="[emailRules]"
+            @keyup.enter="onEnter"
             v-model="user.email"
             prepend-icon="mdi-account"
             required
@@ -28,7 +28,7 @@
             label="Password"
             width="50%"
             v-model="user.password"
-            @keyup.enter="login"
+            @keyup.enter="onEnter"
             prepend-icon="mdi-key"
             required
           ></v-text-field>
@@ -38,6 +38,7 @@
           <v-btn
             text
             :loading="loading"
+            :disabled="loginDisabled"
             @click="login"
             class="background mx-0 mt-3 primary--text text-uppercase"
             >login</v-btn
@@ -61,17 +62,18 @@ export default {
     return {
       error: "",
       loading: false,
+      loginDisabled: false,
       user: {
         email: "",
         password: ""
-      },
-      emailRules: [
-        v =>
-          !v ||
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          "E-mail must be valid"
-      ]
+      }
     };
+  },
+
+  computed: {
+    onEnter() {
+      return this.loginDisabled ? null : this.login;
+    }
   },
 
   methods: {
@@ -94,6 +96,15 @@ export default {
         this.error = err.response.data.message;
       } finally {
         this.loading = false;
+      }
+    },
+
+    emailRules(v) {
+      if (!v || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
+        this.loginDisabled = true;
+        return "Email must be valid";
+      } else {
+        this.loginDisabled = false;
       }
     }
   }
