@@ -79,13 +79,17 @@ export default {
     async untrack() {
       try {
         this.loading = true;
-        const { data } = await api.get(`/users/${this.$store.state.user._id}`, {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
-        data.problemSets = data.problemSets.filter(
+        this.$store.state.user.problemSets = this.$store.state.user.problemSets.filter(
           problemSet => problemSet != this.$route.params.id
+        );
+        const { data } = await api.put(
+          `/users/${this.$store.state.user._id}`,
+          this.$store.state.user,
+          {
+            headers: {
+              Authorization: this.$store.state.token
+            }
+          }
         );
         this.$store.dispatch("setUser", data);
         this.trackBtnTxt = "track";
