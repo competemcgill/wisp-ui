@@ -102,9 +102,10 @@ export default {
     emailRules(v) {
       if (!v || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
         this.loginDisabled = true;
-        return "Email must be valid";
+        return "E-mail must be valid";
       } else {
         this.loginDisabled = false;
+        return true;
       }
     }
   }
