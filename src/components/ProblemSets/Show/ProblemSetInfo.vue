@@ -7,8 +7,7 @@
       <v-col class="text-right">
         <v-btn
           :loading="loading"
-          :disabled="checkTrackedProblemSet()"
-          @click="track()"
+          @click="checkTrackedProblemSet() ? untrack() : track()"
           class="primary text-uppercase mr-2"
         >
           {{ trackBtnTxt }}
@@ -43,7 +42,7 @@ export default {
   data() {
     return {
       loading: false,
-      trackBtnTxt: this.checkTrackedProblemSet() ? "tracked" : "track"
+      trackBtnTxt: this.checkTrackedProblemSet() ? "untrack" : "track"
     };
   },
 
@@ -52,7 +51,6 @@ export default {
       for (const problemSetId of this.$store.state.user.problemSets) {
         if (problemSetId == this.$route.params.id) return true;
       }
-
       return false;
     },
 
@@ -70,9 +68,27 @@ export default {
             }
           }
         );
-
         this.$store.dispatch("setUser", data);
-        this.trackBtnTxt = "tracked";
+        this.trackBtnTxt = "untrack";
+        this.loading = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async untrack() {
+      try {
+        this.loading = true;
+        const { data } = await api.get(`/users/${this.$store.state.user._id}`, {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
+        data.problemSets = data.problemSets.filter(
+          problemSet => problemSet != this.$route.params.id
+        );
+        this.$store.dispatch("setUser", data);
+        this.trackBtnTxt = "track";
         this.loading = false;
       } catch (err) {
         console.log(err);
