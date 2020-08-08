@@ -1,52 +1,53 @@
 <template>
   <div class="login">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 font-weight-light">
-        Login
-      </h1>
-      <v-row class="my-5 py-5">
-        <v-col cols="0" sm="3"></v-col>
+      <v-form v-model="loginDisabled">
+        <h1 class="my-5 display-1 font-weight-light">Login</h1>
+        <v-row class="my-5 py-5">
+          <v-col cols="0" sm="3"></v-col>
 
-        <v-col cols="12" sm="6" class="my-5 py-5">
-          <v-text-field
-            type="email"
-            name="email"
-            class="mb-3"
-            label="Email"
-            width="50%"
-            :rules="[emailRules]"
-            @keyup.enter="onEnter"
-            v-model="user.email"
-            prepend-icon="mdi-account"
-            required
-          ></v-text-field>
+          <v-col cols="12" sm="6" class="my-5 py-5">
+            <v-text-field
+              type="email"
+              name="email"
+              class="mb-3"
+              label="Email"
+              width="50%"
+              :rules="[emailRules]"
+              @keyup.enter="onEnter"
+              v-model="user.email"
+              prepend-icon="mdi-account"
+              required
+            ></v-text-field>
 
-          <v-text-field
-            type="password"
-            name="password"
-            class="mb-3"
-            label="Password"
-            width="50%"
-            v-model="user.password"
-            @keyup.enter="onEnter"
-            prepend-icon="mdi-key"
-            required
-          ></v-text-field>
+            <v-text-field
+              type="password"
+              name="password"
+              class="mb-3"
+              label="Password"
+              width="50%"
+              :rules="[passwordRules]"
+              @keyup.enter="onEnter"
+              v-model="user.password"
+              prepend-icon="mdi-key"
+              required
+            ></v-text-field>
 
-          <div class="primary--text" v-html="error"></div>
+            <div class="primary--text" v-html="error"></div>
 
-          <v-btn
-            text
-            :loading="loading"
-            :disabled="loginDisabled"
-            @click="login"
-            class="background mx-0 mt-3 primary--text text-uppercase"
-            >login</v-btn
-          >
-        </v-col>
+            <v-btn
+              text
+              :loading="loading"
+              :disabled="!loginDisabled"
+              @click="login"
+              class="background mx-0 mt-3 primary--text text-uppercase"
+              >login</v-btn
+            >
+          </v-col>
 
-        <v-col cols="0" sm="3"></v-col>
-      </v-row>
+          <v-col cols="0" sm="3"></v-col>
+        </v-row>
+      </v-form>
     </v-container>
   </div>
 </template>
@@ -72,7 +73,7 @@ export default {
 
   computed: {
     onEnter() {
-      return this.loginDisabled ? null : this.login;
+      return this.loginDisabled ? this.login : null;
     }
   },
 
@@ -101,10 +102,16 @@ export default {
 
     emailRules(v) {
       if (!v || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)) {
-        this.loginDisabled = true;
         return "E-mail must be valid";
       } else {
-        this.loginDisabled = false;
+        return true;
+      }
+    },
+
+    passwordRules(v) {
+      if (!v || v.length < 6) {
+        return "Password must be valid";
+      } else {
         return true;
       }
     }
