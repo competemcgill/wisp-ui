@@ -140,6 +140,52 @@
                       }}
                     </h1>
                   </v-col>
+                  <v-row align="center" class="mr-3">
+                    <v-col class="mx-1">
+                      <v-btn
+                        class="white--text primary"
+                        @click="deleteDialog = true"
+                      >
+                        DELETE ACCOUNT
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <div class="text-center">
+                    <v-dialog v-model="deleteDialog" width="500">
+                      <v-card>
+                        <v-card-title
+                          class="white--text headline primary py-3 pl-5"
+                        >
+                          Warning
+                        </v-card-title>
+
+                        <v-card-text class="mt-5">
+                          This action will permanently delete your account.
+                          Click delete my account if you wish to proceed.
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            :loading="updateLoading"
+                            class="primary"
+                            @click="deleteUser()"
+                          >
+                            Delete my account
+                          </v-btn>
+                          <v-btn
+                            text
+                            @click="deleteDialog = false"
+                            class="primary--text"
+                          >
+                            Cancel
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
                 </v-row>
               </v-col>
             </v-row>
@@ -238,6 +284,7 @@ export default {
       error: "",
       userBuffer: {},
       editDialogue: false,
+      deleteDialog: false,
       updateLoading: false
     };
   },
@@ -269,6 +316,29 @@ export default {
       } finally {
         this.updateLoading = false;
       }
+    },
+
+    async deleteUser() {
+      try {
+        this.updateLoading = true;
+        await api.delete(`/users/${this.user._id}`, {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        });
+        this.deleteDialog = false;
+        this.logout();
+      } catch (err) {
+        this.error = err.response.data.message;
+      } finally {
+        this.updateLoading = false;
+      }
+    },
+
+    logout() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setUser", null);
+      this.$router.push("/");
     },
 
     resetUserBuffer() {
