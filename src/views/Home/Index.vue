@@ -2,7 +2,7 @@
 <template>
   <div class="home">
     <v-container class="my-5">
-      <h1 class="my-5 display-1 font-weight-light">Home</h1>
+      <h1 class="my-5 display-1 font-weight-light">{{ $t("home") }}</h1>
       <announcement />
       <!-- <news /> -->
     </v-container>
