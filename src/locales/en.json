@@ -1,3 +1,16 @@
 {
-    "home": "Home sweet home"
+    "wisp": "WISP",
+    "about-wisp": "WISP is a project developed by Compete McGill aimed at creating a fluid and fun experience for club members to learn competitive programming.",
+    "here-for-everyone": "Here for everyone",
+    "data-structures-and-algorithms": "Data Structures and Algorithms",
+    "technical-skills": "Technical Skills",
+    "workshops-mock-interviews": "Workshops and Mock Interviews",
+
+    "compete-mcgill": "Compete McGill",
+    "compete-mcgill-mission": "Compete McGill (a.k.a Competitive Programming at McGill) is devoted to helping students push their limits in Computer Science and Software Engineering. While we do send teams to represent McGill competitively, our main goal is to train any student, regardless of skill level and prior knowledge - whether their purpose is to compete, to get a job or just to have some fun!",
+    "compete-mcgill-primary-goal": "At Compete McGill, one of our primary goals is to build a community we have events for all skill levels - so come join the family!",
+    "compete-mcgill-events": "We organize lots of events year-round to train your DS and Algorithms Skills, both so that you can compete and for your future careers!",
+    "compete-mcgill-training": "We also help you train your technical skills. From Software Engineering to Functional Programming to Security, you'll get a lot of practice that you can apply to your personal events as well!",
+    "compete-mcgill-is-fun":"Competitive Programming is fun, but you also need to get a job! We organize lots of workshops and mock interview sessions to give you a helping hand in getting that internship / job!",
+    "compete-mcgill-interships": "Members Interning and Working At: Amazon, Google, Microsoft and lots more!"
 }

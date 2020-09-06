@@ -7,7 +7,7 @@
           <h1
             class="my-5 text-center primary--text display-2 font-weight-light"
           >
-            WISP
+            {{ $t("wisp") }}
           </h1>
         </v-col>
       </v-row>
@@ -15,9 +15,7 @@
         <v-col cols="0" sm="3"></v-col>
         <v-col cols="12" sm="6">
           <h1 class="my-5 text-center subtitle-1">
-            WISP is a project developed by Compete McGill aimed at creating a
-            fluid and fun experience for club members to learn competitive
-            programming.
+            {{ $t("about-wisp") }}
           </h1>
         </v-col>
         <v-col cols="0" sm="3"></v-col>
@@ -28,7 +26,7 @@
           <h1
             class="my-5 text-center primary--text display-2 font-weight-light"
           >
-            Compete McGill
+            {{ $t("compete-mcgill") }}
           </h1>
         </v-col>
       </v-row>
@@ -36,12 +34,7 @@
         <v-col cols="0" sm="3"></v-col>
         <v-col cols="12" sm="6">
           <h1 class="my-5 text-center subtitle-1">
-            Compete McGill (a.k.a Competitive Programming at McGill) is devoted
-            to helping students push their limits in Computer Science and
-            Software Engineering. While we do send teams to represent McGill
-            competitively, our main goal is to train any student, regardless of
-            skill level and prior knowledge - whether their purpose is to
-            compete, to get a job or just to have some fun!
+            {{ $t("compete-mcgill-mission") }}
           </h1>
         </v-col>
         <v-col cols="0" sm="3"></v-col>
@@ -57,7 +50,7 @@
               <v-card :elevation="hover ? 7 : 2">
                 <v-card-title class="primary">
                   <h2 class="headline white--text font-weight-light">
-                    Here for everyone
+                    {{ $t("here-for-everyone") }}
                   </h2>
                 </v-card-title>
                 <v-container class="py-0 pl-0">
@@ -79,9 +72,7 @@
                       align="center"
                       class="pa-4 subtitle-2 font-weight-regular"
                     >
-                      At Compete McGill, one of our primary goals is to build a
-                      community we have events for all skill levels - so come
-                      join the family!
+                      {{ $t("compete-mcgill-primary-goal") }}
                     </v-col>
                   </v-row>
                 </v-container>
@@ -93,7 +84,7 @@
               <v-card :elevation="hover ? 7 : 2">
                 <v-card-title class="primary">
                   <h2 class="headline white--text font-weight-light">
-                    Data Structures and Algorithms
+                    {{ $t("data-structures-and-algorithms") }}
                   </h2>
                 </v-card-title>
                 <v-container class="py-0 pl-0">
@@ -115,9 +106,7 @@
                       align="center"
                       class="pa-4 subtitle-2 font-weight-regular"
                     >
-                      We organize lots of events year-round to train your DS and
-                      Algorithms Skills, both so that you can compete and for
-                      your future careers!
+                      {{ $t("compete-mcgill-events") }}
                     </v-col>
                   </v-row>
                 </v-container>
@@ -129,7 +118,7 @@
               <v-card :elevation="hover ? 7 : 2">
                 <v-card-title class="primary">
                   <h2 class="headline white--text font-weight-light">
-                    Technical Skills
+                    {{ $t("technical-skills") }}
                   </h2>
                 </v-card-title>
                 <v-container class="py-0 pl-0">
@@ -151,10 +140,7 @@
                       align="center"
                       class="pa-4 subtitle-2 font-weight-regular"
                     >
-                      We also help you train your technical skills. From
-                      Software Engineering to Functional Programming to
-                      Security, you'll get a lot of practice that you can apply
-                      to your personal events as well!
+                      {{ $t("compete-mcgill-training") }}
                     </v-col>
                   </v-row>
                 </v-container>
@@ -166,7 +152,7 @@
               <v-card :elevation="hover ? 7 : 2">
                 <v-card-title class="primary">
                   <h2 class="headline white--text font-weight-light">
-                    Workshops and Mock Interviews
+                    {{ $t("workshops-mock-interviews") }}
                   </h2>
                 </v-card-title>
                 <v-container class="py-0 pl-0">
@@ -188,15 +174,11 @@
                       align="center"
                       class="pa-4 subtitle-2 font-weight-regular"
                     >
-                      Competitive Programming is fun, but you also need to get a
-                      job! We organize lots of workshops and mock interview
-                      sessions to give you a helping hand in getting that
-                      internship / job!
+                      {{ $t("compete-mcgill-is-fun") }}
                       <br />
                       <br />
                       <span class="caption">
-                        Members Interning and Working At: Amazon, Google,
-                        Microsoft and lots more!
+                        {{ $t("compete-mcgill-internships") }}
                       </span>
                     </v-col>
                   </v-row>
