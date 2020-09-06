@@ -10,7 +10,7 @@
 <script>
 import { api } from "@/gateways/wisp-api";
 import { eventBus } from "@/store/eventBus";
-import Navbar from "@/components/Shared/NavBar";
+import Navbar from "@/components/Core/NavBar";
 
 export default {
   name: "App",

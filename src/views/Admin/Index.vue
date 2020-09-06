@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import ProblemSetForm from "@/components/Admin/ProblemSetForm";
-import ProblemForm from "@/components/Admin/ProblemForm";
+import ProblemSetForm from "./components/ProblemSetForm";
+import ProblemForm from "./components/ProblemForm";
 
 export default {
   name: "Admin",

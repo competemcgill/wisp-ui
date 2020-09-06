@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import Problem from "@/components/Dashboard/Problem";
+import Problem from "./Problem";
 import { eventBus } from "@/store/eventBus";
 
 export default {

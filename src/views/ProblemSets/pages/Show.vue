@@ -81,8 +81,8 @@
 <script>
 import { api } from "@/gateways/wisp-api";
 import { eventBus } from "@/store/eventBus";
-import ProblemSetInfo from "@/components/ProblemSets/Show/ProblemSetInfo";
-import ProblemInfo from "@/components/ProblemSets/Show/ProblemInfo";
+import ProblemSetInfo from "../components/ProblemSetInfo";
+import ProblemInfo from "../components/ProblemInfo";
 
 export default {
   name: "ProblemSet",

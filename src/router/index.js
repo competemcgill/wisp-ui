@@ -1,17 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home";
-import About from "../views/About";
-import Login from "../views/Login";
-import SignUp from "../views/SignUp";
-import Settings from "../views/Settings";
-import Profile from "../views/Profile";
-import Dashboard from "../views/Dashboard";
+import Home from "../views/Home/Index";
+import About from "../views/About/Index";
+import Login from "../views/Login/Index";
+import SignUp from "../views/SignUp/Index";
+import Settings from "../views/Settings/Index";
+import Profile from "../views/Profile/Index";
+import Dashboard from "../views/Dashboard/Index";
 import ProblemSets from "../views/ProblemSets/Index";
-import ProblemSet from "../views/ProblemSets/Show";
 import Problems from "../views/Problems/Index";
-import Problem from "../views/Problems/Show";
-import Admin from "../views/Admin";
+import Admin from "../views/Admin/Index";
 import store from "@/store/index";
 
 Vue.use(VueRouter);
@@ -74,36 +72,44 @@ const routes = [
     }
   },
   {
-    path: "/problemSets",
+    path: "/problemSets/",
     name: "ProblemSets",
     component: ProblemSets,
     meta: {
-      guest: false
-    }
+      guest: true
+    },
+    children: [
+      {
+        path: "",
+        name: "ProblemSetsIndex",
+        component: () => import("@/views/ProblemSets/pages/Index")
+      },
+      {
+        path: ":id",
+        name: "ProblemSetsShow",
+        component: () => import("@/views/ProblemSets/pages/Show")
+      }
+    ]
   },
   {
-    path: "/problemSets/:id",
-    name: "ProblemSet",
-    component: ProblemSet,
-    meta: {
-      guest: false
-    }
-  },
-  {
-    path: "/problems",
+    path: "/problems/",
     name: "Problems",
     component: Problems,
     meta: {
       guest: false
-    }
-  },
-  {
-    path: "/problems/:id",
-    name: "Problem",
-    component: Problem,
-    meta: {
-      guest: false
-    }
+    },
+    children: [
+      {
+        path: "",
+        name: "ProblemsIndex",
+        component: () => import("@/views/Problems/pages/Index")
+      },
+      {
+        path: ":id",
+        name: "ProblemsShow",
+        component: () => import("@/views/Problems/pages/Show")
+      }
+    ]
   },
   {
     path: "/admin",
@@ -129,11 +135,13 @@ router.beforeEach((to, from, next) => {
     (to.matched.some(record => record.meta.admin) &&
       store.state.user.role !== "ADMIN")
   ) {
-    router.push("/login");
-    next();
+    next({
+      name: "Login"
+    });
   } else {
     next();
   }
 });
 
 export default router;
+false;

@@ -78,7 +78,7 @@
 <script>
 import { api } from "@/gateways/wisp-api";
 import { eventBus } from "@/store/eventBus";
-import ProblemSet from "@/components/ProblemSets/Index/ProblemSet";
+import ProblemSet from "../components/ProblemSet";
 
 export default {
   name: "ProblemSets",

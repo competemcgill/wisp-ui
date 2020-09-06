@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuetify from "vuetify/lib";
-import Logo from "@/components/Shared/Logo";
+import Logo from "@/components/Core/Logo";
 
 Vue.use(Vuetify);
 

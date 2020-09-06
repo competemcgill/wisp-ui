@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Announcement from "@/components/Home/Announcement";
+import Announcement from "./components/Announcement";
 // import News from "@/components/Home/News";
 
 export default {
