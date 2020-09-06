@@ -35,6 +35,11 @@
 export default {
   name: "ProblemSetsProblemSet",
 
-  props: ["data"]
+  props: {
+    data: {
+      type: Object,
+      default: () => ({})
+    }
+  }
 };
 </script>

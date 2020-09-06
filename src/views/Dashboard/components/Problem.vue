@@ -31,7 +31,10 @@ export default {
   name: "DashboardProblem",
 
   props: {
-    problem: {}
+    problem: {
+      type: Object,
+      default: () => ({})
+    }
   },
 
   data: () => {

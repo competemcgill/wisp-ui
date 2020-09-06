@@ -36,7 +36,12 @@
 export default {
   name: "ProblemSetProblemInfo",
 
-  props: ["problem"],
+  props: {
+    problem: {
+      type: Object,
+      default: () => ({})
+    }
+  },
 
   data() {
     return {

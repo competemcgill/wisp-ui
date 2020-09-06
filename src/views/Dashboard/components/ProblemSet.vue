@@ -59,7 +59,10 @@ export default {
     problem: Problem
   },
   props: {
-    problemSet: Object
+    problemSet: {
+      type: Object,
+      default: () => ({})
+    }
   },
   data: () => {
     return {

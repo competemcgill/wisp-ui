@@ -38,7 +38,12 @@ import { api } from "@/gateways/wisp-api";
 export default {
   name: "ProblemSetProblemSetInfo",
 
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: () => ({})
+    }
+  },
 
   data() {
     return {
