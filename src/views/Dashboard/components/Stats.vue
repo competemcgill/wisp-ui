@@ -2,8 +2,8 @@
   <v-card tile>
     <v-row>
       <v-col class="mx-5 mt-5 mb-2">
-        <h1 class="headline mb-1 primary--text">Stats</h1>
-        <h1 class="subtitle-1 grey--text">Here's a summary of your progress</h1>
+        <h1 class="headline mb-1 primary--text">{{ $t("stats") }}</h1>
+        <h1 class="subtitle-1 grey--text">{{ $t("progress-summary") }}</h1>
       </v-col>
     </v-row>
 
@@ -11,14 +11,15 @@
       <v-col>
         <h1 class="subtitle-1 grey--text ml-5 mb-5">
           <v-icon class="ml-2">mdi-check-bold</v-icon>
-          Problems Completed
+          {{ $t("problems-completed") }}
           <v-chip class="ma-2" color="success" dark
             >{{ getNumSolvedProblems() }} / {{ problemCount }}</v-chip
           >
         </h1>
 
         <h1 class="subtitle-1 grey--text ml-5 mb-5">
-          <v-icon class="ml-2">mdi-check-all</v-icon>Problems Sets Completed
+          <v-icon class="ml-2">mdi-check-all</v-icon>
+          {{ $t("problem-sets-completed") }}
           <v-chip class="ma-2" color="success" dark>
             {{ completedProblemSetCount }} /
             {{ problemSets.length }}

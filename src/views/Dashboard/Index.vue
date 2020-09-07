@@ -2,7 +2,7 @@
   <div class="dashboard">
     <v-container class="my-5">
       <h1 class="my-5 display-1 font-weight-light">
-        My Sets
+        {{ $t("my-sets") }}
         <v-btn
           text
           :loading="refreshLoading"
@@ -14,10 +14,12 @@
       </h1>
       <v-row v-if="problemSets.length == 0">
         <v-col cols="12" class="primary--text title"
-          >No tracked problem sets yet</v-col
-        >
+          >{{ $t("no-tracked-sets") }}
+        </v-col>
         <v-col cols="12">
-          <v-btn router to="/problemSets" class="primary">problem sets</v-btn>
+          <v-btn router to="/problemSets" class="primary">{{
+            $t("problem-sets")
+          }}</v-btn>
         </v-col>
       </v-row>
       <v-row v-if="problemSets.length > 0">

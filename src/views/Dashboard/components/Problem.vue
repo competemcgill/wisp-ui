@@ -12,7 +12,9 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">Platform: {{ problem.source.toLowerCase() }}</v-col>
+      <v-col cols="12"
+        >{{ $t("platform") }}: {{ problem.source.toLowerCase() }}</v-col
+      >
     </v-row>
     <v-row>
       <v-col cols="4">

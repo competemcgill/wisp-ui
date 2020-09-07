@@ -4,13 +4,13 @@
       <v-container>
         <v-row>
           <v-col cols="6" class="primary--text"
-            >{{ problemSet.problemCount }} questions</v-col
-          >
+            >{{ problemSet.problemCount }} {{ $t("question") }}
+          </v-col>
           <v-col cold="6" class="primary--text text-right">
             {{ completed }}/{{
               problemSet.problemCount ? problemSet.problemCount : "0"
             }}
-            completed
+            {{ $t("completed") }}
           </v-col>
         </v-row>
 

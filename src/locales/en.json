@@ -33,5 +33,13 @@
     "title": "Title",
     "description": "Description",
     "tags": "Tags",
-    "link": "Link"
+    "link": "Link",
+    "completed": "completed",
+    "question": "question",
+    "stats": "Stats",
+    "progress-summary": "Here's a summary of your progress",
+    "problems-completed": "Problems Completed",
+    "problem-sets-completed": "Problem Sets Completed",
+    "my-sets": "My Problem Sets",
+    "no-tracked-sets": "No tracked problem sets yet"
 }
