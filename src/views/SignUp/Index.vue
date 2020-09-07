@@ -49,7 +49,7 @@
                     name="codeforcesUsername"
                     :label="$t('codeforces-username')"
                     id="codeforcesUsername"
-                    v-model="user.codeforcesUsername"
+                    v-model="user.platformData.codeforces.username"
                     :rules="[rules.required]"
                     type="username"
                     prepend-icon="mdi-poll"
@@ -60,7 +60,7 @@
                     name="major"
                     :label="$t('major')"
                     id="major"
-                    v-model="user.major"
+                    v-model="user.info.major"
                     type="major"
                     prepend-icon="mdi-school"
                   >
@@ -70,7 +70,7 @@
                     name="year"
                     :label="$t('year')"
                     id="year"
-                    v-model="user.year"
+                    v-model="user.info.year"
                     type="year"
                     prepend-icon="mdi-calendar"
                   >
@@ -80,7 +80,7 @@
                     name="school"
                     :label="$t('university')"
                     id="school"
-                    v-model="user.school"
+                    v-model="user.info.school"
                     type="school"
                     prepend-icon="mdi-school"
                   >
@@ -90,7 +90,7 @@
                     name="bio"
                     :label="$t('bio')"
                     id="bio"
-                    v-model="user.bio"
+                    v-model="user.info.bio"
                     type="bio"
                     prepend-icon="mdi-notebook"
                   >
@@ -133,11 +133,17 @@ export default {
         username: "",
         email: "",
         password: "",
-        codeforcesUsername: "",
-        major: "",
-        year: "",
-        school: "",
-        bio: ""
+        info: {
+          major: "",
+          year: "",
+          school: "",
+          bio: ""
+        },
+        platformData: {
+          codeforces: {
+            username: ""
+          }
+        }
       },
       rules: {
         required: value => !!value || "Required",
@@ -153,6 +159,8 @@ export default {
     async signup() {
       try {
         this.loading = true;
+        this.$store.signup();
+
         await api.post("/users", {
           username: this.user.username,
           email: this.user.email,
