@@ -118,9 +118,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
-
 export default {
   name: "SignUp",
 
@@ -157,39 +154,19 @@ export default {
 
   methods: {
     async signup() {
+      this.loading = true;
       try {
-        this.loading = true;
-        this.$store.signup();
+        await this.$store.dispatch("user/create", this.user);
 
-        await api.post("/users", {
-          username: this.user.username,
-          email: this.user.email,
-          password: this.user.password,
-          info: {
-            major: this.user.major,
-            year: this.user.year,
-            school: this.user.school,
-            bio: this.user.bio
-          },
-          platformData: {
-            codeforces: {
-              username: this.user.codeforcesUsername
-            }
-          }
-        });
-
-        const { data } = await api.post("/auth/login", {
+        await this.$store.dispatch("user/login", {
           email: this.user.email,
           password: this.user.password
         });
 
-        this.$store.dispatch("setToken", data.token);
-        this.$store.dispatch("setUser", data.user);
-        eventBus.$emit("LOGIN_SUCCESS");
-        eventBus.$on("GLOBAL_DATA_FETCH_SUCCESS", () => {
-          this.$router.push("/dashboard", () => {
-            this.loading = false;
-          });
+        await this.$store.dispatch("preloadGlobalData");
+
+        this.$router.push("/dashboard", () => {
+          this.loading = false;
         });
       } catch (err) {
         this.error = err.response.data.message;
