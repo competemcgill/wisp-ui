@@ -4,9 +4,7 @@
     <v-card class="pa-2">
       <v-container>
         <v-row>
-          <v-card-title
-            >Welcome to Compete McGill's Summer Training</v-card-title
-          >
+          <v-card-title>{{ $t("welcome-message") }}</v-card-title>
           <v-card-text class="grey--text">Fri, May 15 2020</v-card-text>
           <v-card-text class="social-link-icons">
             <v-col lg="2" md="4">

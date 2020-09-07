@@ -8,7 +8,8 @@
   >
     <v-row>
       <v-col cols="12" class="primary--text"
-        >{{ data.problemCount ? data.problemCount : "0" }} questions</v-col
+        >{{ data.problemCount ? data.problemCount : "0" }}
+        {{ $t("questions") }}</v-col
       >
     </v-row>
     <v-row>

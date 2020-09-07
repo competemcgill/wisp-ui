@@ -14,7 +14,9 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col col="12">Platform: {{ problem.source.toLowerCase() }}</v-col>
+      <v-col col="12"
+        >{{ $t("Platform") }}: {{ problem.source.toLowerCase() }}</v-col
+      >
     </v-row>
     <v-row> </v-row>
     <v-row>

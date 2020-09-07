@@ -8,18 +8,18 @@
       >
         <v-card class="py-3 px-5">
           <h1 class="subtitle-1 mb-5">
-            Are you sure you want to delete this problem set?
+            {{ $t("delete-dialogue") }}
           </h1>
 
           <v-card-actions>
             <v-spacer></v-spacer>
 
             <v-btn @click="deleteProblem(problemToDeleteId)" class="primary">
-              yes
+              {{ $t("yes") }}
             </v-btn>
 
             <v-btn text @click="deleteDialogue = false" class="primart--text">
-              no
+              {{ $t("no") }}
             </v-btn>
           </v-card-actions>
         </v-card>

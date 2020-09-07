@@ -4,7 +4,7 @@
       <v-row align="center" class="mr-3">
         <v-col cols="12" sm="8">
           <h1 class="my-5 display-1 black--text text-uppercase">
-            problem set does not exist
+            {{ $t("problem-set-does-no-exist") }}
           </h1>
         </v-col>
       </v-row>
@@ -17,7 +17,7 @@
       >
         <v-card class="py-3 px-5">
           <h1 class="subtitle-1 mb-5">
-            Are you sure you want to delete this problem set?
+            {{ $t("delete-dialogue") }}
           </h1>
 
           <v-card-actions>
@@ -28,11 +28,11 @@
               @click="deleteProblemSet(problemSet._id)"
               class="primary"
             >
-              yes
+              {{ $t("yes") }}
             </v-btn>
 
             <v-btn text @click="deleteDialogue = false" class="primart--text">
-              no
+              {{ $t("no") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -59,7 +59,7 @@
           >{{ completed }}/{{
             problemSet.problemCount ? problemSet.problemCount : "0"
           }}
-          completed</v-col
+          {{ $t("completed") }}</v-col
         >
       </v-row>
       <v-row>

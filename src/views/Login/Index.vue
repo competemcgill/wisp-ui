@@ -2,7 +2,7 @@
   <div class="login">
     <v-container class="my-5">
       <h1 class="my-5 display-1 font-weight-light">
-        Login
+        {{ $t("login") }}
       </h1>
       <v-row class="my-5 py-5">
         <v-col cols="0" sm="3"></v-col>
@@ -12,7 +12,7 @@
             type="email"
             name="email"
             class="mb-3"
-            label="Email"
+            :label="$t('email')"
             width="50%"
             :rules="emailRules"
             @keyup.enter="login"
@@ -25,7 +25,7 @@
             type="password"
             name="password"
             class="mb-3"
-            label="Password"
+            :label="$t('password')"
             width="50%"
             v-model="user.password"
             @keyup.enter="login"
@@ -40,7 +40,7 @@
             :loading="loading"
             @click="login"
             class="background mx-0 mt-3 primary--text text-uppercase"
-            >login</v-btn
+            >{{ $t("login") }}</v-btn
           >
         </v-col>
 

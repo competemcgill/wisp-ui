@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" sm="8">
           <h1 class="my-5 display-1 font-weight-light">
-            Problem Sets
+            {{ $t("Problem Sets") }}
             <v-btn
               text
               :loading="refreshLoading"
@@ -36,24 +36,24 @@
                 depressed
                 class="incomplete white--text mt-5 mr-3"
               >
-                sort
+                {{ $t("sort") }}
               </v-btn>
             </template>
             <v-list>
               <v-list-item>
-                <v-btn text small @click="sortBy('title', 'asc', 'string')"
-                  >title</v-btn
-                >
+                <v-btn text small @click="sortBy('title', 'asc', 'string')">{{
+                  $t("title")
+                }}</v-btn>
               </v-list-item>
               <v-list-item>
-                <v-btn text small @click="sortBy('createdAt', 'des', 'date')"
-                  >newest</v-btn
-                >
+                <v-btn text small @click="sortBy('createdAt', 'des', 'date')">{{
+                  $t("newest")
+                }}</v-btn>
               </v-list-item>
               <v-list-item>
-                <v-btn text small @click="sortBy('createdAt', 'asc', 'date')"
-                  >oldest</v-btn
-                >
+                <v-btn text small @click="sortBy('createdAt', 'asc', 'date')">{{
+                  $t("oldest")
+                }}</v-btn>
               </v-list-item>
             </v-list>
           </v-menu>

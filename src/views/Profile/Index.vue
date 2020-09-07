@@ -4,7 +4,7 @@
       <v-row align="center" class="mr-3">
         <v-col cols="12">
           <h1 class="my-5 display-1 font-weight-light">
-            Profile
+            {{ $t("profile") }}
             <v-btn
               text
               @click="editDialogue = true"
@@ -18,12 +18,12 @@
       </v-row>
       <v-dialog v-model="editDialogue" max-width="1200">
         <v-card class="pa-5">
-          <h1 class="display-1 primary--text mb-5">EDIT</h1>
+          <h1 class="display-1 primary--text mb-5">{{ $t("edit") }}</h1>
 
           <v-text-field
             class="mb-3"
             name="username"
-            label="Compete Username"
+            :label="$t('username')"
             id="username"
             v-model="userBuffer.username"
             type="username"
@@ -32,7 +32,7 @@
           <v-text-field
             class="mb-3"
             name="email"
-            label="E-mail Address"
+            :label="$t('email')"
             id="email"
             v-model="userBuffer.email"
             type="email"
@@ -41,7 +41,7 @@
           <v-text-field
             class="mb-3"
             name="codeforcesUsername"
-            label="Codeforces Username"
+            :label="$t('codeforces-username')"
             id="codeforcesUsername"
             v-model="userBuffer.platformData.codeforces.username"
             type="username"
@@ -50,7 +50,7 @@
           <v-text-field
             class="mb-3"
             name="major"
-            label="Major"
+            :label="$t('major')"
             id="major"
             v-model="userBuffer.info.major"
             prepend-icon="mdi-school"
@@ -58,7 +58,7 @@
           <v-text-field
             class="mb-3"
             name="year"
-            label="Year (U1,U2,U3,U4)"
+            :label="$t('year')"
             id="year"
             v-model="userBuffer.info.year"
             type="year"
@@ -67,7 +67,7 @@
           <v-text-field
             class="mb-3"
             name="school"
-            label="University"
+            :label="$t('university')"
             id="school"
             v-model="userBuffer.info.school"
             type="school"
@@ -76,7 +76,7 @@
           <v-textarea
             class="mb-3"
             name="bio"
-            label="Bio"
+            :label="$t('bio')"
             id="bio"
             v-model="userBuffer.info.bio"
             type="bio"
@@ -87,13 +87,16 @@
 
             <div class="primary--text" align="center" v-html="error"></div>
 
-            <v-btn :loading="updateLoading" @click="editUser()" class="primary"
-              >submit</v-btn
+            <v-btn
+              :loading="updateLoading"
+              @click="editUser()"
+              class="primary"
+              >{{ $t("submit") }}</v-btn
             >
 
-            <v-btn text @click="closeEditUser()" class="primart--text"
-              >cancel</v-btn
-            >
+            <v-btn text @click="closeEditUser()" class="primart--text">{{
+              $t("cancel")
+            }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -146,7 +149,7 @@
                         class="white--text primary"
                         @click="deleteDialog = true"
                       >
-                        DELETE ACCOUNT
+                        {{ $t("delete-account") }}
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -156,12 +159,11 @@
                         <v-card-title
                           class="white--text headline primary py-3 pl-5"
                         >
-                          Warning
+                          {{ $t("warning") }}
                         </v-card-title>
 
                         <v-card-text class="mt-5">
-                          This action will permanently delete your account.
-                          Click delete my account if you wish to proceed.
+                          {{ $t("delete-dialogue-account") }}
                         </v-card-text>
 
                         <v-divider></v-divider>
@@ -173,14 +175,14 @@
                             class="primary"
                             @click="deleteUser()"
                           >
-                            Delete my account
+                            {{ $t("delete-my-account") }}
                           </v-btn>
                           <v-btn
                             text
                             @click="deleteDialog = false"
                             class="primary--text"
                           >
-                            Cancel
+                            {{ $t("cancel") }}
                           </v-btn>
                         </v-card-actions>
                       </v-card>
@@ -195,21 +197,21 @@
           <v-card class="pl-0 pt-0">
             <v-row>
               <v-col cols="12" class="pt-0">
-                <v-sheet class="white--text headline primary py-3 pl-5"
-                  >Info</v-sheet
-                >
+                <v-sheet class="white--text headline primary py-3 pl-5">{{
+                  $t("info")
+                }}</v-sheet>
               </v-col>
             </v-row>
             <v-row class="my-5 mx-5">
               <v-col cols="12" sm="4">
                 <h1 class="title text-left">
-                  <span class="primary--text">Bio:</span>
+                  <span class="primary--text">{{ $t("bio") }}:</span>
                   <br />
                   <span class="grey--text">
                     {{
                       user.info && user.info.bio
                         ? user.info.bio
-                        : "Let other's know what you're up to in your bio!"
+                        : $t("bio-prompt")
                     }}
                   </span>
                 </h1>
@@ -235,15 +237,15 @@
           <v-card class="pl-0 pt-0">
             <v-row>
               <v-col cols="12" class="pt-0">
-                <v-sheet class="white--text headline primary py-3 pl-5"
-                  >Codeforces</v-sheet
-                >
+                <v-sheet class="white--text headline primary py-3 pl-5">{{
+                  $t("codeforces")
+                }}</v-sheet>
               </v-col>
             </v-row>
             <v-row class="my-5 mx-5">
               <v-col cols="12" sm="12">
                 <h1 class="title text-left">
-                  <span class="primary--text">Username:</span>
+                  <span class="primary--text">{{ $t("usernname") }}:</span>
                   <br />
                   {{
                     user.platformData &&

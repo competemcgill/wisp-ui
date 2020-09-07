@@ -3,7 +3,7 @@
   <div class="signup">
     <v-container class="my-5">
       <h1 class="my-5 display-1 font-weight-light">
-        Register
+        {{ $t("register") }}
       </h1>
       <v-row class="my-5 py-5" justify="center" align="center">
         <v-col cols="12" sm="6" class="my-5 py-5">
@@ -14,7 +14,7 @@
                   <v-text-field
                     class="mb-3"
                     name="username"
-                    label="Compete Username"
+                    :label="$t('username')"
                     id="username"
                     v-model="user.username"
                     :rules="[rules.required]"
@@ -25,7 +25,7 @@
                   <v-text-field
                     class="mb-3"
                     name="password"
-                    label="Password"
+                    :label="$t('password')"
                     id="password"
                     v-model="user.password"
                     :rules="[rules.required]"
@@ -36,7 +36,7 @@
                   <v-text-field
                     class="mb-3"
                     name="email"
-                    label="E-mail Address"
+                    :label="$t('email')"
                     id="email"
                     v-model="user.email"
                     :rules="[rules.required, rules.emailRules]"
@@ -47,7 +47,7 @@
                   <v-text-field
                     class="mb-3"
                     name="codeforcesUsername"
-                    label="Codeforces Username"
+                    :label="$t('codeforces-username')"
                     id="codeforcesUsername"
                     v-model="user.codeforcesUsername"
                     :rules="[rules.required]"
@@ -58,7 +58,7 @@
                   <v-text-field
                     class="mb-3"
                     name="major"
-                    label="Major"
+                    :label="$t('major')"
                     id="major"
                     v-model="user.major"
                     type="major"
@@ -68,7 +68,7 @@
                   <v-text-field
                     class="mb-3"
                     name="year"
-                    label="Year (U1,U2,U3,U4)"
+                    :label="$t('year')"
                     id="year"
                     v-model="user.year"
                     type="year"
@@ -78,7 +78,7 @@
                   <v-text-field
                     class="mb-3"
                     name="school"
-                    label="University"
+                    :label="$t('university')"
                     id="school"
                     v-model="user.school"
                     type="school"
@@ -88,7 +88,7 @@
                   <v-text-field
                     class="mb-3"
                     name="bio"
-                    label="Bio"
+                    :label="$t('bio')"
                     id="bio"
                     v-model="user.bio"
                     type="bio"
@@ -105,7 +105,8 @@
                   type="submit"
                   :loading="loading"
                   :disabled="!isFormValid"
-                  >Sign up
+                >
+                  {{ $t("sign-up") }}
                 </v-btn>
               </v-container>
             </v-card-text>
