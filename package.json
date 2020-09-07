@@ -1,17 +1,16 @@
 {
   "name": "wisp-ui",
   "version": "0.1.0",
-  "license": "MIT",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "format": "vue-cli-service lint",
-    "lint": "vue-cli-service lint --no-fix --max-warnings 0"
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint --no-fix --max-warnings 0",
+    "format": "vue-cli-service lint"
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-e2e-nightwatch": "^4.5.4",
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-plugin-pwa": "~4.3.0",
     "@vue/cli-plugin-router": "~4.3.0",
@@ -41,6 +40,9 @@
     "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
+    "@vue/cli-plugin-e2e-nightwatch": "^4.5.4",
+    "chromedriver": "^84.0.1",
+    "geckodriver": "^1.20.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.7"
   },
@@ -49,6 +51,7 @@
       "pre-commit": "lint-staged"
     }
   },
+  "license": "MIT",
   "lint-staged": {
     "src/**/*.{js,vue}": "vue-cli-service lint"
   }
