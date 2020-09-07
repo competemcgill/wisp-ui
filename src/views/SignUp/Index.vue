@@ -1,6 +1,6 @@
 <!-- TODO: populate signup page -->
 <template>
-  <div class="signup">
+  <div id="signup">
     <v-container class="my-5">
       <h1 class="my-5 display-1 font-weight-light">
         {{ $t("register") }}

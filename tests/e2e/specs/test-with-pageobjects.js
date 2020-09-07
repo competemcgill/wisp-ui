@@ -10,8 +10,18 @@ module.exports = {
   beforeEach: browser => browser.init(),
 
   "e2e tests using page objects": browser => {
-    const homepage = browser.page.homepage();
-    homepage.waitForElementVisible("@appContainer");
+    const signup = browser.page.signup();
+    signup.waitForElementVisible("@container");
+
+    const form = signup.sections.form
+    form
+    .assert.setValue('@username', "")
+    .assert.setValue('@email', "")
+    .assert.setValue('@password', "")
+    .assert.setValue('@year', "")
+    .assert.setValue('@major', "")
+    .assert.setValue('@codeforcesUsername', "")
+    .assert.setValue('@bio', "")
 
     const app = homepage.section.app;
     app.assert.elementCount("@logo", 1);
