@@ -7,7 +7,7 @@
             <v-text-field
               name="title"
               class="mb-3"
-              label="Title"
+              :label="$t('title')"
               v-model="problemSet.title"
               prepend-icon="mdi-text-short"
             ></v-text-field>
@@ -15,7 +15,7 @@
             <v-textarea
               name="description"
               class="mb-3"
-              label="Description"
+              :label="$t('description')"
               v-model="problemSet.description"
               prepend-icon="mdi-text-subject"
             ></v-textarea>
@@ -23,7 +23,7 @@
             <v-combobox
               multiple
               v-model="problemSet.tags"
-              label="Tags"
+              :label="$t('tags')"
               append-icon
               chips
               deletable-chips
@@ -35,8 +35,8 @@
               :disabled="!addRestriction"
               @click="addProblemSetToQueue()"
               class="background mx-0 mt-3 primary--text text-uppercase"
-              >add</v-btn
-            >
+              >{{ $t("add") }}
+            </v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -50,16 +50,16 @@
             :disabled="problemSets.length == 0"
             @click="submitProblemSets()"
             class="mt-3 mr-5 primary text-uppercase"
-            >submit</v-btn
-          >
+            >{{ $t("submit") }}
+          </v-btn>
         </v-col>
         <v-col cols="12" sm="2">
           <v-btn
             text
             @click="clearForms()"
             class="mt-3 primary--text text-uppercase mx-5"
-            >clear</v-btn
-          >
+            >{{ $t("clear") }}
+          </v-btn>
         </v-col>
       </v-row>
     </v-col>
@@ -67,7 +67,7 @@
     <v-col cols="12" sm="6" class="my-5 py-5">
       <v-card class="py-3 px-5">
         <h1 class="primary--text headline" v-if="problemSets.length == 0">
-          No Problem Sets in Queue
+          {{ $t("no-problems-in-queue") }}
         </h1>
         <v-row v-for="(ps, index) in problemSets" :key="index">
           <v-col cols="12" class="py-0">
@@ -91,7 +91,8 @@
             <v-row>
               <v-col cols="12" class="pt-0">
                 <h1>
-                  <span class="title primary--text text-truncate">Title: </span
+                  <span class="title primary--text text-truncate"
+                    >{{ $t("title") }}: </span
                   ><span class="subtitle-1 grey--text">{{ ps.title }}</span>
                 </h1>
               </v-col>
@@ -100,7 +101,7 @@
               <v-col cols="12" class="py-0">
                 <h1>
                   <span class="title primary--text text-truncate"
-                    >Description: </span
+                    >{{ $t("description") }}: </span
                   ><span class="subtitle-1 grey--text">{{
                     ps.description
                   }}</span>

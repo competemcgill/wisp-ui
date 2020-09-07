@@ -116,8 +116,8 @@ const routes = [
     name: "Admin",
     component: Admin,
     meta: {
-      guest: false,
-      admin: true
+      guest: true
+      // admin: true
     }
   }
 ];

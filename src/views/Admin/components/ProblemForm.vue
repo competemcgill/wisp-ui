@@ -7,7 +7,7 @@
             <v-text-field
               name="title"
               class="mb-3"
-              label="Title"
+              :label="$t('title')"
               v-model="problem.title"
               prepend-icon="mdi-text-short"
             ></v-text-field>
@@ -15,16 +15,16 @@
             <v-autocomplete
               name="platform"
               class="mb-3"
-              label="Platform"
+              :label="$t('platform')"
               v-model="problem.source"
-              :items="['CODEFORCES', 'OTHER']"
+              :items="[$t('platform-codeforces'), $t('platform-other')]"
               prepend-icon="mdi-text-short"
             ></v-autocomplete>
 
             <v-text-field
               name="platformId"
               class="mb-3"
-              label="Platform ID"
+              :label="$t('platform-id')"
               v-model="problem.platformId"
               hint="<contest ID><problem ID> e.g. 1234G"
               prepend-icon="mdi-text-short"
@@ -33,7 +33,7 @@
             <v-text-field
               name="link"
               class="mb-3"
-              label="Link"
+              :label="$t('link')"
               v-model="problem.sourceLink"
               prepend-icon="mdi-text-short"
             ></v-text-field>
@@ -41,9 +41,9 @@
             <v-autocomplete
               name="difficulty"
               class="mb-3"
-              label="Difficulty"
+              :label="$t('difficulty')"
               v-model="problem.difficulty"
-              :items="['easy', 'medium', 'hard']"
+              :items="[$t('easy'), $t('medium'), $t('hard')]"
               prepend-icon="mdi-text-short"
             ></v-autocomplete>
 
@@ -51,7 +51,7 @@
               multiple
               v-model="problem.problemSetIds"
               :items="problemSetAutocomplete"
-              label="Problem Sets"
+              :label="$t('problem-sets')"
               append-icon
               chips
               prepend-icon="mdi-tag"
@@ -62,7 +62,7 @@
               :disabled="!addRestriction"
               @click="addProblemToQueue()"
               class="background mx-0 mt-3 primary--text text-uppercase"
-              >add</v-btn
+              >{{ $t("add") }}</v-btn
             >
           </v-card>
         </v-col>
@@ -77,16 +77,16 @@
             :disabled="problems.length == 0"
             @click="submitProblems()"
             class="mt-3 mr-5 primary text-uppercase"
-            >submit</v-btn
-          >
+            >{{ $t("submit") }}
+          </v-btn>
         </v-col>
         <v-col cols="12" sm="2">
           <v-btn
             text
             @click="clearForms()"
             class="mt-3 primary--text text-uppercase mx-5"
-            >clear</v-btn
-          >
+            >{{ $t("clear") }}
+          </v-btn>
         </v-col>
       </v-row>
     </v-col>
@@ -94,7 +94,7 @@
     <v-col cols="12" sm="6" class="my-5 py-5">
       <v-card class="py-3 px-5">
         <h1 class="primary--text headline" v-if="problems.length == 0">
-          No Problems in Queue
+          {{ $t("no-problems-in-queue") }}
         </h1>
         <v-row v-for="(p, index) in problems" :key="index">
           <v-col cols="12" class="py-0">
@@ -118,7 +118,8 @@
             <v-row>
               <v-col cols="12" class="pt-0">
                 <h1>
-                  <span class="title primary--text text-truncate">Title: </span
+                  <span class="title primary--text text-truncate"
+                    >{{ $t("title") }}: </span
                   ><span class="subtitle-1 grey--text">{{ p.title }}</span>
                 </h1>
               </v-col>
@@ -127,7 +128,7 @@
               <v-col cols="12" class="py-0">
                 <h1>
                   <span class="title primary--text text-truncate"
-                    >Platform: </span
+                    >{{ $t("Platform") }}: </span
                   ><span class="subtitle-1 grey--text">{{ p.source }}</span>
                 </h1>
               </v-col>

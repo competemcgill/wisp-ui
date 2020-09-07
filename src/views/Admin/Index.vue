@@ -2,11 +2,11 @@
   <div class="admin">
     <v-container class="my-5">
       <h1 class="my-5 display-1 font-weight-light">
-        Admin
+        {{ $t("admin") }}
       </h1>
       <v-tabs background-color="white" color="primary" right>
-        <v-tab>Problem Sets</v-tab>
-        <v-tab>Problems</v-tab>
+        <v-tab>{{ $t("problem-sets") }}</v-tab>
+        <v-tab>{{ $t("problems") }}</v-tab>
 
         <v-tab-item>
           <v-container fluid>
