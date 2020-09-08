@@ -75,11 +75,12 @@ export default {
     async login() {
       this.loading = true;
       try {
-        this.$store.dispatch("user/login", {
+        await this.$store.dispatch("user/login", {
           email: this.user.email,
           password: this.user.password
         });
-        this.$router.push("/dashboard", () => {
+        await this.$store.dispatch("preloadGlobalData");
+        this.$router.push("dashboard", () => {
           this.loading = false;
         });
       } catch (err) {

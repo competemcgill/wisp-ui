@@ -101,9 +101,11 @@ export default {
   },
 
   async created() {
-    const problemSets = this.$store.state.problemSets.filter(problemSet => {
-      return problemSet._id === this.$route.params.id;
-    });
+    const problemSets = this.$store.state.problems.problemSets.filter(
+      problemSet => {
+        return problemSet._id === this.$route.params.id;
+      }
+    );
 
     this.problemSet =
       problemSets && problemSets.length > 0 ? problemSets[0] : {};
@@ -112,7 +114,7 @@ export default {
         ? this.problemSet.problems
         : [];
 
-    for (let userProblem of this.$store.state.user.problems) {
+    for (let userProblem of this.$store.state.user.data.problems) {
       for (let problem of this.problems) {
         if (userProblem.problemId == problem.problemId) {
           problem.userProblem = userProblem;

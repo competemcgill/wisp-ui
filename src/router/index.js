@@ -73,7 +73,6 @@ const routes = [
   },
   {
     path: "/problemSets/",
-    name: "ProblemSets",
     component: ProblemSets,
     meta: {
       guest: true
@@ -93,7 +92,6 @@ const routes = [
   },
   {
     path: "/problems/",
-    name: "Problems",
     component: Problems,
     meta: {
       guest: false
@@ -131,9 +129,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (
     (to.matched.some(record => !record.meta.guest) &&
-      !store.state.isLoggedIn) ||
+      !store.state.user.isLoggedIn) ||
     (to.matched.some(record => record.meta.admin) &&
-      store.state.user.role !== "ADMIN")
+      store.state.user.data.role !== "ADMIN")
   ) {
     next({
       name: "Login"

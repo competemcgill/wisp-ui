@@ -113,6 +113,10 @@ export default {
     }
   },
 
+  async mounted() {
+    await this.$store.dispatch("problems/getProblemSets");
+  },
+
   methods: {
     async reloadProblemSets() {
       this.refreshLoading = true;

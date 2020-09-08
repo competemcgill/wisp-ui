@@ -65,8 +65,7 @@ export default {
   },
   data: () => {
     return {
-      showProblems: false,
-      completed: 0
+      showProblems: false
     };
   },
   computed: {

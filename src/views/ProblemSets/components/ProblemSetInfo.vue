@@ -52,7 +52,7 @@ export default {
 
   methods: {
     checkTrackedProblemSet() {
-      for (const problemSetId of this.$store.state.user.problemSets) {
+      for (const problemSetId of this.$store.state.user.data.problemSets) {
         if (problemSetId == this.$route.params.id) return true;
       }
 

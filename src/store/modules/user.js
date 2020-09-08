@@ -7,6 +7,13 @@ export const UserModule = {
     token: null,
     isLoggedIn: false
   },
+  getters: {
+    trackedProblemSets(state, _, rootState) {
+      return rootState.problems.problemSets.filter(
+        problemSet => state.data.problemSets.indexOf(problemSet._id) !== -1
+      );
+    }
+  },
   mutations: {
     setData(state, userData) {
       state.data = userData;
@@ -27,8 +34,8 @@ export const UserModule = {
     async create(_, user) {
       await wispClient().user.create(user);
     },
-    async login({ commit }, login) {
-      const data = await wispClient().auth.login(login);
+    async login({ commit }, { email, password }) {
+      const data = await wispClient().auth.login(email, password);
       commit("setToken", data.token);
       commit("setData", data.user);
     },
@@ -40,11 +47,14 @@ export const UserModule = {
       await wispClient(rootGetters.options).user.del(this.data._id);
       dispatch("logout");
     },
-    async edit({ commit, rootGetters }, user) {
-      const userData = await wispClient(rootGetters.options).user.update(user);
+    async edit({ state, commit, rootGetters }, user) {
+      const userData = await wispClient(rootGetters.options).user.update(
+        state.data._id,
+        user
+      );
       commit("setData", userData);
     },
-    async trackProblem({ commit, state, rootGetters }, problemSetId) {
+    async trackProblemSet({ commit, state, rootGetters }, problemSetId) {
       const userData = await wispClient(
         rootGetters.options
       ).user.trackProblemSet(state.data._id, problemSetId);

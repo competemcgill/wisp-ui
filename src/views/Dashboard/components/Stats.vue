@@ -13,7 +13,7 @@
           <v-icon class="ml-2">mdi-check-bold</v-icon>
           {{ $t("problems-completed") }}
           <v-chip class="ma-2" color="success" dark
-            >{{ getNumSolvedProblems() }} / {{ problemCount }}</v-chip
+            >{{ numSolvedProblems }} / {{ numProblems }}</v-chip
           >
         </h1>
 
@@ -21,8 +21,8 @@
           <v-icon class="ml-2">mdi-check-all</v-icon>
           {{ $t("problem-sets-completed") }}
           <v-chip class="ma-2" color="success" dark>
-            {{ completedProblemSetCount }} /
-            {{ problemSets.length }}
+            {{ numCompletedProblemSets }} /
+            {{ numProblemSets }}
           </v-chip>
         </h1>
       </v-col>
@@ -31,49 +31,35 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
 export default {
   name: "DashboardStats",
-
-  data() {
-    return {
-      user: this.$store.state.user,
-      problemSets: [],
-      completedProblemSetCount: 0,
-      problemCount: 0,
-      error: ""
-    };
-  },
-
-  created() {
-    this.filterProblemSets();
-  },
-
-  methods: {
-    getNumSolvedProblems() {
-      const count = this.user.problems.filter(problem => problem.isComplete)
-        .length;
-      return count;
-    },
-
-    filterProblemSets() {
-      this.problemSets = this.$store.state.problemSets.filter(
-        problemSet =>
-          this.$store.state.user.problemSets.indexOf(problemSet._id) !== -1
+  computed: {
+    // TODO: Doesn't it make more sense to compute these server side
+    ...mapState("problems", ["problemSets"]),
+    ...mapGetters("user", ["trackedProblemSets"]),
+    numProblems() {
+      return this.problemSets.reduce(
+        (count, problemSet) => count + problemSet.problemCount,
+        0
       );
-
-      for (const problemSet of this.problemSets) {
-        this.problemCount += problemSet.problemCount;
-        const completedProblemCount = problemSet.problems.filter(problem => {
-          let userProblem = this.$store.state.user.problems.filter(
-            currUserProblem => problem.problemId == currUserProblem.problemId
-          );
-          if (userProblem.length > 0) return userProblem[0].isComplete;
-          else return false;
-        }).length;
-
-        if (completedProblemCount == problemSet.problems.length)
-          this.completedProblemSetCount += 1;
-      }
+    },
+    numSolvedProblems() {
+      return this.$store.state.user.data.problems.filter(
+        problem => problem.isComplete
+      ).length;
+    },
+    numProblemSets() {
+      return this.problemSets.length;
+    },
+    numCompletedProblemSets() {
+      return this.trackedProblemSets.filter(problemSet => {
+        return (
+          problemSet.problems &&
+          problemSet.problems.every(problem => problem.isComplete)
+        );
+      }).length;
     }
   }
 };

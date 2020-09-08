@@ -12,7 +12,7 @@
           <v-icon>mdi-autorenew</v-icon>
         </v-btn>
       </h1>
-      <v-row v-if="problemSets.length == 0">
+      <v-row v-if="trackedProblemSets.length == 0">
         <v-col cols="12" class="primary--text title"
           >{{ $t("no-tracked-sets") }}
         </v-col>
@@ -22,11 +22,11 @@
           }}</v-btn>
         </v-col>
       </v-row>
-      <v-row v-if="problemSets.length > 0">
+      <v-row v-if="trackedProblemSets.length > 0">
         <v-col cols="12" md="9" class="pl-0" v-if="problemSets != null">
           <v-col
             cols="12"
-            v-for="(problemSet, index) of problemSets"
+            v-for="(problemSet, index) of trackedProblemSets"
             :key="index"
           >
             <problem-set :problemSet="problemSet" />
@@ -45,7 +45,7 @@
 <script>
 import ProblemSet from "./components/ProblemSet";
 import Stats from "./components/Stats";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Dashboard",
@@ -61,15 +61,15 @@ export default {
     };
   },
 
+  async mounted() {
+    await this.$store.dispatch("problems/getProblemSets");
+  },
+
   computed: {
     ...mapState("problems", ["problemSets"]),
-    filteredProblemSets() {
-      return this.problemSets.filter(
-        problemSet =>
-          this.$store.state.user.problemSets.indexOf(problemSet._id) !== -1
-      );
-    }
+    ...mapGetters("user", ["trackedProblemSets"])
   },
+
   methods: {
     async reloadUser() {
       this.refreshLoading = true;

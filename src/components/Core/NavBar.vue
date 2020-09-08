@@ -114,29 +114,29 @@ export default {
         },
         {
           title: this.$t("about"),
-          to: "about"
+          to: "/about"
         }
       ];
       if (this.$store.state.user.isLoggedIn) {
         items = items.concat([
           {
             title: this.$t("dashboard"),
-            to: "dashboard"
+            to: "/dashboard"
           },
           {
             title: this.$t("problems"),
-            to: "problems"
+            to: "/problems"
           },
           {
             title: this.$t("problem-sets"),
-            to: "problemSets"
+            to: "/problemSets"
           }
         ]);
         if (this.$store.state.user.role === "ADMIN") {
           items = items.concat([
             {
               title: this.$t("admin"),
-              to: "admin"
+              to: "/admin"
             }
           ]);
         }
@@ -144,11 +144,11 @@ export default {
         items = items.concat([
           {
             title: this.$t("login"),
-            to: "login"
+            to: "/login"
           },
           {
             title: this.$t("register"),
-            to: "signup"
+            to: "/signup"
           }
         ]);
       }

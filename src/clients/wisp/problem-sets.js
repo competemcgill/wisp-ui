@@ -14,13 +14,13 @@ export const problemSetsClient = options => {
   };
 
   const get = async includeProblems => {
-    const query = {
+    const params = {
       includeProblems: !!includeProblems
     };
 
     const { data } = await api.get(endpoint(), {
-      ...options,
-      query
+      ...axiosOptions,
+      params
     });
 
     return data;

@@ -124,7 +124,7 @@ export default {
   },
 
   mounted() {
-    this.problems = this.$store.state.problems;
+    this.problems = this.$store.state.problems.problems;
     this.populateTableData();
   },
 

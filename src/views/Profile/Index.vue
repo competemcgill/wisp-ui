@@ -245,7 +245,7 @@
             <v-row class="my-5 mx-5">
               <v-col cols="12" sm="12">
                 <h1 class="title text-left">
-                  <span class="primary--text">{{ $t("usernname") }}:</span>
+                  <span class="primary--text">{{ $t("username") }}:</span>
                   <br />
                   {{
                     user.platformData &&
@@ -302,7 +302,7 @@ export default {
     async editUser() {
       this.updateLoading = true;
       try {
-        this.$store.dispatch("user/edit", this.user._id);
+        this.$store.dispatch("user/edit", this.userBuffer);
         this.resetUserBuffer();
         this.editDialogue = false;
       } catch (err) {

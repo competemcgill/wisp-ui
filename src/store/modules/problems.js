@@ -25,7 +25,7 @@ export const ProblemsModule = {
     async getProblemSets({ commit, rootGetters }) {
       commit(
         "setProblemSets",
-        await wispClient(rootGetters.options).problemSets.get()
+        await wispClient(rootGetters.options).problemSets.get(true)
       );
     },
     async deleteProblemSet({ dispatch, rootGetters }, problemSetId) {

@@ -1,7 +1,7 @@
 import { api, endpointBuilder } from "./axios";
 
 export const userClient = options => {
-  const endpoint = endpointBuilder("user");
+  const endpoint = endpointBuilder("users");
 
   const authHeader =
     options && options.token
@@ -35,11 +35,11 @@ export const userClient = options => {
 
   const trackProblemSet = async (userId, problemSetId) => {
     const { data } = await api.patch(
-      endpoint(`users/${userId}/problemSets`),
+      endpoint(`${userId}/problemSets`),
       {
         problemSetId
       },
-      options
+      axiosOptions
     );
     return data;
   };
