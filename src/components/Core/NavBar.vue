@@ -18,92 +18,20 @@
 
       <template v-if="!mobileView">
         <v-btn
+          v-for="(navItem, index) of navItems"
+          :key="index"
           text
           tile
           router
-          to="/"
+          :to="navItem.to"
           min-height="115%"
           class="offset-y primary--text"
-          >home</v-btn
         >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/dashboard"
-          min-height="115%"
-          v-if="$store.state.isLoggedIn"
-          class="offset-y primary--text"
-          >dashboard</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/problemSets"
-          min-height="115%"
-          v-if="$store.state.isLoggedIn"
-          class="offset-y primary--text"
-          >problem sets</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/problems"
-          min-height="115%"
-          v-if="$store.state.isLoggedIn"
-          class="offset-y primary--text"
-          >problems</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/admin"
-          min-height="115%"
-          v-if="$store.state.isLoggedIn && $store.state.user.role === 'ADMIN'"
-          class="offset-y primary--text"
-          >admin</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/about"
-          min-height="115%"
-          class="offset-y primary--text"
-          >about</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/login"
-          min-height="115%"
-          v-if="!$store.state.isLoggedIn"
-          class="offset-y primary--text"
-          >login</v-btn
-        >
-
-        <v-btn
-          text
-          tile
-          router
-          to="/signup"
-          min-height="115%"
-          v-if="!$store.state.isLoggedIn"
-          class="offset-y primary--text"
-          >register</v-btn
-        >
+          {{ navItem.title }}
+        </v-btn>
       </template>
-      <v-menu offset-y v-if="$store.state.isLoggedIn">
+
+      <v-menu offset-y v-if="$store.state.user.isLoggedIn">
         <template v-slot:activator="{ on }">
           <v-btn
             text
@@ -136,46 +64,14 @@
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-list dense nav>
         <v-list-item-group active-class="offset-y primary--text">
-          <v-list-item to="/">
-            <v-list-item-title class="offset-y primary--text"
-              >HOME</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item to="/about">
-            <v-list-item-title class="offset-y primary--text"
-              >ABOUT</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item v-if="$store.state.isLoggedIn" to="/dashboard">
-            <v-list-item-title class="offset-y primary--text"
-              >DASHBOARD</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item v-if="$store.state.isLoggedIn" to="/problemsets">
-            <v-list-item-title class="offset-y primary--text"
-              >PROBLEM SETS</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item v-if="$store.state.isLoggedIn" to="/problems">
-            <v-list-item-title class="offset-y primary--text"
-              >PROBLEMS</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item v-if="!$store.state.isLoggedIn" to="/login">
-            <v-list-item-title class="offset-y primary--text"
-              >LOGIN</v-list-item-title
-            >
-          </v-list-item>
-
-          <v-list-item v-if="!$store.state.isLoggedIn" to="/signup">
-            <v-list-item-title class="offset-y primary--text"
-              >REGISTER</v-list-item-title
-            >
+          <v-list-item
+            v-for="(navItem, index) of navItems"
+            :key="index"
+            :to="navItem.to"
+          >
+            <v-list-item-title class="offset-y primary--text text-uppercase">{{
+              navItem.title
+            }}</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -210,6 +106,54 @@ export default {
   },
 
   computed: {
+    navItems() {
+      let items = [
+        {
+          title: this.$t("home"),
+          to: "/"
+        },
+        {
+          title: this.$t("about"),
+          to: "about"
+        }
+      ];
+      if (this.$store.state.user.isLoggedIn) {
+        items = items.concat([
+          {
+            title: this.$t("dashboard"),
+            to: "dashboard"
+          },
+          {
+            title: this.$t("problems"),
+            to: "problems"
+          },
+          {
+            title: this.$t("problem-sets"),
+            to: "problemSets"
+          }
+        ]);
+        if (this.$store.state.user.role === "ADMIN") {
+          items = items.concat([
+            {
+              title: this.$t("admin"),
+              to: "admin"
+            }
+          ]);
+        }
+      } else {
+        items = items.concat([
+          {
+            title: this.$t("login"),
+            to: "login"
+          },
+          {
+            title: this.$t("register"),
+            to: "signup"
+          }
+        ]);
+      }
+      return items;
+    },
     mobileView() {
       return this.$vuetify.breakpoint.smAndDown;
     }
@@ -217,8 +161,7 @@ export default {
 
   methods: {
     logout() {
-      this.$store.dispatch("setToken", null);
-      this.$store.dispatch("setUser", null);
+      this.$store.dispatch("user/logout", null);
       this.$router.push("/login");
     }
   }
