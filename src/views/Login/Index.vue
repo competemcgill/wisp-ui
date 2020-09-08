@@ -51,9 +51,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
-
 export default {
   name: "Login",
 
@@ -78,17 +75,12 @@ export default {
     async login() {
       this.loading = true;
       try {
-        const { data } = await api.post("/auth/login", {
+        this.$store.dispatch("user/login", {
           email: this.user.email,
           password: this.user.password
         });
-        this.$store.dispatch("setToken", data.token);
-        this.$store.dispatch("setUser", data.user);
-        eventBus.$emit("LOGIN_SUCCESS");
-        eventBus.$on("GLOBAL_DATA_FETCH_SUCCESS", () => {
-          this.$router.push("/dashboard", () => {
-            this.loading = false;
-          });
+        this.$router.push("/dashboard", () => {
+          this.loading = false;
         });
       } catch (err) {
         this.error = err.response.data.message;

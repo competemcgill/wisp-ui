@@ -79,8 +79,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
 import ProblemSetInfo from "../components/ProblemSetInfo";
 import ProblemInfo from "../components/ProblemInfo";
 
@@ -130,18 +128,10 @@ export default {
     async deleteProblemSet(id) {
       this.deleteLoading = true;
       try {
-        await api.delete(`/problemSets/${id}`, {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
-
-        eventBus.$emit("REFRESH_PROBLEMSETS");
-        eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
-          this.$router.push("/problemSets", () => {
-            this.deleteLoading = false;
-            this.deleteDialogue = false;
-          });
+        this.$store.dispatch("problems/deleteProblemSet", id);
+        this.$router.push("/problemSets", () => {
+          this.deleteLoading = false;
+          this.deleteDialogue = false;
         });
       } catch (err) {
         console.log(err);

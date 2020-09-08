@@ -18,15 +18,11 @@ export const UserModule = {
     }
   },
   actions: {
-    async logout({ commit }) {
-      commit("setData", null);
-      commit("setToken", null);
-    },
-    async setUser({ commit }, currentUser) {
-      commit("setUser", currentUser);
-    },
-    async setToken({ commit }, token) {
-      commit("setToken", token);
+    async getData({ commit, rootGetters }, id) {
+      const data = await wispClient(rootGetters.options).user.getData(
+        id ? id : this.data._id
+      );
+      commit("setData", data);
     },
     async create(_, user) {
       await wispClient().user.create(user);
@@ -35,6 +31,24 @@ export const UserModule = {
       const data = await wispClient().auth.login(login);
       commit("setToken", data.token);
       commit("setData", data.user);
+    },
+    async logout({ commit }) {
+      commit("setData", null);
+      commit("setToken", null);
+    },
+    async delete({ dispatch, rootGetters }) {
+      await wispClient(rootGetters.options).user.del(this.data._id);
+      dispatch("logout");
+    },
+    async edit({ commit, rootGetters }, user) {
+      const userData = await wispClient(rootGetters.options).user.update(user);
+      commit("setData", userData);
+    },
+    async trackProblem({ commit, state, rootGetters }, problemSetId) {
+      const userData = await wispClient(
+        rootGetters.options
+      ).user.trackProblemSet(state.data._id, problemSetId);
+      commit("setData", userData);
     }
   }
 };

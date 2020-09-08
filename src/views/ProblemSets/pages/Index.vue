@@ -76,8 +76,7 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
+import { mapState } from "vuex";
 import ProblemSet from "../components/ProblemSet";
 
 export default {
@@ -89,23 +88,13 @@ export default {
 
   data() {
     return {
-      problemSets: this.$store.state.problemSets,
       search: "",
       refreshLoading: false
     };
   },
 
-  created() {
-    eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
-      this.problemSets = this.$store.state.problemSets;
-    });
-
-    eventBus.$on("REFRESH_PROBLEMS_SUCCESS", () => {
-      this.problemSets = this.$store.state.problemSets;
-    });
-  },
-
   computed: {
+    ...mapState("problems", ["problemSets"]),
     filteredProblemSets() {
       return this.problemSets.filter(problemSet => {
         let tagSearch = false;
@@ -127,15 +116,9 @@ export default {
   methods: {
     async reloadProblemSets() {
       this.refreshLoading = true;
-      try {
-        const { data } = await api.get("/problemSets?includeProblems=true", {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
 
-        this.problemSets = data;
-        this.$store.dispatch("setProblemSets", data);
+      try {
+        this.$store.dispatch("problems/getProblemSets");
       } catch (err) {
         console.log(err);
       } finally {

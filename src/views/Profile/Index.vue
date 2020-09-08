@@ -265,14 +265,11 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-
 export default {
   name: "Profile",
 
   data() {
     return {
-      user: this.$store.state.user,
       userModel: {
         username: "",
         email: "",
@@ -291,27 +288,22 @@ export default {
     };
   },
 
+  computed: {
+    user() {
+      return this.$store.state.user.data;
+    }
+  },
+
   created() {
     this.resetUserBuffer();
   },
 
   methods: {
     async editUser() {
+      this.updateLoading = true;
       try {
-        this.updateLoading = true;
-        const { data } = await api.put(
-          `/users/${this.user._id}`,
-          this.userBuffer,
-          {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          }
-        );
-
-        this.user = data;
+        this.$store.dispatch("user/edit", this.user._id);
         this.resetUserBuffer();
-        this.$store.dispatch("setUser", data);
         this.editDialogue = false;
       } catch (err) {
         this.error = err.response.data.message;
@@ -321,26 +313,15 @@ export default {
     },
 
     async deleteUser() {
+      this.updateLoading = true;
       try {
-        this.updateLoading = true;
-        await api.delete(`/users/${this.user._id}`, {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
-        this.deleteDialog = false;
-        this.logout();
+        await this.dispatch("user/delete", this.user._id);
+        this.$router.push("/");
       } catch (err) {
         this.error = err.response.data.message;
       } finally {
         this.updateLoading = false;
       }
-    },
-
-    logout() {
-      this.$store.dispatch("setToken", null);
-      this.$store.dispatch("setUser", null);
-      this.$router.push("/");
     },
 
     resetUserBuffer() {

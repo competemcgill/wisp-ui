@@ -28,6 +28,25 @@ export const ProblemsModule = {
         await wispClient(rootGetters.options).problemSets.get()
       );
     },
-    async submitProblems() {}
+    async deleteProblemSet({ dispatch, rootGetters }, problemSetId) {
+      await wispClient(rootGetters.options).problemSets.del(problemSetId);
+      await dispatch("getProblemSets");
+    },
+    async deleteProblem({ dispatch, rootGetters }, problemId) {
+      await wispClient(rootGetters.options).problems.del(problemId);
+      await dispatch("getProblems");
+    },
+    async createProblems({ dispatch, rootGetters }, problems) {
+      for (const problem of problems) {
+        await wispClient(rootGetters.options).problems.create(problem);
+      }
+      await dispatch("getProblems");
+    },
+    async createProblemSets({ dispatch, rootGetters }, problemSets) {
+      for (const problemSet of problemSets) {
+        await wispClient(rootGetters.options).problemSets.create(problemSet);
+      }
+      await dispatch("getProblemSets");
+    }
   }
 };

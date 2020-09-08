@@ -51,7 +51,6 @@
 
 <script>
 import Problem from "./Problem";
-import { eventBus } from "@/store/eventBus";
 
 export default {
   name: "DashboardProblemSet",
@@ -67,35 +66,41 @@ export default {
   data: () => {
     return {
       showProblems: false,
-      problems: null,
       completed: 0
     };
   },
-
-  mounted() {
-    this.loadData();
-    eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
-      this.loadData();
-    });
+  computed: {
+    problems() {
+      const problems = this.problemSet.problems;
+      for (let userProblem of this.$store.state.user.data.problems) {
+        for (let problem of problems) {
+          if (userProblem.problemId == problem.problemId) {
+            problem.userProblem = userProblem;
+          }
+        }
+      }
+      return problems;
+    },
+    completed() {
+      let completed = 0;
+      const problems = this.problemSet.problems;
+      for (let userProblem of this.$store.state.user.data.problems) {
+        for (let problem of problems) {
+          if (userProblem.problemId == problem.problemId) {
+            problem.userProblem = userProblem;
+            if (userProblem.status == "OK") {
+              completed++;
+            }
+          }
+        }
+      }
+      return completed;
+    }
   },
 
   methods: {
     expandProblems() {
       this.showProblems = !this.showProblems;
-    },
-    loadData() {
-      this.completed = 0;
-      this.problems = this.problemSet.problems;
-      for (let userProblem of this.$store.state.user.problems) {
-        for (let problem of this.problems) {
-          if (userProblem.problemId == problem.problemId) {
-            problem.userProblem = userProblem;
-            if (userProblem.status == "OK") {
-              this.completed++;
-            }
-          }
-        }
-      }
     }
   }
 };

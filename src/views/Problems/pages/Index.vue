@@ -79,8 +79,7 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
+import { mapState } from "vuex";
 
 export default {
   name: "Problems",
@@ -117,8 +116,6 @@ export default {
           class: "subtitle-1 font-weight-regular white--text"
         }
       ],
-      problems: [],
-      problemsTable: [],
       refreshLoading: false,
       deleteDialogue: false,
       problemToDeleteId: "",
@@ -132,6 +129,16 @@ export default {
   },
 
   computed: {
+    ...mapState("problems", ["problems"]),
+    problemsTable() {
+      return this.problems.map(problem => ({
+        title: problem.title,
+        difficulty: problem.problemMetadata.difficulty,
+        platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
+        link: problem.sourceLink,
+        _id: problem._id
+      }));
+    },
     filteredProblems() {
       return this.problemsTable.filter(problem => {
         return (
@@ -146,17 +153,7 @@ export default {
   methods: {
     async deleteProblem(id) {
       try {
-        await api.delete(`/problems/${id}`, {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
-
-        eventBus.$emit("REFRESH_PROBLEMS");
-        eventBus.$on("REFRESH_PROBLEMS_SUCCESS", () => {
-          this.problems = this.$store.state.problems;
-          this.populateTableData();
-        });
+        await this.$store.dispatch("problems/deleteProblem", id);
       } catch (err) {
         console.log(err);
       } finally {
@@ -193,31 +190,11 @@ export default {
     async reloadProblems() {
       this.refreshLoading = true;
       try {
-        const { data } = await api.get("/problems", {
-          headers: {
-            Authorization: this.$store.state.token
-          }
-        });
-        this.problems = data;
-        this.$store.dispatch("setProblems", data);
-        this.populateTableData();
+        this.$store.dispatch("problems/getProblems");
       } catch (err) {
         console.log(err);
       } finally {
         this.refreshLoading = false;
-      }
-    },
-
-    populateTableData() {
-      this.problemsTable = [];
-      for (const problem of this.problems) {
-        this.problemsTable.push({
-          title: problem.title,
-          difficulty: problem.problemMetadata.difficulty,
-          platform: this.capitalizeFirstLetter(problem.source.toLowerCase()),
-          link: problem.sourceLink,
-          _id: problem._id
-        });
       }
     }
   }

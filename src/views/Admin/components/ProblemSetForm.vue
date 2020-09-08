@@ -127,9 +127,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
-
 export default {
   name: "AdminProblemForm",
 
@@ -171,13 +168,7 @@ export default {
     async removeProblemSetFromQueue(id, index) {
       if (id !== "Not Submitted") {
         try {
-          await api.delete(`/problemSets/${id}`, {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          });
-
-          eventBus.$emit("REFRESH_PROBLEMSETS");
+          this.$store.dispatch("problems/deleteProblemSet", id);
         } catch (err) {
           this.error = err.response.data.message;
           return;
@@ -192,25 +183,7 @@ export default {
       this.loading = true;
 
       try {
-        for (const [index, problemSet] of this.problemSets.entries()) {
-          const { data } = await api.post(
-            "/problemSets",
-            {
-              title: problemSet.title,
-              description: problemSet.description,
-              tags: problemSet.tags
-            },
-            {
-              headers: {
-                Authorization: this.$store.state.token
-              }
-            }
-          );
-
-          this.problemSets[index] = data;
-        }
-
-        eventBus.$emit("REFRESH_PROBLEMSETS");
+        this.$store.dispatch("problems/createProblemSets", this.problemSets);
       } catch (err) {
         this.error = err.response.data.message;
       } finally {

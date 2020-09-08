@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-
 export default {
   name: "ProblemSetProblemSetInfo",
 
@@ -62,21 +60,12 @@ export default {
     },
 
     async track() {
+      this.loading = true;
       try {
-        this.loading = true;
-        const { data } = await api.patch(
-          "/users/" + this.$store.state.user._id + "/problemSets",
-          {
-            problemSetId: this.$route.params.id
-          },
-          {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          }
+        await this.$store.dispatch(
+          "user/trackProblemSet",
+          this.$route.params.id
         );
-
-        this.$store.dispatch("setUser", data);
         this.trackBtnTxt = "tracked";
         this.loading = false;
       } catch (err) {

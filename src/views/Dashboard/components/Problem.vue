@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { eventBus } from "@/store/eventBus";
-
 export default {
   name: "DashboardProblem",
 
@@ -49,9 +47,6 @@ export default {
 
   mounted() {
     this.loadData();
-    eventBus.$on("REFRESH_USERS_SUCCESS", async () => {
-      this.loadData();
-    });
   },
 
   methods: {

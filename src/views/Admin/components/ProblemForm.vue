@@ -142,9 +142,6 @@
 </template>
 
 <script>
-import { api } from "@/gateways/wisp-api";
-import { eventBus } from "@/store/eventBus";
-
 export default {
   name: "AdminProblemForm",
 
@@ -158,6 +155,12 @@ export default {
         this.problem.platformId.length > 0 &&
         this.problem.problemSetIds.length > 0
       );
+    },
+    problemSetAutocomplete() {
+      return this.$store.state.problems.problemSets.map(problemSet => ({
+        text: `${problemSet.title} (${problemSet._id})`,
+        value: problemSet._id
+      }));
     }
   },
 
@@ -174,18 +177,9 @@ export default {
         _id: "Not Submitted"
       },
       problems: [],
-      problemSetAutocomplete: [],
       loading: false,
       error: ""
     };
-  },
-
-  mounted() {
-    this.populateProblemSetAC();
-
-    eventBus.$on("REFRESH_PROBLEMSETS_SUCCESS", () => {
-      this.populateProblemSetAC();
-    });
   },
 
   methods: {
@@ -206,13 +200,7 @@ export default {
     async removeProblemFromQueue(id, index) {
       if (id !== "Not Submitted") {
         try {
-          await api.delete(`/problems/${id}`, {
-            headers: {
-              Authorization: this.$store.state.token
-            }
-          });
-
-          eventBus.$emit("REFRESH_PROBLEMS");
+          await this.$store.dispatch("problems/deleteProblem", id);
         } catch (err) {
           this.error = err.response.data.message;
           return;
@@ -225,32 +213,8 @@ export default {
 
     async submitProblems() {
       this.loading = true;
-
       try {
-        for (const [index, p] of this.problems.entries()) {
-          const { data } = await api.post(
-            "/problems",
-            {
-              title: p.title,
-              source: p.source,
-              sourceLink: p.sourceLink,
-              problemSetIds: p.problemSetIds,
-              problemMetadata: {
-                platformProblemId: p.platformId,
-                difficulty: p.difficulty
-              }
-            },
-            {
-              headers: {
-                Authorization: this.$store.state.token
-              }
-            }
-          );
-
-          this.problems[index] = data;
-        }
-
-        eventBus.$emit("REFRESH_PROBLEMS");
+        await this.$store.dispatch("problems/createProblems");
       } catch (err) {
         this.error = err.response.data.message;
       } finally {
@@ -271,15 +235,6 @@ export default {
       };
       this.problems = [];
       this.error = "";
-    },
-
-    populateProblemSetAC() {
-      for (const problemSet of this.$store.state.problemSets) {
-        this.problemSetAutocomplete.push({
-          text: `${problemSet.title} (${problemSet._id})`,
-          value: problemSet._id
-        });
-      }
     }
   }
 };
