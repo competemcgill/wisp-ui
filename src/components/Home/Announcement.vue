@@ -21,7 +21,7 @@
           </v-card-text>
           <v-card-text>
             Check out
-            <a href="https://compete-mcgill.ca/">our website</a> for more info
+            <a href="https://competemcgill.com/">our website</a> for more info
             about our club, or
             <a href="https://www.facebook.com/CompeteMcGill">
               our Facebook page </a
