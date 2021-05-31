@@ -30,7 +30,11 @@ export default {
     }
 
     eventBus.$on("LOGIN_SUCCESS", async () => {
-      await Promise.all([this.getProblemSets(), this.getProblems()]);
+      await Promise.all([
+        this.getProblemSets(),
+        this.getProblems(),
+        this.updateUserProblems()
+      ]);
       eventBus.$emit("GLOBAL_DATA_FETCH_SUCCESS");
     });
 
@@ -79,6 +83,18 @@ export default {
         }
       });
 
+      this.$store.dispatch("setUser", data);
+    },
+
+    async updateUserProblems() {
+      const { data } = await api.patch(
+        `/users/${this.$store.state.user._id}/updateUserProblems`,
+        {
+          headers: {
+            Authorization: this.$store.state.token
+          }
+        }
+      );
       this.$store.dispatch("setUser", data);
     }
   }
