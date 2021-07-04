@@ -12,6 +12,7 @@ import ProblemSet from "../views/ProblemSets/Show";
 import Problems from "../views/Problems/Index";
 import Problem from "../views/Problems/Show";
 import Admin from "../views/Admin";
+import NotFound from "../views/NotFound";
 import store from "@/store/index";
 
 Vue.use(VueRouter);
@@ -113,6 +114,10 @@ const routes = [
       guest: false,
       admin: true
     }
+  },
+  {
+    path: "*",
+    component: NotFound
   }
 ];
 
